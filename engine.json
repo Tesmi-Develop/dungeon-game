@@ -1,0 +1,30 @@
+{
+  "MountFolders": {
+    ".": "/",
+    "resources": "/",
+    "resources/audio": "/audio/",
+    "resources/textures": "/textures/",
+    "resources/shaders": "/shaders/",
+    "resources/fonts": "/fonts/",
+    "resources/models": "/models/"
+  },
+  "Rendering": 1,
+  "RenderingMaxVertices": 65532,
+  "RenderingIndicesPerVertex": 6,
+  "Windowing": 1,
+  "WindowingWaitEventsTimeout": 0,
+  "WindowingThreading": true,
+  "WindowingThreadName": "Windowing",
+  "WindowingThreadPriority": 3,
+  "WindowingThreadStackSize": 8388608,
+  "WindowingThreadReadySleepDelay": 10,
+  "WindowingThreadEventBridgeBufferSize": 32,
+  "FontDefaultChar": "\uFFFD",
+  "MainWindowTitle": "Hypercube window",
+  "MainWindowResizable": true,
+  "MainWindowVisible": true,
+  "MainWindowTransparentFramebuffer": false,
+  "MainWindowDecorated": true,
+  "MainWindowFloating": true,
+  "LoggingLevel": 0
+}

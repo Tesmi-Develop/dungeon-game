@@ -1,0 +1,3 @@
+[submodule "hypercube"]
+	path = hypercube
+	url = git@github.com:technologists-team/hypercube.git

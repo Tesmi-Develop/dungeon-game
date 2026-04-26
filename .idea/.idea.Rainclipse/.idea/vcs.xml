@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hypercube" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hypercube/submodules/ecs" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hypercube/submodules/mathematics" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hypercube/submodules/modloader" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hypercube/submodules/utilities" vcs="Git" />
+  </component>
+</project>
