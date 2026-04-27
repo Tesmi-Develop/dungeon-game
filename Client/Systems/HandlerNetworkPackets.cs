@@ -15,7 +15,7 @@ public class HandlerNetworkPackets : EntitySystem
     {
         var counter = 0;
 
-        while (_packetBuffer.Count > 0 && counter < MaxPacketPerUpdate)
+        while (_packetBuffer.Count > 0 && counter < MaxPacketPerUpdate && counter < _packetBuffer.Count)
         {
             var packet = _packetBuffer[counter];
             var handled = HandlePacket(packet, false);

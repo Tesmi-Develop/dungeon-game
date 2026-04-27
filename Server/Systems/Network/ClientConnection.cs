@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using Shared.Data;
 
 namespace Server.Systems.Network;
 
@@ -24,10 +25,17 @@ public class ClientConnection
     
     public void OnPacketReceive(NetDataReader reader)
     {
-        var myData = reader.GetRemainingBytes();
-        if (myData is null || myData.Length == 0)
-            return; 
+        var packetType = (PacketType)reader.PeekByte();
+        var packet = reader.GetRemainingBytes();
+        if (packet is null || packet.Length == 0)
+            return;
         
-        IncomingPackets.Enqueue(myData); 
+        if (packetType == PacketType.Ping)
+        {
+            Send(packet, DeliveryMethod.Unreliable);
+            return;
+        }
+        
+        IncomingPackets.Enqueue(packet); 
     }
 }

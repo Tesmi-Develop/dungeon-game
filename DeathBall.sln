@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{503A3A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hypercube.Core", "hypercube\src\Hypercube.Core\Hypercube.Core.csproj", "{87BC2483-833F-40A8-BA22-375D30D0A241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "src\Client\Client.csproj", "{2EC25C3F-C630-4C94-B3D2-F28E2866CE35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{2EC25C3F-C630-4C94-B3D2-F28E2866CE35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hypercube.Analyzers", "hypercube\src\Hypercube.Analyzers\Hypercube.Analyzers.csproj", "{789A81C2-E8B0-437A-891D-D43F886A389F}"
 EndProject

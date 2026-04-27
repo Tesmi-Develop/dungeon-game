@@ -137,7 +137,7 @@ public class SyncSystem : BaseSystem
         _bufferWriter.Clear();
         
         SerializeDirtyChanges();
-        BroadcastSyncPacket(PacketType.Dirty, DeliveryMethod.ReliableOrdered);
+        BroadcastSyncPacket(PacketType.Dirty, DeliveryMethod.Unreliable);
         _bufferWriter.Clear();
     }
 

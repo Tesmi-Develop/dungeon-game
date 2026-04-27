@@ -87,11 +87,12 @@ public class HandlerSync : EntitySystem
 
         for (var i = 0; i < entityCounts; i++)
         {
+            var skipDirty = false;
             var entityId = reader.ReadInt64();
             if (!HasNetworkEntity(entityId))
             {
+                skipDirty = true;
                 // TODO do packet splitting and don't drop the current one
-                continue;
             }
 
             var entity = GetNetworkEntity(entityId);
@@ -102,7 +103,9 @@ public class HandlerSync : EntitySystem
                 var componentId = reader.ReadInt32();
                 var componentData = payload[(int)reader.Consumed..];
                 
-                NetworkFactory.PatchComponentFromPayload(componentId, entity, World, componentData);
+                if (!skipDirty) 
+                    NetworkFactory.PatchComponentFromPayload(componentId, entity, World, componentData);
+                
                 reader.Skip();
             }
         }

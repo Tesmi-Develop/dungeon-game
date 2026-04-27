@@ -44,7 +44,7 @@ public class NetworkClientPacketSystem : BaseSystem
                 var reader = new MessagePackReader(packet);
                 var packetTypeInt = reader.ReadByte();
                 var packetType = (PacketType)packetTypeInt;
-                    
+                
                 clientData.IncomingPackets.Enqueue(new Packet
                 {
                     PacketType = packetType, 

@@ -21,6 +21,7 @@ public class NetworkServer : BaseSystem, INetEventListener
     public NetworkServer()
     {
         _server = new NetManager(this);
+        _server.UpdateTime = 0;
     }
 
     public override void Initialize()
