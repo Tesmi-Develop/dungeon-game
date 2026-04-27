@@ -1,8 +1,8 @@
-using System.Numerics;
+using Hypercube.Mathematics.Vectors;
 using MessagePack;
-using Server.Attributes;
+using Shared.Attributes;
 
-namespace Server.Components.Commands;
+namespace Shared.Components.Commands;
 
 [RequestComponent]
 public partial struct MoveRequest

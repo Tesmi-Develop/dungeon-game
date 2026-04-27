@@ -6,8 +6,8 @@ namespace Server.Helpers;
 
 public static class NetworkHelper
 {
-    private static readonly QueryDescription NetworkComponentQueryMeta = new QueryDescription().WithAll<NetworkRegistry>();
-    private static NetworkRegistry? _networkComponents;
+    private static readonly QueryDescription NetworkComponentQueryMeta = new QueryDescription().WithAll<NetworkMetadata>();
+    private static NetworkMetadata? _networkComponents;
     
     public static void MakeDirty<T>(World world, Entity entity) where T : struct
     {
@@ -27,7 +27,7 @@ public static class NetworkHelper
         dirty.ComponentIds.Add(id);
     }
 
-    public static NetworkRegistry GetNetworkComponentMetadata(World world)
+    public static NetworkMetadata GetNetworkComponentMetadata(World world)
     {
         if (_networkComponents is not null)
             return _networkComponents.Value;
@@ -36,7 +36,7 @@ public static class NetworkHelper
         if (entity == Entity.Null)
             throw new Exception("Not found list with network components.");
             
-        _networkComponents = world.Get<NetworkRegistry>(entity);
+        _networkComponents = world.Get<NetworkMetadata>(entity);
         return _networkComponents.Value;
     }
     

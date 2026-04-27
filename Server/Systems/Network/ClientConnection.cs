@@ -1,62 +1,33 @@
-using System.Net;
-using System.Net.Sockets;
+using System.Collections.Concurrent;
+using LiteNetLib;
+using LiteNetLib.Utils;
 
 namespace Server.Systems.Network;
 
 public class ClientConnection
 {
-    private readonly TcpClient _tcpClient;
-    private readonly NetworkStream _stream;
-    private readonly UdpClient _udpClient;
-    public readonly Queue<byte[]> IncomingPackets = new();
+    private readonly NetPeer _peer;
+    public readonly ConcurrentQueue<byte[]> IncomingPackets = new();
 
-    public ClientConnection(TcpClient tcpClient, UdpClient udpClient)
+    public ClientConnection(NetPeer peer)
     {
-        _tcpClient = tcpClient;
-        _stream = tcpClient.GetStream();
-        _udpClient = udpClient;
-        StartReadingTcp();
+        _peer = peer;
     }
 
-    private async void StartReadingTcp()
+    public void Send(byte[] data, DeliveryMethod deliveryMethod)
     {
-        var buffer = new byte[4096];
-        try
-        {
-            while (_tcpClient.Connected)
-            {
-                var bytesRead = await _stream.ReadAsync(buffer);
-                if (bytesRead == 0) 
-                    break;
-                
-                var data = new byte[bytesRead];
-                Array.Copy(buffer, data, bytesRead);
-                lock (IncomingPackets) { IncomingPackets.Enqueue(data); }
-            }
-        }
-        catch { /* Handle disconnect */ }
-    }
-
-    public void SendTcp(byte[] data)
-    {
-        if (!_tcpClient.Connected) 
+        if (_peer.ConnectionState != ConnectionState.Connected) 
             return;
         
-        var lengthPrefix = BitConverter.GetBytes(data.Length);
-        _stream.Write(lengthPrefix, 0, 4);
-        _stream.Write(data, 0, data.Length);
-    }
-
-    public void SendUdp(byte[] data)
-    {
-        if (!_tcpClient.Connected) 
-            return;
-        
-        _udpClient.SendAsync(data, data.Length, (IPEndPoint)_tcpClient.Client.RemoteEndPoint!);
+        _peer.Send(data, deliveryMethod);
     }
     
-    public void HandleUdpData(byte[] data)
+    public void OnPacketReceive(NetDataReader reader)
     {
-        lock (IncomingPackets) { IncomingPackets.Enqueue(data); }
+        var myData = reader.GetRemainingBytes();
+        if (myData is null || myData.Length == 0)
+            return; 
+        
+        IncomingPackets.Enqueue(myData); 
     }
 }

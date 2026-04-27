@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Server.Roslyn;
+namespace Shared.Roslyn;
 
 [Generator]
 public class RequestComponentGenerator : IIncrementalGenerator

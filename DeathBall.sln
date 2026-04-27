@@ -50,7 +50,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hypercube.Utilities.UnitTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{EE877B39-78C4-4A31-A031-30AFC651D38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Roslyn", "Server.Roslyn\Server.Roslyn.csproj", "{0741AA31-849C-4D6D-B950-F445EE3142EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Roslyn", "Shared.Roslyn\Shared.Roslyn.csproj", "{0741AA31-849C-4D6D-B950-F445EE3142EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{F0AD76E1-C048-4601-8A00-C975F87BE659}"
 EndProject

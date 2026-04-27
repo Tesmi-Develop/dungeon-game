@@ -2,6 +2,7 @@ using System.Buffers;
 using Arch.Core;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
+using LiteNetLib;
 using MessagePack;
 using Server.Components;
 using Server.Components.Events;
@@ -61,24 +62,11 @@ public class NetworkClientPacketSystem : BaseSystem
     {
         while (clientData.PendingPackets.TryDequeue(out var packet))
         {
-            _bufferWriter.Clear();
+            var finalData = new byte[1 + packet.Data.Length];
+            finalData[0] = (byte)packet.PacketType;
+            packet.Data.CopyTo(finalData.AsMemory(1));
             
-            var messagePackWriter =  new MessagePackWriter(_bufferWriter);
-            messagePackWriter.Write((byte)packet.PacketType);
-            messagePackWriter.WriteRaw(packet.Data.Span);
-            messagePackWriter.Flush();
-            
-            switch (packet.DeliveryType)
-            {
-                case DeliveryType.Reliable:
-                    clientData.ClientConnection.SendTcp(_bufferWriter.WrittenMemory.ToArray());
-                    break;
-                case DeliveryType.Unreliable:
-                    clientData.ClientConnection.SendUdp(_bufferWriter.WrittenMemory.ToArray());
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            clientData.ClientConnection.Send(finalData, packet.DeliveryType);
         }
     }
     

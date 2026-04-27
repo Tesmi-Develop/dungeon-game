@@ -1,12 +1,6 @@
-using System.Buffers;
-using Arch.Core;
 using Hypercube.Utilities.Dependencies;
 using MessagePack;
-using Server.Components;
-using Server.Components.Events;
 using Server.Events;
-using Server.Helpers;
-using Shared.Data;
 
 namespace Server.Systems;
 
@@ -18,7 +12,7 @@ public class SendComponentTableSystem : BaseSystem
 
     public override void Initialize()
     {
-        var buffer = new ArrayBufferWriter<byte>(1024);
+        /*var buffer = new ArrayBufferWriter<byte>(1024);
         var writer = new MessagePackWriter(buffer);
         var metadata = NetworkHelper.GetNetworkComponentMetadata(world);
         
@@ -30,15 +24,10 @@ public class SendComponentTableSystem : BaseSystem
         _componentTable = buffer.WrittenMemory.ToArray();
         var packet = new Packet
         {
-            PacketType = PacketType.ComponentTable,
+            PacketType = PacketType.Metadata,
             DeliveryType = DeliveryType.Reliable,
             Data = _componentTable
-        };
-        
-        _eventBus.Subscribe((Entity _, ref ClientData playerData, ref NewEntityClient _) =>
-        {
-            playerData.PendingPackets.Enqueue(packet);
-        }, EventBusPriority.Critical);
+        };*/
     }
     
     private void WriteDictionary(ref MessagePackWriter writer, IDictionary<int, Type> dict)

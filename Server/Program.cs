@@ -2,29 +2,16 @@
 using Arch.Core;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
-using MessagePack;
-using MessagePack.Resolvers;
 using Server.Events;
-using Server.MessagePackExtensions;
+using Shared.Helpers;
 
 namespace Server;
 
 public static class Program
 {
-    private static void SetupMessagePack()
-    {
-        StaticCompositeResolver.Instance.Register(
-            CustomResolver.Instance,
-            MessagePack.Resolvers.StandardResolver.Instance
-        );
-        
-        var options = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
-        MessagePackSerializer.DefaultOptions = options;
-    }
-    
     public static void Main()
     {
-        SetupMessagePack();
+        MessagePackHelper.SetupMessagePack();
         var logger = new ConsoleLogger();
         var world = World.Create();
         var dependenciesContainer = new DependenciesContainer();

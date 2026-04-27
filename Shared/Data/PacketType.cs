@@ -2,8 +2,10 @@ namespace Shared.Data;
 
 public enum PacketType : byte
 {
-    Sync,
     Hydrate,
-    ComponentTable,
+    Dirty,
+    EntitiesDeletion,
+    ComponentsDeletion,
+    ComponentsAddition,
     Request,
 }

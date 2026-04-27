@@ -1,7 +1,7 @@
 using Arch.Core;
 using Server.Components;
-using Server.Components.Commands;
 using Shared.Components;
+using Shared.Components.Commands;
 
 namespace Server.Systems;
 

@@ -3,7 +3,7 @@ using MessagePack;
 
 namespace Server.Components;
 
-public struct NetworkRegistry
+public struct NetworkMetadata
 {
     [Key(0), IgnoreMember] public FrozenDictionary<Type, int> ComponentsByType;
     [Key(1), IgnoreMember] public FrozenDictionary<int, Type> ComponentsById;

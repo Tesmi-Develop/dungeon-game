@@ -1,61 +1,90 @@
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
+using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
+using LiteNetLib;
 using Server.Components.Events;
 using Server.Events;
 
 namespace Server.Systems.Network;
 
 [EcsSystem]
-public class NetworkServer : BaseSystem
+public class NetworkServer : BaseSystem, INetEventListener
 {
     [Dependency] private readonly IEventBus _eventBus = null!;
-    private readonly TcpListener _tcpListener;
-    private readonly UdpClient _udpClient;
-    private readonly int _port;
-    
-    public readonly Dictionary<IPEndPoint, ClientConnection> Connections = new();
-
+    [Dependency] private readonly ILogger _logger = null!;
+    private readonly NetManager _server;
+    private readonly ConcurrentDictionary<NetPeer, ClientConnection> _connections = [];
+    private readonly ConcurrentQueue<IEvent> _eventQueue = [];
+        
     public NetworkServer()
     {
-        _port = 5000;
-        _tcpListener = new TcpListener(IPAddress.Any, _port);
-        _udpClient = new UdpClient(_port);
+        _server = new NetManager(this);
     }
 
     public override void Initialize()
     {
-        _tcpListener.Start();
-        _tcpListener.BeginAcceptTcpClient(OnTcpClientConnected, null);
-        
-        ReceiveUdp();
+        const int port = 5000;
+        _server.Start(port);
+        _ = ReceiveCycle();
     }
 
-    private void OnTcpClientConnected(IAsyncResult ar)
+    public override void Update(float deltaTime)
     {
-        var client = _tcpListener.EndAcceptTcpClient(ar);
-        var endPoint = (IPEndPoint)client.Client.RemoteEndPoint!;
-        
-        var connection = new ClientConnection(client, _udpClient);
-        lock (Connections) { Connections[endPoint] = connection; }
-        
-        _tcpListener.BeginAcceptTcpClient(OnTcpClientConnected, null);
-        _eventBus.Raise(new ClientConnected { ClientConnection = connection });
+        while (_eventQueue.TryDequeue(out var eventInstance))
+            _eventBus.Raise(eventInstance);
     }
 
-    private async void ReceiveUdp()
+    private async Task ReceiveCycle()
     {
         while (true)
         {
-            var result = await _udpClient.ReceiveAsync();
-
-            lock (Connections)
-            {
-                if (Connections.TryGetValue(result.RemoteEndPoint, out var conn))
-                {
-                    conn.HandleUdpData(result.Buffer);
-                }
-            }
+            _server.PollEvents();
+            await Task.Delay(1);
         }
+    }
+
+    public void OnPeerConnected(NetPeer peer)
+    {
+        var newConnection = new ClientConnection(peer);
+        _connections.TryAdd(peer, newConnection);
+        _eventQueue.Enqueue(new ClientConnected { ClientConnection = newConnection });
+        _logger.Info($"New client connected {peer.Address}:{peer.Port}");
+    }
+
+    public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
+    {
+        if (!_connections.TryRemove(peer, out var clientConnection))
+            return;
+        
+        _eventQueue.Enqueue(new ClientDisconnected { ClientConnection = clientConnection });
+        _logger.Info($"Client disconnected {peer.Address}:{peer.Port}");
+    }
+
+    public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)
+    {
+        _logger.Error($"Network error: {socketError} at {endPoint}");
+    }
+
+    public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
+    {
+        if (_connections.TryGetValue(peer, out var clientConnection))
+            clientConnection.OnPacketReceive(reader);
+    
+        reader.Recycle();
+    }
+
+    public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
+    {
+    }
+
+    public void OnNetworkLatencyUpdate(NetPeer peer, int latency)
+    {
+    }
+
+    public void OnConnectionRequest(ConnectionRequest request)
+    {
+        request.AcceptIfKey("DeathBall");
     }
 }

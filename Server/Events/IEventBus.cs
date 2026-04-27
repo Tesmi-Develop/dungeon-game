@@ -25,6 +25,8 @@ public interface IEventBus
     
     void Raise<TEvent>(TEvent args)
         where TEvent : struct, IEvent;
+
+    void Raise(IEvent args);
     
     void Raise<TEvent>(ref TEvent args)
         where TEvent : struct, IEvent;

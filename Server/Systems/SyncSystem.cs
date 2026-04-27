@@ -3,13 +3,14 @@ using Arch.Core;
 using Server.Extensions;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
+using LiteNetLib;
 using MessagePack;
 using Server.Components;
 using Server.Components.Events;
 using Server.Events;
 using Server.Helpers;
-using Server.NetworkUtilities;
 using Shared.Data;
+using Shared.NetworkUtilities;
 
 namespace Server.Systems;
 
@@ -24,6 +25,7 @@ public class SyncSystem : BaseSystem
     private readonly QueryDescription _syncQuery = new QueryDescription().WithAll<NetworkEntityTag>();
     private readonly ArrayBufferWriter<byte> _bufferWriter = new(1024); 
     private readonly List<(Entity entity, int NetId)> _removalQueue = [];
+    private readonly List<(Entity entity, int NetId)> _additionalQueue = [];
     private readonly HashSet<long> _destroyedEntities = [];
     private readonly List<Entity> _tempEntityList = [];
     
@@ -38,7 +40,7 @@ public class SyncSystem : BaseSystem
         }
     }
     
-    private void RegisterAddedHook<T>() where T : struct
+    private void RegisterAddedHook<T>(int netId) where T : struct
     {
         world.SubscribeComponentAdded<T>(Handler);
         return;
@@ -46,6 +48,7 @@ public class SyncSystem : BaseSystem
         void Handler(in Entity entity, ref T comp) 
         {
             world.Add<NetworkEntityTag>(entity);
+            _additionalQueue.Add((entity, netId));
         }
     }
 
@@ -65,7 +68,7 @@ public class SyncSystem : BaseSystem
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         
             genericMethod = method.MakeGenericMethod(type);
-            genericMethod.Invoke(this, []);
+            genericMethod.Invoke(this, [netId]);
         }
         
         world.SubscribeComponentRemoved((in Entity entity, ref NetworkEntityTag _) =>
@@ -110,8 +113,8 @@ public class SyncSystem : BaseSystem
         
         var packet = new Packet
         {
-            PacketType = PacketType.Sync,
-            Data = _bufferWriter.WrittenSpan.ToArray() 
+            PacketType = PacketType.Hydrate,
+            Data = _bufferWriter.WrittenSpan.ToArray()
         };
         
         clientData.PendingPackets.Enqueue(packet);
@@ -120,39 +123,77 @@ public class SyncSystem : BaseSystem
     public override void Update(float deltaTime)
     {
         _bufferWriter.Clear();
-        SerializeDestroyedEntities();
-        SerializeRemovedComponents();
-        BroadcastSyncPacket(DeliveryType.Reliable);
         
+        SerializeDestroyedEntities();
+        BroadcastSyncPacket(PacketType.EntitiesDeletion, DeliveryMethod.ReliableOrdered);
         _bufferWriter.Clear();
+        
+        SerializeRemovedComponents();
+        BroadcastSyncPacket(PacketType.ComponentsDeletion, DeliveryMethod.ReliableOrdered);
+        _bufferWriter.Clear();
+        
+        SerializeAddedComponents();
+        BroadcastSyncPacket(PacketType.ComponentsAddition, DeliveryMethod.ReliableOrdered);
+        _bufferWriter.Clear();
+        
         SerializeDirtyChanges();
-        BroadcastSyncPacket(DeliveryType.Unreliable);
+        BroadcastSyncPacket(PacketType.Dirty, DeliveryMethod.ReliableOrdered);
+        _bufferWriter.Clear();
     }
 
     private void SerializeDestroyedEntities()
     {
+        if (_destroyedEntities.Count <= 0)
+            return;
+        
         MessagePackSerializer.Serialize(_bufferWriter, _destroyedEntities.Count);
         foreach (var mask in _destroyedEntities)
-        {
             MessagePackSerializer.Serialize(_bufferWriter, mask);
-        }
+        
         _destroyedEntities.Clear();
     }
 
     private void SerializeRemovedComponents()
     {
         var actualCount = _removalQueue.Count(r => world.IsAlive(r.entity));
+        if (actualCount <= 0)
+            return;
         
         MessagePackSerializer.Serialize(_bufferWriter, actualCount);
-        
         foreach (var (entity, netId) in _removalQueue)
         {
-            if (!world.IsAlive(entity)) continue;
+            if (!world.IsAlive(entity)) 
+                continue;
             
             MessagePackSerializer.Serialize(_bufferWriter, entity.GetFullMask());
             MessagePackSerializer.Serialize(_bufferWriter, netId);
         }
+        
         _removalQueue.Clear();
+    }
+    
+    private void SerializeAddedComponents()
+    {
+        var actualCount = _additionalQueue.Count(r => world.IsAlive(r.entity));
+        if (actualCount <= 0)
+            return;
+        
+        MessagePackSerializer.Serialize(_bufferWriter, actualCount);
+        
+        foreach (var (entity, netId) in _additionalQueue)
+        {
+            if (!world.IsAlive(entity)) 
+                continue;
+            
+            MessagePackSerializer.Serialize(_bufferWriter, entity.GetFullMask());
+            MessagePackSerializer.Serialize(_bufferWriter, netId);
+            
+            var componentType = NetworkHelper.GetNetworkComponentById(world, netId);
+            var synced = (ISynced)world.Get(entity, componentType)!;
+            synced.Serialize(_bufferWriter, null);
+        }
+        
+        _additionalQueue.Clear();
     }
 
     private void SerializeDirtyChanges()
@@ -188,14 +229,14 @@ public class SyncSystem : BaseSystem
             world.Remove<Dirty>(e);
     }
 
-    private void BroadcastSyncPacket(DeliveryType deliveryType)
+    private void BroadcastSyncPacket(PacketType packetType, DeliveryMethod deliveryType)
     {
         if (_bufferWriter.WrittenCount <= 3) 
             return;
 
         var packet = new Packet
         {
-            PacketType = PacketType.Sync,
+            PacketType = packetType,
             DeliveryType = deliveryType,
             Data = _bufferWriter.WrittenSpan.ToArray() 
         };

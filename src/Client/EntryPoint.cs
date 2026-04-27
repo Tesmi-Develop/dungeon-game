@@ -1,15 +1,13 @@
 ﻿using Hypercube.Core.Audio.Manager;
-using Hypercube.Core.Audio.Resources;
 using Hypercube.Core.Ecs;
 using Hypercube.Core.Execution.Attributes;
 using Hypercube.Core.Execution.Enums;
 using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Resources;
-using Hypercube.Core.Systems.Rendering;
-using Hypercube.Core.Systems.Transform;
 using Hypercube.Core.UI;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
+using Shared.Helpers;
 
 namespace Client;
 
@@ -18,7 +16,8 @@ public static class EntryPoint
     [EntryPoint(EntryPointStage.BeforeInit)]
     public static void Init(DependenciesContainer container)
     {
-        // Init
+        MessagePackHelper.SetupMessagePack();
+        container.Register<GameClient>();
     }
     
     [EntryPoint(EntryPointStage.AfterInit)]
@@ -30,18 +29,20 @@ public static class EntryPoint
         var audio = container.Resolve<IAudioManager>();
         var uiManager = container.Resolve<IUIManager>();
         var resourceManager = container.Resolve<IResourceManager>();
-            
-        var patch = new TestPatch();
-
-        container.Inject(patch);
-        patchManager.AddPatch(patch);
+        var gameClient = container.Resolve<GameClient>();
         
-        var entity = world.Create();
-        world.Add<TestComponent>(entity);
-        world.Add<TransformComponent>(entity);
-        world.Add(entity, new SpriteComponent { Path = "/textures/default.png" });
-        
-        var sound = resourceManager.Load<Audio>("/audio/game_boi_3.wav");
+        /*var sound = resourceManager.Load<Audio>("/audio/game_boi_3.wav");
         var source = audio.CreateSource(sound);
+        
+        source.Start();*/
+        
+        gameClient.Start();
+        gameClient.ConnectAsync("127.0.0.1", 5000).ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                logger.Error(task.Exception);
+            }
+        });
     }
 }

@@ -9,6 +9,8 @@ public sealed class EventBus : IEventBus
 {
     private readonly ConcurrentDictionary<Type, EventHandlerList> _broadcastHandlers = new();
     private readonly ConcurrentDictionary<EventSignature, EventHandlerList> _handlers = new();
+    private readonly ConcurrentDictionary<Type, InternalRaiser> _raiseCache = new();
+    private delegate void InternalRaiser(EventBus bus, ref IEvent args);
 
     #region Broadcast
     
@@ -43,6 +45,31 @@ public sealed class EventBus : IEventBus
             return;
         
         list.Invoke(ref args);
+    }
+
+    public void Raise(IEvent args)
+    {
+        Raise(ref args);
+    }
+    
+    public void Raise(ref IEvent args)
+    {
+        var type = args.GetType();
+        var raiser = _raiseCache.GetOrAdd(type, t =>
+        {
+            var method = typeof(EventBus).GetMethods()
+                .First(m => m.Name == nameof(Raise) && m.IsGenericMethod && m.GetParameters()[0].ParameterType.IsByRef)
+                .MakeGenericMethod(t);
+            
+            var busParam = System.Linq.Expressions.Expression.Parameter(typeof(EventBus), "bus");
+            var eventParam = System.Linq.Expressions.Expression.Parameter(typeof(IEvent).MakeByRefType(), "e");
+            var castEvent = System.Linq.Expressions.Expression.Convert(eventParam, t);
+            var call = System.Linq.Expressions.Expression.Call(busParam, method, castEvent);
+            
+            return System.Linq.Expressions.Expression.Lambda<InternalRaiser>(call, busParam, eventParam).Compile();
+        });
+
+        raiser(this, ref args);
     }
 
     #endregion

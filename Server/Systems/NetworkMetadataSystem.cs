@@ -1,55 +1,52 @@
 using System.Collections.Frozen;
 using Hypercube.Utilities.Helpers;
-using Server.Attributes;
 using Server.Components;
 using Shared.Attributes;
 
 namespace Server.Systems;
 
 [EcsSystem(EcsPriority.High)]
-public class NetworkComponentsSystem : BaseSystem
+public class NetworkMetadataSystem : BaseSystem
 {
     public override void PreInitialize()
     {
         var entity = world.Create();
-        var registry = new NetworkRegistry();
+        var registry = new NetworkMetadata();
         CollectNetworkComponents(ref registry);
         CollectNetworkRequests(ref registry);
         
         world.Add(entity, registry);
     }
 
-    private void CollectNetworkComponents(ref NetworkRegistry registry)
+    private void CollectNetworkComponents(ref NetworkMetadata metadata)
     {
         var componentsByType = new Dictionary<Type, int>();
         var componentsById = new Dictionary<int, Type>();
-        var id = 0;
         
         foreach (var (type, _) in ReflectionHelper.GetAllTypesWithAttribute<SyncComponentAttribute>())
         {
+            var id = NumeratorGenerator.GetId(type);
             componentsByType.Add(type, id);
             componentsById.Add(id, type);
-            id++;
         }
         
-        registry.ComponentsByType = componentsByType.ToFrozenDictionary();
-        registry.ComponentsById = componentsById.ToFrozenDictionary();
+        metadata.ComponentsByType = componentsByType.ToFrozenDictionary();
+        metadata.ComponentsById = componentsById.ToFrozenDictionary();
     }
     
-    private void CollectNetworkRequests(ref NetworkRegistry registry)
+    private void CollectNetworkRequests(ref NetworkMetadata metadata)
     {
         var componentsByType = new Dictionary<Type, int>();
         var componentsById = new Dictionary<int, Type>();
-        var id = 0;
         
         foreach (var (type, _) in ReflectionHelper.GetAllTypesWithAttribute<RequestComponentAttribute>())
         {
+            var id = NumeratorGenerator.GetId(type);
             componentsByType.Add(type, id);
             componentsById.Add(id, type);
-            id++;
         }
         
-        registry.RequestsByType = componentsByType.ToFrozenDictionary();
-        registry.RequestsById = componentsById.ToFrozenDictionary();
+        metadata.RequestsByType = componentsByType.ToFrozenDictionary();
+        metadata.RequestsById = componentsById.ToFrozenDictionary();
     }
 }
