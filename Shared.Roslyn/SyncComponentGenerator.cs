@@ -60,6 +60,7 @@ public class SyncComponentGenerator : IIncrementalGenerator
         var fields = symbol.GetMembers()
             .OfType<IFieldSymbol>()
             .Where(f => !f.IsStatic)
+            .Where(f => !f.GetAttributes().Any(a => a?.AttributeClass?.ToDisplayString() == "Shared.Attributes.NonSyncedAttribute"))
             .OrderBy(f => f.Name)
             .ToList();
 

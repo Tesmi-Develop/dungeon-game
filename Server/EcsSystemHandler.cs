@@ -67,7 +67,7 @@ public class EcsSystemHandler
             systems.Add((BaseSystem)_dependenciesContainer.Resolve(type));
         
         return systems
-            .OrderBy(e =>
+            .OrderByDescending(e =>
             {
                 var type = e.GetType();
                 return priorities.Find(r => r.Item1 == type).Item2;

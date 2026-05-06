@@ -66,9 +66,14 @@ public class CollisionSystem : BaseSystem
         }
         
         var correction = manifold.Normal * (maxSeparation * pushFactor);
+        if (correction == Vector2.Zero)
+            return Manifold.Empty;
+        
         if (!hitboxB.IsStatic)
             transformB.Position -= correction;
         
+        Console.WriteLine(2);
+        Console.WriteLine(correction);
         transformA.Position += correction;
         return manifold;
     }

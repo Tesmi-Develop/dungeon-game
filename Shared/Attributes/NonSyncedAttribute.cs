@@ -1,6 +1,4 @@
 ﻿namespace Shared.Attributes;
 
-public class NonSyncedAttribute : Attribute
-{
-    
-}
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+public sealed class NonSyncedAttribute : Attribute;

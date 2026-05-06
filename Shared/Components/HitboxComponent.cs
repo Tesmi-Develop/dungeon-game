@@ -12,5 +12,7 @@ public partial struct HitboxComponent : IComponent
     public bool IsStatic;
     public bool IsTrigger;
     public Vector2 Offset;
+    
+    [NonSynced]
     public Vector2i? GridIndex;
 }

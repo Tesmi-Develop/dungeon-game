@@ -13,7 +13,6 @@ public class CameraMovementSystem : EntitySystem
     [Dependency] private readonly ICameraManager _camera = null!;
     [Dependency] private readonly GameClient _gameClient = null!;
     private Query _query = null!;
-    
 
     public override void Initialize()
     {

@@ -264,7 +264,8 @@ public class SyncSystem : BaseSystem
     {
         if (_bufferWriter.WrittenCount <= 3) 
             return;
-
+        
+        Console.WriteLine(3);
         var packet = new Packet
         {
             PacketType = packetType,

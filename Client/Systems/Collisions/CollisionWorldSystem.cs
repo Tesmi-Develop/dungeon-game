@@ -1,4 +1,5 @@
-﻿using Hypercube.Core.Ecs;
+﻿using Client.LifeCycles;
+using Hypercube.Core.Ecs;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;

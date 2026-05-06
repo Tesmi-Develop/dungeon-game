@@ -1,4 +1,5 @@
 ﻿using Hypercube.Core.Resources;
+using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using Shared;
 
@@ -17,7 +18,7 @@ public class LoadArenaTest : BaseSystem
         _mapHandler.Compile(_resourceManager);
         
         _prototypeStorage = _resourceManager.Load<PrototypeStorage>("/prototypes.json");
-        _mapHandler.Load(world, _prototypeStorage);
+        _mapHandler.Load(world, _prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
     }
 
     public override void Update(long tick)

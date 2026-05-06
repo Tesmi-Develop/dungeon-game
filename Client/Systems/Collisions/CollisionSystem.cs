@@ -1,23 +1,16 @@
-﻿using Hypercube.Core.Ecs;
+﻿using Client.LifeCycles;
+using Hypercube.Core.Ecs;
 using Hypercube.Core.Execution.LifeCycle;
-using Hypercube.Core.Graphics.Rendering;
-using Hypercube.Core.Graphics.Rendering.Context;
-using Hypercube.Core.Systems;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
-using Hypercube.Mathematics;
-using Hypercube.Mathematics.Vectors;
 using Hypercube.Physics;
 using Hypercube.Physics.Manifolds;
-using Hypercube.Physics.Shapes.Structs;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
-using Shared.Components.Commands;
-using Shared.Data;
 
 namespace Client.Systems.Collisions;
 
-public class CollisionSystem : EntitySystem
+public class CollisionSystem : EntitySystem, IServerUpdate
 {
     [Dependency] private readonly CollisionWorldSystem _worldSystem = null!;
     private readonly List<Entity> _neighborBuffer = new(32);
@@ -111,7 +104,7 @@ public class CollisionSystem : EntitySystem
         return Manifold.Empty;
     }
 
-    public override void Update(FrameEventArgs args)
+    public void ServerUpdate(long serverTick, long predictTick)
     {
         _movableQuery.With((Entity entity, ref NetworkTransform trans, ref HitboxComponent hitbox) =>
         {
@@ -129,5 +122,10 @@ public class CollisionSystem : EntitySystem
                 ResolveCollision(entity, neighbor);
             }
         });
+    }
+    
+    public override void Update(FrameEventArgs args)
+    {
+        
     }
 }

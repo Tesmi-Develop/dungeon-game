@@ -12,7 +12,7 @@ using Shared.Helpers;
 
 namespace Server.Systems.Network;
 
-[EcsSystem]
+[EcsSystem(EcsPriority.High)]
 public class NetworkServer : BaseSystem, INetEventListener
 {
     [Dependency] private readonly IEventBus _eventBus = null!;
