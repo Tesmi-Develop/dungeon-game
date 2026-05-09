@@ -4,7 +4,9 @@ using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using MessagePack;
 using Server.Components;
+using Server.Utilities;
 using Shared.Data;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.Network;
 
@@ -19,7 +21,7 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
         _query = GetQuery().WithAll<ClientData>().Build();
     }
     
-    public override void BeforeUpdate(long tick)
+    public override void BeforeGameUpdate(long tick, long _)
     {
         _query.With((Entity entity, ref ClientData playerData) =>
         {
@@ -57,7 +59,7 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
         var componentId = reader.ReadInt32();
         var tick = reader.ReadInt64();
 
-        ref var clientData = ref world.Get<ClientData>(clientEntity);
+        ref var clientData = ref World.Get<ClientData>(clientEntity);
         var data = NetworkFactory.DeserializeRequestComponent(componentId, ref reader);
         
         if (tick == -1)

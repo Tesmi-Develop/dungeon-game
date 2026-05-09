@@ -1,10 +1,11 @@
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Server.Components;
-using Server.Extensions;
 using Server.Helpers;
+using Server.Utilities;
 using Shared.Components;
 using Shared.Components.Commands;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
 
@@ -18,28 +19,28 @@ public class MovementSystem : BaseSystem
         _query = GetQuery().WithAll<ClientData>().Build();
     }
 
-    public override void Update(long tick)
+    public override void GameUpdate(long tick, long _)
     {
         _query.With((Entity clientEntity, ref ClientData clientData) =>
         {
-            if (!world.Has<ControlledEntity>(clientEntity))
+            if (!World.Has<ControlledEntity>(clientEntity))
                 return;
             
-            var characterEntity = world.Get<ControlledEntity>(clientEntity).Reference;
-            if (!world.Validate(characterEntity))
+            var characterEntity = World.Get<ControlledEntity>(clientEntity).Reference;
+            if (!World.Validate(characterEntity))
                 return;
 
-            if (!NetworkHelper.TryGetInputFromTick<MoveRequest>(world, clientEntity, tick, out var inputData))
+            if (!NetworkHelper.TryGetInputFromTick<MoveRequest>(World, clientEntity, tick, out var inputData))
                 return;
             
-            if (!world.Has<NetworkTransform>(characterEntity) || !world.Has<Speed>(characterEntity))
+            if (!World.Has<NetworkTransform>(characterEntity) || !World.Has<Speed>(characterEntity))
                 return;
             
-            ref var transform = ref world.Get<NetworkTransform>(characterEntity);
-            ref var speed = ref world.Get<Speed>(characterEntity);
+            ref var transform = ref World.Get<NetworkTransform>(characterEntity);
+            ref var speed = ref World.Get<Speed>(characterEntity);
             
             transform.Position += inputData.Direction * speed.Value;
-            NetworkHelper.MakeDirty<NetworkTransform>(world, characterEntity);
+            NetworkHelper.MakeDirty<NetworkTransform>(World, characterEntity);
         });
     }
 }

@@ -7,6 +7,7 @@ using Hypercube.Utilities.Dependencies;
 using Server.Components;
 using Server.Utilities;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
 
@@ -21,7 +22,7 @@ public class TestSystem : BaseSystem
     private float _speed = 5;
     private int counter = 0;
     
-    public override void PostInitialize()
+    public override void AfterInitialize()
     {
         /*Task.Run(async () =>
         {
@@ -57,7 +58,7 @@ public class TestSystem : BaseSystem
         return newPoint;
     }
 
-    public override void Update(long tick)
+    public override void GameUpdate(long tick, long _)
     {
         /*world.Query(in _query, (Entity entity, ref NetworkTransform networkTransform, ref TargetLocation location) =>
         {

@@ -1,13 +1,15 @@
 ﻿using Client.Systems.PredictSystems;
-using Hypercube.Core.Ecs;
+using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;
 
-public class CharacterGiverPredictSystem : EntitySystem
+[EcsSystem]
+public class CharacterGiverPredictSystem : BaseSystem
 {
     [Dependency] private readonly PredictHelper _predictHelper = null!;
     [Dependency] private readonly GameClient _gameClient = null!;

@@ -1,7 +1,9 @@
 using System.Collections.Frozen;
 using Hypercube.Utilities.Helpers;
 using Server.Components;
+using Server.Utilities;
 using Shared.Attributes;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
 
@@ -9,14 +11,14 @@ namespace Server.Systems;
 public class NetworkMetadataSystem : BaseSystem
 {
     [Priority(EcsPriority.High)]
-    public override void PreInitialize()
+    public override void BeforeInitialize()
     {
-        var entity = world.Create();
+        var entity = World.Create();
         var registry = new NetworkMetadata();
         CollectNetworkComponents(ref registry);
         CollectNetworkRequests(ref registry);
         
-        world.Add(entity, registry);
+        World.Add(entity, registry);
     }
 
     private void CollectNetworkComponents(ref NetworkMetadata metadata)

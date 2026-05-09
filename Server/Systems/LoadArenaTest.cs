@@ -2,7 +2,9 @@
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
+using Server.Utilities;
 using Shared;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
 
@@ -27,13 +29,8 @@ public class LoadArenaTest : BaseSystem
             
         });
         
-        _mapHandler.Load(world, _prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
+        _mapHandler.Load(World, _prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
         _logger.Debug("Loaded Arena1");
         _characterSystem.InitiateSpawnPlayerCharacters();
-    }
-
-    public override void Update(long tick)
-    {
-        
     }
 }

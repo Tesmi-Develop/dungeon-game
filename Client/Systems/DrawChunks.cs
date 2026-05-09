@@ -9,11 +9,15 @@ namespace Client.Systems;
 
 public class DrawChunks : PatchEntitySystem
 {
+    private const bool IsEnabled = false;
     private const int ChunkSize = 64 * 2;
     public override int Priority => -100;
 
     public override void Draw(IRenderContext renderer, DrawPayload payload)
     {
+        if (!IsEnabled)
+            return;
+        
         DrawChunkGrid(renderer, payload.Camera);
     }
     

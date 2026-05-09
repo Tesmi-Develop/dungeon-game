@@ -1,14 +1,14 @@
 ﻿using Client.Components;
-using Client.LifeCycles;
-using Hypercube.Core.Ecs;
-using Hypercube.Core.Execution.LifeCycle;
+using Client.Utilities;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class SnapshotCollectorSystem : EntitySystem, IServerUpdate
+[EcsSystem]
+public class SnapshotCollectorSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _client = null!;
     private Query _query = null!;
@@ -17,15 +17,10 @@ public class SnapshotCollectorSystem : EntitySystem, IServerUpdate
     {
         _query = GetQuery().WithAll<NetworkTransform, Interpolation>().Build();
     }
-    
-    public override void Update(FrameEventArgs args)
-    {
-        
-    }
 
-    public void ServerUpdate(long serverTick, long predictTick)
+    public override void GameUpdate(long serverTick, long predictTick)
     {
-        _query.With<NetworkTransform, Interpolation>((entity, ref networkTransform, ref interpolation) =>
+        _query.With<NetworkTransform, Interpolation>((_, ref networkTransform, ref interpolation) =>
         {
             var pos = networkTransform.Position;
             
@@ -39,8 +34,7 @@ public class SnapshotCollectorSystem : EntitySystem, IServerUpdate
 
             interpolation.LastPosition = pos;
             interpolation.Snapshots.Enqueue((serverTick, pos));
-        
-            // Ограничиваем размер очереди, но с запасом под лаги
+            
             while (interpolation.Snapshots.Count > 20)
                 interpolation.Snapshots.Dequeue();
         });

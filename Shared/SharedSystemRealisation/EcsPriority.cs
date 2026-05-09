@@ -1,4 +1,4 @@
-namespace Server;
+namespace Shared.SharedSystemRealisation;
 
 public enum EcsPriority
 {

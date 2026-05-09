@@ -1,15 +1,16 @@
-﻿using Hypercube.Core.Ecs;
-using Hypercube.Core.Execution.LifeCycle;
-using Hypercube.Ecs;
+﻿using Hypercube.Ecs;
 using Hypercube.Ecs.Lifetime;
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Shapes;
 using Hypercube.Mathematics.Vectors;
+using Shared.Attributes;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
 
-namespace Client.Systems.Collisions;
+namespace Shared.Systems.Collisions;
 
-public class CollisionWorldSystem : EntitySystem
+[EcsSystem]
+public class CollisionWorldSystem : SharedSystem
 {
     private const int CellSize = 128;
     
@@ -20,6 +21,7 @@ public class CollisionWorldSystem : EntitySystem
     public override void Initialize()
     {
         _query = GetQuery().WithAll<NetworkTransform, HitboxComponent>().Build();
+        
         Subscribe((Entity entity, ref HitboxComponent hitbox, ref RemovedEvent args) =>
         {
             Console.WriteLine("removed hitbox");
@@ -27,22 +29,23 @@ public class CollisionWorldSystem : EntitySystem
         });
     }
 
-    public override void AfterUpdate(FrameEventArgs args)
+    [Priority(EcsPriority.UpdateCollisionWorld)]
+    public override void GameUpdate(long tick, long _)
     {
-        _query.With<NetworkTransform, HitboxComponent>((entity, ref trans, ref hitbox) =>
+        _query.With((Entity entity, ref NetworkTransform trans, ref HitboxComponent hitbox, ref HitboxComponent presence) =>
         {
             var currentGridIndex = WorldToGrid(trans.Position);
-        
-            if (currentGridIndex == hitbox.GridIndex)
+            
+            if (currentGridIndex == presence.GridIndex)
                 return;
         
-            UpdateRegistration(entity, ref hitbox, currentGridIndex);
+            UpdateRegistration(entity, ref presence, currentGridIndex);
         });
     }
 
-    private void UpdateRegistration(Entity entity, ref HitboxComponent hitbox, Vector2i currentGridIndex)
+    private void UpdateRegistration(Entity entity, ref HitboxComponent presence, Vector2i currentGridIndex)
     {
-        if (hitbox.GridIndex is { } prev)
+        if (presence.GridIndex is { } prev)
         {
             if (!_grid.TryGetValue(prev, out var list)) 
                 return;
@@ -50,7 +53,7 @@ public class CollisionWorldSystem : EntitySystem
             list.Remove(entity);
         }
         
-        hitbox.GridIndex = currentGridIndex;
+        presence.GridIndex = currentGridIndex;
 
         {
             if (_grid.TryGetValue(currentGridIndex, out var list))
@@ -79,9 +82,9 @@ public class CollisionWorldSystem : EntitySystem
         }
     }
     
-    public void UnregisterEntity(Entity entity, ref HitboxComponent hitbox)
+    public void UnregisterEntity(Entity entity, ref HitboxComponent presence)
     {
-        if (hitbox.GridIndex is not { } prev) 
+        if (presence.GridIndex is not { } prev) 
             return;
         
         if (_grid.TryGetValue(prev, out var list))

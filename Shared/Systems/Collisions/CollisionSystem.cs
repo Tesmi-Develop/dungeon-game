@@ -4,20 +4,22 @@ using Hypercube.Mathematics.Vectors;
 using Hypercube.Physics;
 using Hypercube.Physics.Manifolds;
 using Hypercube.Utilities.Dependencies;
+using Shared.Attributes;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Shared.Systems.Collisions;
 
-[EcsSystem(EcsPriority.UpdateCollisions)]
-public class CollisionSystem : BaseSystem
+[EcsSystem]
+public class CollisionSystem : SharedSystem
 {
     [Dependency] private readonly CollisionWorldSystem _worldSystem = null!;
     private readonly List<Entity> _neighborBuffer = new(32);
 
     private Query _movableQuery = null!;
-        
 
-    public override void Update(long tick)
+    [Priority(EcsPriority.UpdateCollisions)]
+    public override void GameUpdate(long tick, long _)
     {
         _movableQuery = GetQuery().WithAll<NetworkTransform, HitboxComponent>().Build();
         _movableQuery.With((Entity entity, ref NetworkTransform trans, ref HitboxComponent hitbox) =>
@@ -40,11 +42,11 @@ public class CollisionSystem : BaseSystem
 
     public Manifold ResolveCollision(Entity entityA, Entity entityB)
     {
-        ref var transformA = ref world.Get<NetworkTransform>(entityA);
-        ref var transformB = ref world.Get<NetworkTransform>(entityB);
+        ref var transformA = ref World.Get<NetworkTransform>(entityA);
+        ref var transformB = ref World.Get<NetworkTransform>(entityB);
         
-        ref var hitboxA = ref world.Get<HitboxComponent>(entityA);
-        ref var hitboxB = ref world.Get<HitboxComponent>(entityB);
+        ref var hitboxA = ref World.Get<HitboxComponent>(entityA);
+        ref var hitboxB = ref World.Get<HitboxComponent>(entityB);
         
         if (hitboxB.IsTrigger)
             return Manifold.Empty;
@@ -85,8 +87,8 @@ public class CollisionSystem : BaseSystem
     
     public bool HasOverlap(Entity entity)
     {
-        ref var transformA = ref world.Get<NetworkTransform>(entity);
-        ref var hitbox = ref world.Get<HitboxComponent>(entity);
+        ref var transformA = ref World.Get<NetworkTransform>(entity);
+        ref var hitbox = ref World.Get<HitboxComponent>(entity);
         
         var results = new List<Entity>();
         _worldSystem.GetNearby(hitbox.GridIndex!.Value, results);
@@ -105,8 +107,8 @@ public class CollisionSystem : BaseSystem
     
     public Manifold GetFirstOverlap(Entity entity)
     {
-        ref var transformA = ref world.Get<NetworkTransform>(entity);
-        ref var hitbox = ref world.Get<HitboxComponent>(entity);
+        ref var transformA = ref World.Get<NetworkTransform>(entity);
+        ref var hitbox = ref World.Get<HitboxComponent>(entity);
         
         var results = new List<Entity>();
         _worldSystem.GetNearby(hitbox.GridIndex!.Value, results);

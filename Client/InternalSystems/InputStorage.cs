@@ -1,10 +1,11 @@
 ﻿using Client.Data;
+using Client.Systems.PredictSystems;
 using Hypercube.Core.Ecs;
 using Hypercube.Core.Input;
 using Hypercube.Core.Input.Handler;
 using Hypercube.Utilities.Dependencies;
 
-namespace Client.Systems.PredictSystems;
+namespace Client.InternalSystems;
 
 public class InputStorage : EntitySystem
 {
@@ -45,9 +46,7 @@ public class InputStorage : EntitySystem
             inputs.Add(Input.MoveDown);
         
         if (_inputHandler.IsKeyHeld(Key.D))
-        {
             inputs.Add(Input.MoveRight);
-        }
         
         if (_inputHandler.IsKeyHeld(Key.A))
             inputs.Add(Input.MoveLeft);

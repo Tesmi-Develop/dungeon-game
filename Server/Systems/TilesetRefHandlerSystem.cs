@@ -1,9 +1,10 @@
 ﻿using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Physics.Shapes;
-using Server.Extensions;
+using Server.Utilities;
 using Shared.Components;
 using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
 
@@ -19,15 +20,15 @@ public class TilesetRefHandlerSystem : BaseSystem
             .Build();
     }
 
-    public override void Update(long tick)
+    public override void GameUpdate(long tick, long _)
     {
-        foreach (var entity in world.CollectEntities(_query, _entities))
+        foreach (var entity in World.CollectEntities(_query, _entities))
         {
-            ref var hitboxDeclaration = ref world.Get<HitboxDeclarationComponent>(entity);
-            ref var tilesetRef = ref  world.Get<TilesetRefComponent>(entity);
+            ref var hitboxDeclaration = ref World.Get<HitboxDeclarationComponent>(entity);
+            ref var tilesetRef = ref  World.Get<TilesetRefComponent>(entity);
             
             if (hitboxDeclaration.ShapeType == ShapeType.Polygon)
-                world.AddCollision(entity, tilesetRef.Size, isStatic: true);
+                World.AddCollision(entity, tilesetRef.Size, isStatic: true);
         }
     }
 }

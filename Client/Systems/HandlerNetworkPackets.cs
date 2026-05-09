@@ -1,17 +1,21 @@
 ﻿using Client.Events;
-using Hypercube.Core.Ecs;
+using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Utilities.Dependencies;
+using Shared.Attributes;
 using Shared.Data;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class HandlerNetworkPackets : EntitySystem
+[EcsSystem]
+public class HandlerNetworkPackets : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;
     private const int MaxPacketPerUpdate = 60;
     private List<Packet> _packetBuffer = new(128);
     
+    [Priority(EcsPriority.High)]
     public override void Update(FrameEventArgs deltaTime)
     {
         var counter = 0;

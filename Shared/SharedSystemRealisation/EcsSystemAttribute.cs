@@ -1,4 +1,4 @@
-namespace Server;
+namespace Shared.SharedSystemRealisation;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class EcsSystemAttribute : Attribute

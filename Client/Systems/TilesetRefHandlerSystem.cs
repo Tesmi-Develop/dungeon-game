@@ -1,14 +1,15 @@
-﻿using Client.Extensions;
-using Hypercube.Core.Ecs;
+﻿using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs.Queries;
 using Hypercube.Physics.Shapes;
 using Shared.Components;
 using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class TilesetRefHandlerSystem : EntitySystem
+[EcsSystem]
+public class TilesetRefHandlerSystem : BaseSystem
 {
     private Query _query = null!;
 

@@ -3,9 +3,11 @@ using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
+[EcsSystem]
 public class GameHelperSystem : EntitySystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;

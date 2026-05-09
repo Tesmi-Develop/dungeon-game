@@ -1,20 +1,19 @@
 ﻿using Client.Events;
-using Client.Systems.PredictSystems;
-using Hypercube.Core.Ecs;
+using Client.InternalSystems;
+using Client.Utilities;
 using Hypercube.Ecs;
-using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using MessagePack;
-using Shared.Components;
 using Shared.Data;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class HandlerSync : EntitySystem
+[EcsSystem]
+public class HandlerSync : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;
-    [Dependency] private readonly ILogger _logger = null!;
-    [Dependency] private readonly ServerUpdateHandlerSystem _serverUpdateHandlerSystem = null!;
+    [Dependency] private readonly PredictSystem _predictSystem = null!;
     private readonly Dictionary<long, Entity> _networkEntitiesById = [];
     private readonly Dictionary<Entity, long> _networkEntitiesByEntity = [];
     
@@ -51,7 +50,7 @@ public class HandlerSync : EntitySystem
     
     private void DoHydrate(ReadOnlyMemory<byte> payload)
     {
-        _logger.Trace("Start hydrate");
+        Logger.Trace("Start hydrate");
         var reader = new MessagePackReader(payload);
         var countEntities = reader.ReadInt32();
         
@@ -68,7 +67,7 @@ public class HandlerSync : EntitySystem
             {
                 var componentId = reader.ReadInt32();
                 NetworkFactory.AddComponentFromPayload(componentId, entity, World, ref reader);
-                _logger.Trace($"Added component with type {NumeratorGenerator.GetType(componentId).Name}, entity {entity} with ServerMask: {entityMask}");
+                Logger.Trace($"Added component with type {NumeratorGenerator.GetType(componentId).Name}, entity {entity} with ServerMask: {entityMask}");
             }
         }
     }
@@ -99,7 +98,7 @@ public class HandlerSync : EntitySystem
                 if (!skipDirty)
                 {
                     NetworkFactory.PatchComponentFromPayload(componentId, entity, World, packetServerTick, ref reader);
-                    _serverUpdateHandlerSystem.ReconcileState(entity);
+                    _predictSystem.ReconcileState(entity);
                 }
                 else
                     reader.Skip();
@@ -123,7 +122,7 @@ public class HandlerSync : EntitySystem
 
     private void DoComponentAddition(ReadOnlyMemory<byte> payload)
     {
-        _logger.Trace("Start component addition");
+        Logger.Trace("Start component addition");
         var reader = new MessagePackReader(payload);
         var entityCount = reader.ReadInt32();
 
@@ -134,7 +133,7 @@ public class HandlerSync : EntitySystem
             var componentId = reader.ReadInt32();
             
             NetworkFactory.AddComponentFromPayload(componentId, entity, World, ref reader);
-            _logger.Trace($"Added component {NumeratorGenerator.GetType(componentId).Name}, entity {entity} with ServerMask: {entityId}");
+            Logger.Trace($"Added component {NumeratorGenerator.GetType(componentId).Name}, entity {entity} with ServerMask: {entityId}");
         }
     }
 
@@ -159,7 +158,7 @@ public class HandlerSync : EntitySystem
         _networkEntitiesById.Add(entityId, entity);
         _networkEntitiesByEntity.Add(entity, entityId);
         
-        _logger.Trace($"Created Network Entity {entity} with ServerMask: {entityId}");
+        Logger.Trace($"Created Network Entity {entity} with ServerMask: {entityId}");
         
         return  entity;
     }

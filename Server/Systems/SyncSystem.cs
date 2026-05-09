@@ -13,10 +13,12 @@ using MessagePack;
 using Server.Components;
 using Server.Components.Events;
 using Server.Helpers;
+using Server.Utilities;
 using Shared.Attributes;
 using Shared.Data;
 using Shared.Extensions;
 using Shared.NetworkUtilities;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
 
@@ -54,19 +56,19 @@ public class SyncSystem : BaseSystem
 
         void Handler(Entity entity, ref T comp, ref AddedEvent args) 
         {
-            world.Add<NetworkEntityTag>(entity);
+            World.Add<NetworkEntityTag>(entity);
             _additionalQueue.Enqueue((entity, netId));
         }
     }
 
     [Priority(EcsPriority.High - 1)]
-    public override void PreInitialize()
+    public override void BeforeInitialize()
     {
         _query = GetQuery().WithAll<Dirty>().Build();
         _clientQuery = GetQuery().WithAll<ClientData>().Build();
         _syncQuery = GetQuery().WithAll<NetworkEntityTag>().Build();
     
-        var networkComponents = NetworkHelper.GetNetworkComponentMetadata(world);
+        var networkComponents = NetworkHelper.GetNetworkComponentMetadata(World);
 
         foreach (var (netId, type) in networkComponents.ComponentsById)
         {
@@ -97,10 +99,10 @@ public class SyncSystem : BaseSystem
 
     public void SendFullStateToClient(ref ClientData clientData)
     {
-        var networkComponents = NetworkHelper.GetNetworkComponentMetadata(world);
+        var networkComponents = NetworkHelper.GetNetworkComponentMetadata(World);
         _bufferWriter.Clear();
 
-        var counts = world.CountEntities(_syncQuery);
+        var counts = World.CountEntities(_syncQuery);
         MessagePackSerializer.Serialize(_bufferWriter, counts);
         
         _syncQuery.ForEach(entity =>
@@ -109,16 +111,16 @@ public class SyncSystem : BaseSystem
             
             var validComponents = 0;
             foreach (var (_, type) in networkComponents.ComponentsById)
-                if (world.Has(entity, type)) validComponents++;
+                if (World.Has(entity, type)) validComponents++;
 
             MessagePackSerializer.Serialize(_bufferWriter, validComponents);
             
             foreach (var (netId, type) in networkComponents.ComponentsById)
             {
-                if (!world.Has(entity, type)) 
+                if (!World.Has(entity, type)) 
                     continue;
                 
-                var componentData = world.Get(entity, type);
+                var componentData = World.Get(entity, type);
                 MessagePackSerializer.Serialize(_bufferWriter, netId);
                 ((ISynced)componentData!).Serialize(_bufferWriter, null);
             }
@@ -133,7 +135,7 @@ public class SyncSystem : BaseSystem
         clientData.PendingPackets.Enqueue(packet);
     }
 
-    public override void AfterUpdate(long tick)
+    public override void AfterGameUpdate(long tick, long _)
     {
         _bufferWriter.Clear();
         
@@ -184,7 +186,7 @@ public class SyncSystem : BaseSystem
         while (_removalQueue.TryDequeue(out var result))
         {
             var (entity, netId) = result;
-            if (!world.Validate(entity)) 
+            if (!World.Validate(entity)) 
                 continue;
 
             writer.WriteInt64(entity.GetFullMask());
@@ -216,15 +218,15 @@ public class SyncSystem : BaseSystem
         while (_additionalQueue.TryDequeue(out var result))
         {
             var (entity, componentId) = result;
-            if (!world.Validate(entity)) 
+            if (!World.Validate(entity)) 
                 continue;
 
             writer.WriteInt64(entity.GetFullMask());
             writer.WriteInt32(componentId);
             writer.Flush();
             
-            var componentType = NetworkHelper.GetNetworkComponentById(world, componentId);
-            var synced = (ISynced)world.Get(entity, componentType)!;
+            var componentType = NetworkHelper.GetNetworkComponentById(World, componentId);
+            var synced = (ISynced)World.Get(entity, componentType)!;
             synced.Serialize(_tempBuffer, null);
             writer = new MessagePackWriter(_tempBuffer);
             
@@ -244,7 +246,7 @@ public class SyncSystem : BaseSystem
 
     private void SerializeDirtyChanges()
     {
-        var dirtyEntitiesCount = world.CountEntities(_query);
+        var dirtyEntitiesCount = World.CountEntities(_query);
         MessagePackSerializer.Serialize(_bufferWriter, dirtyEntitiesCount);
         
         _tempEntityList.Clear(); 
@@ -265,14 +267,14 @@ public class SyncSystem : BaseSystem
             foreach (var id in dirty.ComponentIds)
             {
                 MessagePackSerializer.Serialize(_bufferWriter, id);
-                var componentType = NetworkHelper.GetNetworkComponentById(world, id);
-                var synced = (ISynced)world.Get(entity, componentType)!;
+                var componentType = NetworkHelper.GetNetworkComponentById(World, id);
+                var synced = (ISynced)World.Get(entity, componentType)!;
                 synced.Serialize(_bufferWriter, null);
             }
         });
 
         foreach(var e in _tempEntityList) 
-            world.Remove<Dirty>(e);
+            World.Remove<Dirty>(e);
     }
 
     private void BroadcastSyncPacket(PacketType packetType, DeliveryMethod deliveryType, long tick)

@@ -5,40 +5,39 @@ using Hypercube.Utilities.Dependencies;
 using Hypercube.Utilities.Helpers;
 using Server.Utilities;
 using Shared.Attributes;
+using Shared.SharedSystemRealisation;
 
 namespace Server;
 
-public class EcsSystemHandler
+public class EcsSystemEntry
 {
-    private readonly List<BaseSystem> _allSystems;
+    private readonly List<SharedSystem> _allSystems;
     private readonly IDependenciesContainer _dependenciesContainer;
     private readonly ILogger _logger;
     
-    private readonly List<BaseSystem> _preInitializeSystems = [];
-    private readonly List<BaseSystem> _initializeSystems = [];
-    private readonly List<BaseSystem> _postInitializeSystems = [];
+    private readonly List<SharedSystem> _beforeInitializeSystems = [];
+    private readonly List<SharedSystem> _initializeSystems = [];
+    private readonly List<SharedSystem> _afterInitializeSystems = [];
     
-    private readonly List<BaseSystem> _preUpdateSystems = [];
-    private readonly List<BaseSystem> _updateSystems = [];
-    private readonly List<BaseSystem> _postUpdateSystems = [];
+    private readonly List<SharedSystem> _beforeUpdateSystems = [];
+    private readonly List<SharedSystem> _updateSystems = [];
+    private readonly List<SharedSystem> _afterUpdateSystems = [];
     
-    public EcsSystemHandler(World world, ILogger logger, IDependenciesContainer dependenciesContainer)
+    public EcsSystemEntry(World world, ILogger logger, IDependenciesContainer dependenciesContainer)
     {
         _logger = logger;
         _dependenciesContainer = dependenciesContainer;
         _dependenciesContainer.RegisterSingleton<World>(world);
-        
         PrepareLogger();
         
         _allSystems = InstantiateSystems();
-        
         PreparePhaseSystems();
     }
 
-    private List<BaseSystem> InstantiateSystems()
+    private List<SharedSystem> InstantiateSystems()
     {
         var priorities = new List<(Type Type, int Priority)>();
-        var baseSystemType = typeof(BaseSystem);
+        var baseSystemType = typeof(SharedSystem);
         
         foreach (var (type, attributeData) in ReflectionHelper.GetAllTypesWithAttribute<EcsSystemAttribute>())
         {
@@ -57,22 +56,22 @@ public class EcsSystemHandler
         
         return priorities
             .OrderByDescending(static p => p.Priority)
-            .Select(p => (BaseSystem)_dependenciesContainer.Resolve(p.Type))
+            .Select(p => (SharedSystem)_dependenciesContainer.Resolve(p.Type))
             .ToList();
     }
 
     private void PreparePhaseSystems()
     {
-        _preInitializeSystems.AddRange(SortByMethodPriority(_allSystems, nameof(BaseSystem.PreInitialize)));
-        _initializeSystems.AddRange(SortByMethodPriority(_allSystems, nameof(BaseSystem.Initialize)));
-        _postInitializeSystems.AddRange(SortByMethodPriority(_allSystems, nameof(BaseSystem.PostInitialize)));
+        _beforeInitializeSystems.AddRange(SortByMethodPriority(_allSystems, nameof(SharedSystem.BeforeInitialize)));
+        _initializeSystems.AddRange(SortByMethodPriority(_allSystems, nameof(SharedSystem.Initialize)));
+        _afterInitializeSystems.AddRange(SortByMethodPriority(_allSystems, nameof(SharedSystem.AfterInitialize)));
 
-        _preUpdateSystems.AddRange(SortByMethodPriority(_allSystems, nameof(BaseSystem.BeforeUpdate)));
-        _updateSystems.AddRange(SortByMethodPriority(_allSystems, nameof(BaseSystem.Update)));
-        _postUpdateSystems.AddRange(SortByMethodPriority(_allSystems, nameof(BaseSystem.AfterUpdate)));
+        _beforeUpdateSystems.AddRange(SortByMethodPriority(_allSystems, nameof(SharedSystem.BeforeGameUpdate)));
+        _updateSystems.AddRange(SortByMethodPriority(_allSystems, nameof(SharedSystem.GameUpdate)));
+        _afterUpdateSystems.AddRange(SortByMethodPriority(_allSystems, nameof(SharedSystem.AfterGameUpdate)));
     }
 
-    private IEnumerable<BaseSystem> SortByMethodPriority(List<BaseSystem> systems, string methodName)
+    private IEnumerable<SharedSystem> SortByMethodPriority(List<SharedSystem> systems, string methodName)
     {
         return systems
             .Select(s => new
@@ -86,16 +85,16 @@ public class EcsSystemHandler
             .Select(x => x.System);
     }
     
-    public void InvokePreInitialize() => InvokePhase(_preInitializeSystems, static s => s.PreInitialize(), "PreInitialize");
+    public void InvokeBeforeInitialize() => InvokePhase(_beforeInitializeSystems, static s => s.BeforeInitialize(), "PreInitialize");
     public void InvokeInitialize() => InvokePhase(_initializeSystems, static s => s.Initialize(), "Initialize");
-    public void InvokePostInitialize() => InvokePhase(_postInitializeSystems, static s => s.PostInitialize(), "PostInitialize");
+    public void InvokeAfterInitialize() => InvokePhase(_afterInitializeSystems, static s => s.AfterInitialize(), "PostInitialize");
 
     public void InvokeBeforeUpdate(long tick)
     {
-        var count = _preUpdateSystems.Count;
+        var count = _beforeUpdateSystems.Count;
         for (var i = 0; i < count; i++)
         {
-            _preUpdateSystems[i].BeforeUpdate(tick);
+            _beforeUpdateSystems[i].BeforeGameUpdate(tick, tick);
         }
     }
 
@@ -104,20 +103,20 @@ public class EcsSystemHandler
         var count = _updateSystems.Count;
         for (var i = 0; i < count; i++)
         {
-            _updateSystems[i].Update(tick);
+            _updateSystems[i].GameUpdate(tick, tick);
         }
     }
 
     public void InvokeAfterUpdate(long tick)
     {
-        var count = _postUpdateSystems.Count;
+        var count = _afterUpdateSystems.Count;
         for (var i = 0; i < count; i++)
         {
-            _postUpdateSystems[i].AfterUpdate(tick);
+            _afterUpdateSystems[i].AfterGameUpdate(tick, tick);
         }
     }
 
-    private void InvokePhase(List<BaseSystem> systems, Action<BaseSystem> action, string phaseName)
+    private void InvokePhase(List<SharedSystem> systems, Action<SharedSystem> action, string phaseName)
     {
         foreach (var system in systems)
         {
@@ -125,8 +124,15 @@ public class EcsSystemHandler
             _logger.Trace($"{phaseName} system: {system.GetType().Name}");
         }
     }
+    
+    public void InvokeInitializePhase()
+    {
+        InvokeBeforeInitialize();
+        InvokeInitialize();
+        InvokeAfterInitialize();
+    }
 
-    public void InvokeUpdateCycle(long tick)
+    public void InvokeGameUpdatePhase(long tick)
     {
         InvokeBeforeUpdate(tick);
         InvokeUpdate(tick);

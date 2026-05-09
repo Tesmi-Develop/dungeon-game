@@ -1,5 +1,4 @@
-﻿using Client.Extensions;
-using Hypercube.Core.Ecs;
+﻿using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Core.Systems.Transform;
 using Hypercube.Ecs;
@@ -7,13 +6,15 @@ using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
 using Shared.Components;
 using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;
 
-public class TransformGiverSystem : EntitySystem
+[EcsSystem]
+public class TransformGiverSystem : BaseSystem
 {
     private Query _query = null!;
-    private List<Entity> _entities = [];
+    private readonly List<Entity> _entities = [];
 
     public override void Initialize()
     {

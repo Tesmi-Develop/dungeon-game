@@ -1,8 +1,9 @@
-﻿using Hypercube.Core.Graphics.Rendering;
+﻿using Client.Utilities;
+using Hypercube.Core.Graphics.Patching;
+using Hypercube.Core.Graphics.Rendering;
 using Hypercube.Core.Graphics.Rendering.Context;
 using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;
-using Hypercube.Core.Systems;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics;
@@ -11,10 +12,13 @@ using Hypercube.Physics;
 using Hypercube.Physics.Shapes;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.SharedSystemRealisation;
+using Shared.Systems.Collisions;
 
 namespace Client.Systems.Collisions;
 
-public sealed class CollisionDebugRenderSystem : PatchEntitySystem
+[EcsSystem]
+public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
 {
     public const bool DebugDrawNearbyCollisions = true;
     public const bool DebugDrawChunksNum = false;
@@ -32,7 +36,7 @@ public sealed class CollisionDebugRenderSystem : PatchEntitySystem
 
     private Font _font = null!;
 
-    public override int Priority => -1000;
+    public int Priority => -1000;
 
     public override void Initialize()
     {
@@ -42,7 +46,7 @@ public sealed class CollisionDebugRenderSystem : PatchEntitySystem
         _queryNonPlayer = GetQuery().WithAll<NetworkTransform, HitboxComponent>().Build();
     }
     
-    public override void Draw(IRenderContext renderer, DrawPayload payload)
+    public void Draw(IRenderContext renderer, DrawPayload payload)
     {
         if (DebugDrawNearbyCollisions)
             DrawNearbyCollisions(renderer, payload);

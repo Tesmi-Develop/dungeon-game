@@ -1,7 +1,6 @@
 using Hypercube.Ecs;
 using Hypercube.Ecs.Components;
 using Hypercube.Ecs.Queries;
-using Server.Extensions;
 using Server.Components;
 using Shared.Data;
 using Shared.Extensions;
