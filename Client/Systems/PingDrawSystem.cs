@@ -29,11 +29,11 @@ public class PingDrawSystem : BaseSystem, IPatch
     public void Draw(IRenderContext renderer, DrawPayload payload)
     {
         var sb = new StringBuilder();
-        sb.AppendLine($"Ping: {_gameClient.Ping}");
+        sb.AppendLine($"Ping: {_gameClient.Ping} ms");
         
         using (renderer.UseRenderState(payload.Window))
         {
-            renderer.DrawText(sb.ToString(), _font, new Vector2(0, -16), Color.White);
+            renderer.DrawText(sb.ToString(), _font, new Vector2(0, payload.Camera.Size.Y - 18), Color.White);
         }
     }
 }
