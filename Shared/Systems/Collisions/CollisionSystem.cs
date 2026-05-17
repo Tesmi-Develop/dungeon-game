@@ -2,7 +2,9 @@
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Physics;
+using Hypercube.Physics.Collision;
 using Hypercube.Physics.Manifolds;
+using Hypercube.Physics.Mathematics;
 using Hypercube.Utilities.Dependencies;
 using Shared.Attributes;
 using Shared.Components;
