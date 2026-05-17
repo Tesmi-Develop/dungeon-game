@@ -1,3 +1,4 @@
 [submodule "hypercube"]
 	path = hypercube
 	url = git@github.com:Tesmi-Develop/hypercube.git
+	branch = Alternative
