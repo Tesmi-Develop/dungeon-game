@@ -38,7 +38,7 @@ public class EntrySystem : EntitySystem
 
     public override void Initialize()
     {
-        _dependenciesContainer = new DependenciesContainer(_globalContainer);
+        /*_dependenciesContainer = new DependenciesContainer(_globalContainer);
         _dependenciesContainer.RegisterSingleton<World>(World);
         _allSystems = InstantiateSystems();
         _clientSystems = CollectClientSystems();
@@ -46,7 +46,7 @@ public class EntrySystem : EntitySystem
         PreparePhaseSystems();
         RegisterPatchSystems();
 
-        InvokeInitializePhase();
+        InvokeInitializePhase();*/
     }
     
     public override void Update(FrameEventArgs args)

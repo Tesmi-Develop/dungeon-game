@@ -49,7 +49,7 @@ public static class EntryPoint
         
         gameClient.Start();
 
-        while (!gameClient.Connected)
+        /*while (!gameClient.Connected)
         {
             gameClient.ConnectAsync("127.0.0.1", 5000).ContinueWith(task =>
             {
@@ -59,6 +59,6 @@ public static class EntryPoint
                 }
             });
             Thread.Sleep(1000);
-        }
+        }*/
     }
 }
