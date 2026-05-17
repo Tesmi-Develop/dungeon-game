@@ -1,9 +1,5 @@
-﻿using Client.Components.AnimationComponents;
-using Client.Utilities;
-using Hypercube.Core.Systems.Rendering;
-using Hypercube.Mathematics.Vectors;
+﻿using Client.Utilities;
 using Hypercube.Utilities.Dependencies;
-using Shared.Components;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
@@ -14,8 +10,8 @@ public class TestAnimator : BaseSystem
     [Dependency] private readonly AnimatorSystem _animator = null!;
     public override void Initialize()
     {
-        var entity = EntityCreate();
+        /*var entity = EntityCreate();
         AddComponent<NetworkTransform>(entity);
-        _animator.Play(entity, "enemy/Idle");
+        _animator.Play(entity, "enemy/Idle");*/
     }
 }

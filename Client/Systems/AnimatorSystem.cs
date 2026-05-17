@@ -57,8 +57,8 @@ public class AnimatorSystem : BaseSystem
             
             var scaleX = (float)clip.FrameSize.Width / clip.TextureSize.X;
             var scaleY = (float)clip.FrameSize.Height / clip.TextureSize.Y;
-
-            sprite.Scale = new Vector2(scaleX, scaleY);
+            
+            sprite.Scale = new Vector2(scaleX, scaleY) * animator.Scale;
         });
     }
 
@@ -69,6 +69,9 @@ public class AnimatorSystem : BaseSystem
     
     public void Play(Entity entity, string clipName, bool? loop)
     {
+        if (!HasComponent<SpriteComponent>(entity))
+            AddComponent<SpriteComponent>(entity);
+
         ref var animator = ref !HasComponent<Animator>(entity) ? ref AddComponent<Animator>(entity) : ref GetComponent<Animator>(entity);
         var clip = _animationContainer.GetClip(clipName);
         Play(ref animator, clip, loop);

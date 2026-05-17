@@ -7,6 +7,8 @@ using Hypercube.Utilities.Dependencies;
 using Server.Components;
 using Server.Utilities;
 using Shared.Components;
+using Shared.Components.Enemies;
+using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
 namespace Server.Systems;
@@ -24,6 +26,15 @@ public class TestSystem : BaseSystem
     
     public override void AfterInitialize()
     {
+        var enemy = EntityCreate();
+        AddComponent(enemy, new NetworkTransform() { Position = new Vector2(150, 0)});
+        AddComponent(enemy, new Target() { TargetRadius = 200, });
+        AddComponent(enemy, new Speed() { Value = 1f });
+        AddComponent(enemy, new EnemyTag());
+        AddComponent(enemy, new PlayerTargetTag());
+        AddComponent(enemy, new SpriteReference() { DefaultTexturePatch = string.Empty });
+        World.AddCollision(enemy, new Vector2(32, 32), isTrigger: true);
+        
         /*Task.Run(async () =>
         {
             await Task.Delay(5000);

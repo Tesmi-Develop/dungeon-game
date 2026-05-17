@@ -62,7 +62,7 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
         World.Add(playerEntity, new ControlledEntity { Reference = characterEntity });
         
         World.Add(characterEntity, new NetworkTransform { Position = position });
-        World.Add(characterEntity, new SpriteReference { Path = string.Empty }); //TODO player sprite
+        World.Add(characterEntity, new SpriteReference { DefaultTexturePatch = string.Empty }); //TODO player sprite
         World.Add(characterEntity, new Speed { Value = 4f });
         World.Add(characterEntity, new PlayerCharacter { ClientId = playerData.Id });
         World.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);

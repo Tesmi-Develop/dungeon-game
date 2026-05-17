@@ -9,7 +9,7 @@ namespace Client.InternalSystems;
 public class EmulatorServerUpdateSystem : BaseSystem
 {
     [Dependency] private readonly EntrySystem _entrySystem = null!;
-    private const bool IsEnable = true;
+    private const bool IsEnable = false;
     private const int TickRate = 60;
     private const double TickInterval = 1.0 / TickRate;
     private const int MaxCatchUpTicks = 5;

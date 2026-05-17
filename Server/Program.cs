@@ -1,12 +1,12 @@
 ﻿using Hypercube.Core.Resources;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Events;
-using Hypercube.Physics;
 using Hypercube.Physics.Collision;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using Server.Utilities;
 using Shared;
+using Shared.Data;
 using Shared.Helpers;
 
 namespace Server;
@@ -25,6 +25,7 @@ public static class Program
     
     public static void Main()
     {
+        NetworkSideContext.NetworkSide = NetworkSide.Server;
         Thread.CurrentThread.Name = "Main";
         var dependenciesContainer = new DependenciesContainer();
         

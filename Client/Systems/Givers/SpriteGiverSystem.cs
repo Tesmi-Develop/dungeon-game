@@ -25,7 +25,7 @@ public class SpriteGiverSystem : BaseSystem
         foreach (var e in World.CollectEntities(_query, _entities))
         {
             ref var reference = ref GetComponent<SpriteReference>(e);
-            AddComponent(e, new SpriteComponent {  Path = reference.Path == string.Empty ? "/textures/default.png" : reference.Path });
+            AddComponent(e, new SpriteComponent {  Path = reference.DefaultTexturePatch == string.Empty ? "/textures/default.png" : reference.DefaultTexturePatch });
         }
     }
 }

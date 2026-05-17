@@ -14,6 +14,7 @@ using Hypercube.Physics.Collision;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using Shared;
+using Shared.Data;
 using Shared.Helpers;
 
 namespace Client;
@@ -23,6 +24,7 @@ public static class EntryPoint
     [EntryPoint(EntryPointStage.BeforeInit)]
     public static void Init(DependenciesContainer container)
     {
+        NetworkSideContext.NetworkSide = NetworkSide.Client;
         Contacts.Initialize();
         MessagePackHelper.SetupMessagePack();
         container.Register<GameClient>();

@@ -3,7 +3,7 @@
 public enum StateType
 {
     Idle,
+    Moving,
     Attacking,
     TakeDamage,
-    
 }
