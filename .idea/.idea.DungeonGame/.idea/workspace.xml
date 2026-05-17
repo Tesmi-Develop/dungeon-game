@@ -17,32 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/Systems/Enemy/StateAnimationSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/Systems/Enemy/StateUpdaterSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/PersecutionSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/PlayerTargetScannerSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateUpdaterSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/TargetScannerSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/Enemies/EnemySpawner.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/Enemies/PlayerTargetTag.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Data/NetworkSide.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Data/NetworkSideContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Components/AnimationComponents/Animator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Components/AnimationComponents/Animator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/EntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/EntryPoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/InternalSystems/EmulatorServerUpdateSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/InternalSystems/EmulatorServerUpdateSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/AnimatorSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/AnimatorSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/Givers/SpriteGiverSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Givers/SpriteGiverSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/TestAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TestAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/SpawnerPlayerCharacterSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/SpawnerPlayerCharacterSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Components/Enemies/State.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Components/Enemies/State.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Components/Enemies/StateType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Components/Enemies/StateType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Components/Enemies/Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Components/Enemies/Target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Components/SpriteReference.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Components/SpriteReference.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/SharedSystemRealisation/EcsPriority.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/SharedSystemRealisation/EcsPriority.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs/src/Hypercube.Ecs/World.Dynamic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs/src/Hypercube.Ecs/World.Dynamic.cs" afterDir="false" />
@@ -57,6 +32,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -65,33 +43,41 @@
   &quot;fromUser&quot;: false
 }</component>
   <component name="ProjectId" id="3DpeYe2k14w8vkD54DuZ77adu7P" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "cidr.known.project.marker": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "enemy-system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;enemy-system&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected=".NET Project.Client">
+}</component>
+  <component name="RunManager" selected="Compound.Server + Client">
+    <configuration name="Server + Client" type="CompoundRunConfigurationType">
+      <toRun name="Client" type="DotNetProject" />
+      <toRun name="Server" type="DotNetProject" />
+      <method v="2" />
+    </configuration>
     <configuration name="Client" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Client/bin/Debug/net10.0/Client.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Client/bin/Debug/net10.0" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
@@ -104,49 +90,7 @@
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
       <option name="PROJECT_KIND" value="DotNetCore" />
-      <option name="PROJECT_TFM" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration name="Hypercube.Editor" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="ENV_FILE_PATHS" value="" />
-      <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="MIXED_MODE_DEBUG" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="AUTO_ATTACH_CHILDREN" value="0" />
-      <option name="PROJECT_PATH" value="$PROJECT_DIR$/hypercube/src/Hypercube.Editor/Hypercube.Editor.csproj" />
-      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
-      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
-      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="DotNetCore" />
-      <option name="PROJECT_TFM" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration name="Hypercube.Runner" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="ENV_FILE_PATHS" value="" />
-      <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="MIXED_MODE_DEBUG" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="AUTO_ATTACH_CHILDREN" value="0" />
-      <option name="PROJECT_PATH" value="$PROJECT_DIR$/hypercube/src/Hypercube.Runner/Hypercube.Runner.csproj" />
-      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
-      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
-      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="DotNetCore" />
-      <option name="PROJECT_TFM" value="" />
+      <option name="PROJECT_TFM" value="net10.0" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -172,6 +116,11 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Project.Client" />
+      <item itemvalue=".NET Project.Server" />
+      <item itemvalue="Compound.Server + Client" />
+    </list>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
