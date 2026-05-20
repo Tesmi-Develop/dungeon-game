@@ -6,6 +6,8 @@ using Hypercube.Mathematics.Vectors;
 using Shared.Attributes;
 using Shared.Components;
 using Shared.SharedSystemRealisation;
+using CollisionComponent = Shared.Components.EngineComponents.CollisionComponent;
+using NetworkTransform = Shared.Components.EngineComponents.NetworkTransform;
 
 namespace Shared.Systems.Collisions;
 
@@ -20,18 +22,18 @@ public class CollisionWorldSystem : SharedSystem
 
     public override void Initialize()
     {
-        _query = GetQuery().WithAll<NetworkTransform, HitboxComponent>().Build();
+        _query = GetQuery().WithAll<NetworkTransform, CollisionComponent>().Build();
         
-        Subscribe((Entity entity, ref HitboxComponent hitbox, ref RemovedEvent args) =>
+        Subscribe((Entity entity, ref CollisionComponent collision, ref RemovedEvent args) =>
         {
-            UnregisterEntity(entity, ref hitbox);
+            UnregisterEntity(entity, ref collision);
         });
     }
 
     [Priority(EcsPriority.UpdateCollisionWorld)]
     public override void GameUpdate(long tick, long _)
     {
-        _query.With((Entity entity, ref NetworkTransform trans, ref HitboxComponent hitbox, ref HitboxComponent presence) =>
+        _query.With((Entity entity, ref NetworkTransform trans, ref CollisionComponent collision, ref CollisionComponent presence) =>
         {
             var currentGridIndex = WorldToGrid(trans.Position);
             
@@ -42,7 +44,7 @@ public class CollisionWorldSystem : SharedSystem
         });
     }
 
-    private void UpdateRegistration(Entity entity, ref HitboxComponent presence, Vector2i currentGridIndex)
+    private void UpdateRegistration(Entity entity, ref CollisionComponent presence, Vector2i currentGridIndex)
     {
         if (presence.GridIndex is { } prev)
         {
@@ -81,7 +83,7 @@ public class CollisionWorldSystem : SharedSystem
         }
     }
     
-    public void UnregisterEntity(Entity entity, ref HitboxComponent presence)
+    public void UnregisterEntity(Entity entity, ref CollisionComponent presence)
     {
         if (presence.GridIndex is not { } prev) 
             return;

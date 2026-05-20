@@ -13,6 +13,7 @@ using Hypercube.Physics.Mathematics;
 using Hypercube.Physics.Shapes;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 using Shared.Systems.Collisions;
 
@@ -43,8 +44,8 @@ public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
     {
         _font = _resourceManager.Load<Font>("/fonts/OpenSans.ttf", [("size", 18)]);
         
-        _query = GetQuery().WithAll<NetworkTransform, HitboxComponent, PlayerCharacter>().Build();
-        _queryNonPlayer = GetQuery().WithAll<NetworkTransform, HitboxComponent>().Build();
+        _query = GetQuery().WithAll<NetworkTransform, CollisionComponent, PlayerCharacter>().Build();
+        _queryNonPlayer = GetQuery().WithAll<NetworkTransform, CollisionComponent>().Build();
     }
     
     public void Draw(IRenderContext renderer, DrawPayload payload)
@@ -58,12 +59,12 @@ public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
 
     private void DrawNearbyCollisions(IRenderContext renderer, DrawPayload payload)
     {
-        _query.With((Entity entity, ref HitboxComponent hitboxComponent, ref PlayerCharacter playerCharacter) =>
+        _query.With((Entity entity, ref CollisionComponent collisionComponent, ref PlayerCharacter playerCharacter) =>
         {
             if (playerCharacter.ClientId != _gameClient.Id)
                 return;
             
-            if (hitboxComponent.GridIndex is not { } gridIndex)
+            if (collisionComponent.GridIndex is not { } gridIndex)
                 return;
             
             _entities.Clear();
@@ -71,7 +72,7 @@ public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
             
             foreach (var targetEntity in _entities)
             {
-                if (!TryGetComponent(targetEntity, out HitboxComponent targetHitboxComponent))
+                if (!TryGetComponent(targetEntity, out CollisionComponent targetHitboxComponent))
                     continue;
                 
                 if (targetHitboxComponent.Shape.Type != ShapeType.Polygon)
@@ -80,7 +81,7 @@ public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
                 if (!TryGetComponent(targetEntity, out NetworkTransform targetNetworkTransformComponent))
                     continue;
                 
-                var transform = new Transform(targetNetworkTransformComponent.Position);
+                var transform = new Transform(targetNetworkTransformComponent.Position, targetHitboxComponent.Rotation);
                 renderer.DrawShapePolygonLine(targetHitboxComponent.Shape.Shape.Polygon, transform, Color.Red);
             }
         });
@@ -88,9 +89,9 @@ public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
 
     private void DrawChunksNums(IRenderContext renderer, DrawPayload payload)
     {
-        _queryNonPlayer.With((Entity entity, ref NetworkTransform transform, ref HitboxComponent hitboxComponent) =>
+        _queryNonPlayer.With((Entity entity, ref NetworkTransform transform, ref CollisionComponent collisionComponent) =>
         {
-            renderer.DrawText(hitboxComponent.GridIndex?.ToString() ?? "null", _font, transform.Position - Vector2.UnitY * 24f, Color.Gray, 1f, Vector2.Half);
+            renderer.DrawText(collisionComponent.GridIndex?.ToString() ?? "null", _font, transform.Position - Vector2.UnitY * 24f, Color.Gray, 1f, Vector2.Half);
         });
     }
 }

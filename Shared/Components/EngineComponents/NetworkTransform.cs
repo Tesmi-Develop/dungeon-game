@@ -3,7 +3,7 @@ using Hypercube.Ecs.Components;
 using Hypercube.Mathematics.Vectors;
 using Shared.Attributes;
 
-namespace Shared.Components;
+namespace Shared.Components.EngineComponents;
 
 [SyncComponent]
 [StructLayout(LayoutKind.Sequential)]

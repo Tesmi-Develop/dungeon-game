@@ -4,6 +4,7 @@ using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;

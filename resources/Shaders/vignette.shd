@@ -1,0 +1,41 @@
+#version 460
+
+[fragment]
+out vec4 FragColor;
+
+in vec4 Color;
+in vec2 TexCoord;
+        
+uniform float intensity;
+uniform vec3 damageColor = vec3(1.0, 0.0, 0.0);
+
+void main()
+{
+    vec2 centerDist = TexCoord - vec2(0.5);
+    float distSq = dot(centerDist, centerDist);
+    float vignette = smoothstep(0.05, 0.55, distSq * 2.0);
+    float effectFactor = vignette * intensity;
+    float finalAlpha = effectFactor;
+
+    FragColor = vec4(damageColor, finalAlpha);
+}
+
+[vertex]
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec4 aColor;
+layout (location = 2) in vec2 aTexCoord;
+layout (location = 3) in vec2 aNormal;   // Doesn't make sense in the 2D context
+
+out vec4 Color;
+out vec2 TexCoord;
+
+uniform mat4 projection;
+uniform mat4 model;
+uniform mat4 view;
+
+void main()
+{
+  gl_Position =  vec4(aPos, 1.0) * model * view * projection; 
+  Color = aColor;
+  TexCoord = aTexCoord;
+}

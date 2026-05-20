@@ -12,6 +12,7 @@ using Shared.Extensions;
 using Shared.ResourcesData;
 using Shared.ResourcesData.TiledMapParts;
 using Shared.ResourcesData.TiledTilesetParts;
+using NetworkTransform = Shared.Components.EngineComponents.NetworkTransform;
 
 namespace Shared;
 

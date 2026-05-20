@@ -2,6 +2,7 @@
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.Extensions;
 
 namespace Client.Systems;

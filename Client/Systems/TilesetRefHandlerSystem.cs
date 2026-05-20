@@ -3,6 +3,7 @@ using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs.Queries;
 using Hypercube.Physics.Shapes;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
@@ -15,7 +16,7 @@ public class TilesetRefHandlerSystem : BaseSystem
 
     public override void Initialize()
     {
-        _query = GetQuery().WithAll<TilesetRefComponent, HitboxDeclarationComponent>().WithNone<HitboxComponent>()
+        _query = GetQuery().WithAll<TilesetRefComponent, HitboxDeclarationComponent>().WithNone<CollisionComponent>()
             .Build();
     }
 

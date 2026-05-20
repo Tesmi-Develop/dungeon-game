@@ -8,7 +8,7 @@ using Shared.SharedSystemRealisation;
 namespace Server.Systems.EnemySystems.AnimationHandlers;
 
 [EcsSystem]
-public class AnimationHandlerSystem : BaseSystem
+public class DefaultStateHandlerSystem : BaseSystem
 {
     [Dependency] private AnimatorSystem _animatorSystem = null!;
     
@@ -30,6 +30,10 @@ public class AnimationHandlerSystem : BaseSystem
                     break;
                 
                 case StateType.Moving:
+                    if (reference.Animations.TryGetValue(state.StateType, out clipName))
+                        _animatorSystem.Play(entity, clipName);
+                    break;
+                case StateType.Attacking:
                     if (reference.Animations.TryGetValue(state.StateType, out clipName))
                         _animatorSystem.Play(entity, clipName);
                     break;

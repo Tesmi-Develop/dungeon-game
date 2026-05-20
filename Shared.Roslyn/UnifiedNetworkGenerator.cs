@@ -116,7 +116,7 @@ public sealed class UnifiedNetworkGenerator : IIncrementalGenerator
         sb.AppendLine("        }");
         sb.AppendLine("    }");
         
-        sb.AppendLine("    public static void PatchComponentFromPayload(int id, Entity entity, World world, long serverTick, ref MessagePackReader reader)");
+        sb.AppendLine("    public static void PatchComponentFromPayload(int id, Entity entity, World world, long serverTick, ref MessagePackReader reader, IEventBus _eventBus)");
         sb.AppendLine("    {");
         sb.AppendLine("        switch (id)");
         sb.AppendLine("        {");
@@ -161,8 +161,12 @@ public sealed class UnifiedNetworkGenerator : IIncrementalGenerator
             sb.AppendLine("                    }");
             sb.AppendLine("");
             sb.AppendLine($"                    var newComp = new {type.FullName}();");
+            sb.AppendLine($"                    var prev = world.Get<{type.FullName}>(entity);");
+            sb.AppendLine($"                    ref var curr = ref world.Get<{type.FullName}>(entity);");
+            sb.AppendLine($"                    var eventData = new Shared.Events.ComponentDirtyEvent<{type.FullName}>(curr);");
             sb.AppendLine($"                    newComp.Deserialize(ref reader);");
-            sb.AppendLine($"                    world.Get<{type.FullName}>(entity) = newComp;");
+            sb.AppendLine($"                    curr = newComp;");
+            sb.AppendLine($"                    _eventBus.Raise(entity, ref curr, ref eventData);");
             sb.AppendLine("                    break;");
             sb.AppendLine("                }");
         }

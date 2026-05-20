@@ -7,6 +7,7 @@ using Shared.Attributes;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.Enemies.EnemyTags;
+using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.EnemySystems;
@@ -21,6 +22,9 @@ public class AttackerStateTransitionSystem : BaseSystem
     {
         Query(_queryMeta).With<Target, State>((entity, ref target, ref state) =>
         {
+            if (state.FrozenState)
+                return;
+            
             if (!target.TargetEntity.HasValue)
             {
                 SetState(entity, ref state, StateType.Idle);
@@ -32,9 +36,9 @@ public class AttackerStateTransitionSystem : BaseSystem
 
             var myPosition = GetComponent<NetworkTransform>(entity).Position;
             
-            if (HasComponent<AttackRange>(entity))
+            if (HasComponent<AttackInfo>(entity))
             {
-                var attackRange = GetComponent<AttackRange>(entity).Range;
+                var attackRange = GetComponent<AttackInfo>(entity).MaxTargetRange;
                 var targetPosition = GetComponent<NetworkTransform>(target.TargetEntity.Value).Position;
                 if (targetPosition.Distance(myPosition) <= attackRange)
                 {

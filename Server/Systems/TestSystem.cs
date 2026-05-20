@@ -9,6 +9,7 @@ using Server.Utilities;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.Enemies.EnemyTags;
+using Shared.Components.EngineComponents;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
@@ -30,7 +31,7 @@ public class TestSystem : BaseSystem
         var enemy = EntityCreate();
         AddComponent(enemy, new NetworkTransform { Position = new Vector2(150, 0)});
         AddComponent(enemy, new Target { TargetAcquisitionRadius = 200, TargetRetentionRadius = 300 });
-        AddComponent(enemy, new AttackRange { Range = 40 });
+        AddComponent(enemy, new AttackInfo { MaxTargetRange = 40, AttackSize = new Vector2(36, 28), Damage = 1 });
         AddComponent(enemy, new Speed { Value = 1f });
         AddComponent(enemy, new EnemyTag());
         AddComponent(enemy, new AttackerTag());
@@ -39,7 +40,8 @@ public class TestSystem : BaseSystem
         AddComponent(enemy, new SpriteReference { Animations =
         {
             [StateType.Idle] = "enemy/Idle",
-            [StateType.Moving] = "enemy/Movement"
+            [StateType.Moving] = "enemy/Movement",
+            [StateType.Attacking] = "enemy/Attacking",
         } });
         World.AddCollision(enemy, new Vector2(32, 32), isTrigger: true);
         

@@ -15,8 +15,13 @@
   <ItemGroup>
     <None Include="$(SolutionDir)resources/**" Link="resources/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" Visible="true" />
   </ItemGroup>
+  
+  <Target Name="CleanOldResources" BeforeTargets="AssignTargetPaths">
+    <RemoveDir Directories="$(TargetDir)resources" Condition="Exists('$(TargetDir)resources')" />
+  </Target>
 
   <ItemGroup>
+    <PackageReference Include="GTweens" Version="4.0.0" />
     <PackageReference Include="LiteNetLib" Version="2.1.3" />
     <PackageReference Include="MessagePack" Version="3.1.4" />
   </ItemGroup>

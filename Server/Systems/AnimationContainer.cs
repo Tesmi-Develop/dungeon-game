@@ -44,7 +44,7 @@ public class AnimationContainer : BaseSystem
             {
                 if (!clip.EventsByFrameIndex.TryGetValue(eventData.FrameIndex, out var events))
                 {
-                    events = clip.EventsByFrameIndex[eventData.FrameIndex];
+                    events = [];
                     clip.EventsByFrameIndex.Add(eventData.FrameIndex, events);
                 }
 

@@ -9,4 +9,6 @@ public partial struct State : IComponent
     public StateType StateType;
     [NonSynced]
     public StateType PrevStateType;
+    [NonSynced]
+    public bool FrozenState;
 }

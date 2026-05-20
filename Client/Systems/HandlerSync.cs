@@ -2,6 +2,7 @@
 using Client.InternalSystems;
 using Client.Utilities;
 using Hypercube.Ecs;
+using Hypercube.Ecs.Events;
 using Hypercube.Utilities.Dependencies;
 using MessagePack;
 using Shared.Data;
@@ -97,7 +98,8 @@ public class HandlerSync : BaseSystem
 
                 if (!skipDirty)
                 {
-                    NetworkFactory.PatchComponentFromPayload(componentId, entity, World, packetServerTick, ref reader);
+                    
+                    NetworkFactory.PatchComponentFromPayload(componentId, entity, World, packetServerTick, ref reader, World.Events);
                     _predictSystem.ReconcileState(entity);
                 }
                 else

@@ -1,14 +1,14 @@
 ﻿using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
-using Hypercube.Physics;
 using Hypercube.Physics.Collision;
 using Hypercube.Physics.Manifolds;
 using Hypercube.Physics.Mathematics;
 using Hypercube.Utilities.Dependencies;
 using Shared.Attributes;
-using Shared.Components;
 using Shared.SharedSystemRealisation;
+using CollisionComponent = Shared.Components.EngineComponents.CollisionComponent;
+using NetworkTransform = Shared.Components.EngineComponents.NetworkTransform;
 
 namespace Shared.Systems.Collisions;
 
@@ -23,21 +23,21 @@ public class CollisionSystem : SharedSystem
     [Priority(EcsPriority.UpdateCollisions)]
     public override void GameUpdate(long tick, long _)
     {
-        _movableQuery = GetQuery().WithAll<NetworkTransform, HitboxComponent>().Build();
-        _movableQuery.With((Entity entity, ref NetworkTransform trans, ref HitboxComponent hitbox) =>
+        _movableQuery = GetQuery().WithAll<NetworkTransform, CollisionComponent>().Build();
+        _movableQuery.With((Entity entity, ref NetworkTransform trans, ref CollisionComponent collision) =>
         {
-            if (hitbox.IsStatic || !hitbox.GridIndex.HasValue) 
+            if (collision.IsStatic || !collision.GridIndex.HasValue) 
                 return;
 
             _neighborBuffer.Clear();
-            _worldSystem.GetNearby(hitbox.GridIndex.Value, _neighborBuffer);
+            _worldSystem.GetNearby(collision.GridIndex.Value, _neighborBuffer);
             
             foreach (var neighbor in _neighborBuffer)
             {
                 if (entity == neighbor) 
                     continue;
                 
-                ResolveCollision(entity, neighbor);
+                HandleCollision(entity, neighbor);
             }
         });
     }
@@ -47,15 +47,22 @@ public class CollisionSystem : SharedSystem
         ref var transformA = ref World.Get<NetworkTransform>(entityA);
         ref var transformB = ref World.Get<NetworkTransform>(entityB);
         
-        ref var hitboxA = ref World.Get<HitboxComponent>(entityA);
-        ref var hitboxB = ref World.Get<HitboxComponent>(entityB);
+        ref var hitboxA = ref World.Get<CollisionComponent>(entityA);
+        ref var hitboxB = ref World.Get<CollisionComponent>(entityB);
         
-        if (hitboxB.IsTrigger)
+        return GetManifold(ref transformA, ref hitboxA, ref transformB, ref hitboxB);
+    }
+    
+    public Manifold HandleCollision(Entity entityA, Entity entityB)
+    {
+        ref var transformA = ref World.Get<NetworkTransform>(entityA);
+        ref var transformB = ref World.Get<NetworkTransform>(entityB);
+        ref var hitboxB = ref World.Get<CollisionComponent>(entityB);
+        
+        var manifold = ResolveCollision(entityA, entityB);
+        
+        if (hitboxB.IsTrigger || manifold.IsEmpty)
             return Manifold.Empty;
-        
-        var manifold = GetManifold(ref transformA, ref hitboxA, ref transformB, ref hitboxB);
-        if (manifold.IsEmpty)
-            return manifold;
         
         var pushFactor = hitboxB.IsStatic ? 1.0f : 0.5f;
         var maxSeparation = 0f;
@@ -79,10 +86,10 @@ public class CollisionSystem : SharedSystem
         return manifold;
     }
     
-    private Manifold GetManifold(ref NetworkTransform tA, ref HitboxComponent hA, ref NetworkTransform tB, ref HitboxComponent hB)
+    private Manifold GetManifold(ref NetworkTransform tA, ref CollisionComponent hA, ref NetworkTransform tB, ref CollisionComponent hB)
     {
-        var physicsTransA = new Transform(tA.Position);
-        var physicsTransB = new Transform(tB.Position);
+        var physicsTransA = new Transform(tA.Position, hA.Rotation);
+        var physicsTransB = new Transform(tB.Position, hB.Rotation);
 
         return Contacts.Resolve(hA.Shape, physicsTransA, hB.Shape, physicsTransB);
     }
@@ -90,10 +97,10 @@ public class CollisionSystem : SharedSystem
     public bool HasOverlap(Entity entity)
     {
         ref var transformA = ref World.Get<NetworkTransform>(entity);
-        ref var hitbox = ref World.Get<HitboxComponent>(entity);
+        ref var hitbox = ref World.Get<CollisionComponent>(entity);
         
         var results = new List<Entity>();
-        _worldSystem.GetNearby(hitbox.GridIndex!.Value, results);
+        _worldSystem.GetNearby(hitbox.GridIndex ?? _worldSystem.WorldToGrid(transformA.Position), results);
 
         foreach (var other in results)
         {
@@ -110,10 +117,10 @@ public class CollisionSystem : SharedSystem
     public Manifold GetFirstOverlap(Entity entity)
     {
         ref var transformA = ref World.Get<NetworkTransform>(entity);
-        ref var hitbox = ref World.Get<HitboxComponent>(entity);
+        ref var hitbox = ref World.Get<CollisionComponent>(entity);
         
         var results = new List<Entity>();
-        _worldSystem.GetNearby(hitbox.GridIndex!.Value, results);
+        _worldSystem.GetNearby(hitbox.GridIndex ?? _worldSystem.WorldToGrid(transformA.Position), results);
 
         foreach (var other in results)
         {
@@ -125,5 +132,26 @@ public class CollisionSystem : SharedSystem
         }
 
         return Manifold.Empty;
+    }
+    
+    public List<(Entity entity, Manifold manifold)> GetAllOverlap(Entity entity)
+    {
+        ref var transformA = ref World.Get<NetworkTransform>(entity);
+        ref var hitbox = ref World.Get<CollisionComponent>(entity);
+        
+        var entities = new List<Entity>();
+        var results = new List<(Entity, Manifold)>();
+        _worldSystem.GetNearby(hitbox.GridIndex ?? _worldSystem.WorldToGrid(transformA.Position), entities);
+
+        foreach (var other in entities)
+        {
+            var manifold = ResolveCollision(entity, other);
+            if (manifold.IsEmpty)
+                continue;
+            
+            results.Add((other, manifold));
+        }
+
+        return results;
     }
 }

@@ -5,6 +5,7 @@ using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
 using Shared.Attributes;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;

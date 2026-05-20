@@ -11,6 +11,7 @@ public static class MessagePackHelper
     {
         var formatterResolver = StaticCompositeResolver.Instance;
         formatterResolver.Register(new Vector2Formatter());
+        formatterResolver.Register(new AngleFormatter());
         formatterResolver.Register(new ShapeCircleFormatter());
         formatterResolver.Register(new ShapePolygonFormatter());
         formatterResolver.Register(new ShapeUnionTypedFormatter());

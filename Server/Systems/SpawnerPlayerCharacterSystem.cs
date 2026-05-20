@@ -8,6 +8,7 @@ using Server.Components;
 using Server.Components.Events;
 using Server.Utilities;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
@@ -65,6 +66,7 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
         World.Add(characterEntity, new SpriteReference { DefaultTexturePatch = string.Empty }); //TODO player sprite
         World.Add(characterEntity, new Speed { Value = 4f });
         World.Add(characterEntity, new PlayerCharacter { ClientId = playerData.Id });
+        World.Add(characterEntity, new Health() { Current = 10, Max = 10 });
         World.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);
     }
 
