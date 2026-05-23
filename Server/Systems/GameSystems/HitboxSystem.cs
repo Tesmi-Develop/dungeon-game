@@ -5,6 +5,7 @@ using Server.Components.Events;
 using Server.Utilities;
 using Shared.Components;
 using Shared.Components.EngineComponents;
+using Shared.Data;
 using Shared.SharedSystemRealisation;
 using Shared.Systems.Collisions;
 
@@ -21,10 +22,14 @@ public class HitboxSystem : BaseSystem
         Query(_queryMeta).With<Damage>((entity, ref damageComponent) =>
         {
             var collisions = _collisionSystem.GetAllOverlap(entity);
-
+            var fraction = HasComponent<Fraction>(entity) ? GetComponent<Fraction>(entity).Value : (FractionType?)null;
+            
             foreach (var (otherEntity, _) in collisions)
             {
                 if (!HasComponent<Health>(otherEntity))
+                    continue;
+                
+                if (HasComponent<Fraction>(otherEntity) && GetComponent<Fraction>(otherEntity).Value == fraction)
                     continue;
                 
                 Logger.Info("Take damage!");

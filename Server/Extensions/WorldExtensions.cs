@@ -4,6 +4,7 @@ using Hypercube.Mathematics.Vectors;
 using Server.Components;
 using Shared.Components;
 using Shared.Components.EngineComponents;
+using Shared.Data;
 using Shared.Extensions;
 
 namespace Server.Extensions;
@@ -25,13 +26,13 @@ public static class WorldExtensions
         public int LifeTicks = 1;
     }
     
-    public static Entity CreateDamageableCollision(this World world, CollisionInfo collisionInfo, DamagePayload damagePayload)
+    public static Entity CreateDamageableCollision(this World world, CollisionInfo collisionInfo, DamagePayload damagePayload, FractionType fractionType)
     {
         var entity = world.Create();
 
         world.Add<DeferredTag>(entity);
         world.Add(entity, new NetworkTransform { Position = collisionInfo.Position });
-        world.Add(entity, new Damage() { Value = damagePayload.Damage });
+        world.Add(entity, new Damage { Value = damagePayload.Damage });
 
         if (collisionInfo.Radius > 0 && collisionInfo.Size != Vector2.Zero)
             throw new ArgumentException("You cannot specify both size and radius simultaneously.");
@@ -47,6 +48,7 @@ public static class WorldExtensions
                 RemainingTicks =  damagePayload.LifeTicks,
             });
         
+        world.Add(entity, new Fraction { Value = fractionType });
         return entity;
     }
 }

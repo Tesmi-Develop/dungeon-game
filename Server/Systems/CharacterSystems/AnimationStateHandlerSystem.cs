@@ -1,12 +1,11 @@
 ﻿using Hypercube.Utilities.Dependencies;
-using Server.Components.Events;
 using Server.Utilities;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Events;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems.EnemySystems.StateHandlers;
+namespace Server.Systems.CharacterSystems;
 
 [EcsSystem]
 public class AnimationStateHandlerSystem : BaseSystem

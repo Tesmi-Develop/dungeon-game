@@ -8,6 +8,7 @@ using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.EngineComponents;
 using Shared.Components.States;
+using Shared.Data;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 using WorldExtensions = Server.Extensions.WorldExtensions;
@@ -42,6 +43,7 @@ public class AttackHandlerSystem : BaseSystem
             var transform = GetComponent<NetworkTransform>(entity);
             var collision = GetComponent<CollisionComponent>(entity);
             var attackInfo = GetComponent<AttackInfo>(entity);
+            var fractionValue = HasComponent<Fraction>(entity) ? GetComponent<Fraction>(entity).Value : FractionType.Players;
                 
             var direction = (attackingState.TargetPosition - transform.Position).Normalized;
             var radius = attackInfo.AttackSize.X / 2 + collision.Size.X / 2;
@@ -54,7 +56,7 @@ public class AttackHandlerSystem : BaseSystem
             }, new WorldExtensions.DamagePayload
             {
                 Damage = attackInfo.Damage
-            });
+            }, fractionValue);
         }
     }
 }

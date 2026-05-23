@@ -14,8 +14,8 @@ namespace Server.Systems.CharacterSystems;
 [EcsSystem]
 public class MovementSystem : BaseSystem
 {
-    private QueryMeta _queryMeta = new QueryMeta().WithAll<NetworkTransform, MovingDirection, Speed>();
-    private List<Entity> _entities = [];
+    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<NetworkTransform, MovingDirection, Speed>();
+    private readonly List<Entity> _entities = [];
 
     [Priority(EcsPriority.BeforeApplyDirection - 1)]
     public override void GameUpdate(long tick, long _)

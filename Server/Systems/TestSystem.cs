@@ -11,6 +11,7 @@ using Shared.Components.Enemies;
 using Shared.Components.Enemies.EnemyTags;
 using Shared.Components.EngineComponents;
 using Shared.Components.States;
+using Shared.Data;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
@@ -38,6 +39,8 @@ public class TestSystem : BaseSystem
         AddComponent(enemy, new EnemyTag());
         AddComponent(enemy, new AttackerTag());
         AddComponent(enemy, new PlayerTargetTag());
+        AddComponent(enemy, new Health { Current = 5, Max = 5 });
+        AddComponent(enemy, new Fraction { Value = FractionType.Enemies });
         AddComponent(enemy, new AnimationStateMapping { Animations =
         {
             [typeof(Idle)] = "enemy/Idle",

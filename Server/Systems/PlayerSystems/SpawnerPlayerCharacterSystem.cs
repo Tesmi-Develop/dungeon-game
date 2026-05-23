@@ -8,8 +8,10 @@ using Server.Components;
 using Server.Components.Events;
 using Server.Utilities;
 using Shared.Components;
+using Shared.Components.Enemies;
 using Shared.Components.EngineComponents;
 using Shared.Components.States;
+using Shared.Data;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
@@ -65,10 +67,11 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
         
         AddComponent(characterEntity, new NetworkTransform { Position = position });
         AddComponent(characterEntity, new MovingDirection());
-        //AddComponent(characterEntity, new SpriteReference { DefaultTexturePatch = string.Empty }); //TODO player sprite
+        AddComponent(characterEntity, new AttackInfo { MaxTargetRange = 40, AttackSize = new Vector2(36, 28), Damage = 1 });
         AddComponent(characterEntity, new Speed { Value = 4f });
         AddComponent(characterEntity, new PlayerCharacter { ClientId = playerData.Id });
         AddComponent(characterEntity, new Health { Current = 10, Max = 10 });
+        AddComponent(characterEntity, new Fraction { Value = FractionType.Players });
         AddComponent(characterEntity, new AnimationStateMapping { Animations =
         {
             [typeof(Idle)] = "enemy/Idle",
