@@ -39,13 +39,14 @@ public class TestSystem : BaseSystem
         AddComponent(enemy, new EnemyTag());
         AddComponent(enemy, new AttackerTag());
         AddComponent(enemy, new PlayerTargetTag());
-        AddComponent(enemy, new Health { Current = 5, Max = 5 });
+        AddComponent(enemy, new Health { Current = 1, Max = 1 });
         AddComponent(enemy, new Fraction { Value = FractionType.Enemies });
         AddComponent(enemy, new AnimationStateMapping { Animations =
         {
             [typeof(Idle)] = "enemy/Idle",
             [typeof(Moving)] = "enemy/Movement",
             [typeof(Attacking)] = "enemy/Attacking",
+            [typeof(Died)] = "enemy/Died"
         } });
         World.AddCollision(enemy, new Vector2(32, 32), isTrigger: true);
         World.SetState<Idle>(enemy);

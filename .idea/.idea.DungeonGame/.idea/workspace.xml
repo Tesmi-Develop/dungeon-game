@@ -17,18 +17,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Shared/Components/Fraction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Data/FractionType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Extensions/CameraExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/DiedStateTransitionSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shared/Components/States/Died.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shared/Extensions/WorldCharacterExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Extensions/WorldExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Extensions/WorldExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/CharacterSystems/MovementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/MovementSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterControllerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterControllerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DungeonGame.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/DungeonGame.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AnimationStateHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/AnimationStateHandlerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AttackHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AttackHandlerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/GameSystems/HitboxSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/GameSystems/HitboxSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/GameSystems/DamageSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/GameSystems/DamageSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerAttackSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerAttackSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerMovementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerMovementSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
@@ -61,7 +59,7 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/hypercube/submodules/ecs" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/A17AFC6F91AF0DDE0C8C4D6F/Shared.Roslyn/Shared.Roslyn.UnifiedNetworkGenerator/NetworkFactory.g.cs" root0="FORCE_HIGHLIGHTING" />
@@ -85,23 +83,27 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/923e881d2face21dfd1b93d7f8eed86b92b7e52ae1ad92bf6372ad712a846/UnaryExpression.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aeddec7ccf3f1571cfd14ca2540abbf19f9846eb91bc3767e402298d4cbaa/ConcurrentDictionary.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c24d475d83442e0a97ce97fdd4d43d6b5a3977b2a474c7996b895330c6b0/Span.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fc881f48416c295d6332d0f5c0f653a410779aa3d7549afe5d0bf67cdd458/Math.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff8f1c7d993fae2e299e8239bb5b8249de1701b89ba8022181c7ba5fdce2a5a/StreamReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/TakeDamageTrackerSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Extensions/EntityExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/AnimatorSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Server/Systems/CharacterSystems/DiedStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/CharacterSystems/EndAttackStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/AnimationStateMapping.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/Enemies/EnemyTags/AttackerTag.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Shared/Components/Faction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/MovingDirection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/States/Attacking.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Shared/Components/States/Died.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/States/Idle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/States/Moving.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Data/FractionType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Extensions/CameraExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Shared/Extensions/WorldCharacterExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Extensions/WorldStateExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Systems/SharedAnimatorSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/hypercube/src/Hypercube.Core/Ecs/EntitySystemManager.WorldDynamic.cs" root0="FORCE_HIGHLIGHTING" />
@@ -125,8 +127,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.Client.executor": "Run",
-    ".NET Project.Server.executor": "Run",
+    ".NET Project.Client.executor": "Debug",
+    ".NET Project.Server.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -134,7 +136,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "enemy-system",
+    "git-widget-placeholder": "Alternative",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

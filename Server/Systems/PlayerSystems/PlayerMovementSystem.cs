@@ -26,7 +26,7 @@ public class PlayerMovementSystem : BaseSystem
                 return;
             
             var characterEntity = World.Get<ControlledEntity>(clientEntity).Reference;
-            if (!World.Validate(characterEntity))
+            if (!World.Validate(characterEntity) || !World.IsAliveCharacter(characterEntity))
                 return;
 
             if (!NetworkHelper.TryGetInputFromTick<MoveRequest>(World, clientEntity, tick, out var inputData))

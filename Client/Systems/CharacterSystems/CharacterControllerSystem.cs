@@ -8,6 +8,7 @@ using LiteNetLib;
 using Shared.Components;
 using Shared.Components.EngineComponents;
 using Shared.Components.Requests;
+using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.CharacterSystems;
@@ -30,7 +31,7 @@ public class CharacterControllerSystem : BaseSystem
     {
         _query.With<NetworkTransform, PlayerCharacter, Speed>((entity, ref transform, ref playerCharacter, ref speed) =>
         {
-            if (_gameClient.Id != playerCharacter.ClientId)
+            if (_gameClient.Id != playerCharacter.ClientId || !World.IsAliveCharacter(entity))
                 return;
             
             var direction = new Vector2();

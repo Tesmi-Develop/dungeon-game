@@ -24,7 +24,7 @@ public class PlayerAttackSystem : BaseSystem
                 return;
             
             var characterEntity = World.Get<ControlledEntity>(clientEntity).Reference;
-            if (!World.Validate(characterEntity))
+            if (!World.Validate(characterEntity) || !World.IsAliveCharacter(characterEntity))
                 return;
             
             if (HasComponent<Attacking>(characterEntity) || !HasComponent<NetworkTransform>(characterEntity))

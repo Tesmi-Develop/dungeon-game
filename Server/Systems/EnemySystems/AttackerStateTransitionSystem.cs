@@ -24,8 +24,11 @@ public class AttackerStateTransitionSystem : BaseSystem
         {
             ref var target = ref GetComponent<Target>(entity);
             ref var state = ref GetComponent<State>(entity);
-
-            if (state.FrozenState || !target.TargetEntity.HasValue || !HasComponent<NetworkTransform>(entity))
+            
+            if (!World.IsAliveCharacter(entity) || 
+                state.FrozenState || 
+                !target.TargetEntity.HasValue || 
+                !HasComponent<NetworkTransform>(entity))
                 return;
 
             var myPosition = GetComponent<NetworkTransform>(entity).Position;

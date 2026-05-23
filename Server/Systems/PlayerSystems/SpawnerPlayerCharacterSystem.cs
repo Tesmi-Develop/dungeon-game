@@ -74,9 +74,9 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
         AddComponent(characterEntity, new Fraction { Value = FractionType.Players });
         AddComponent(characterEntity, new AnimationStateMapping { Animations =
         {
-            [typeof(Idle)] = "enemy/Idle",
-            [typeof(Moving)] = "enemy/Movement",
-            [typeof(Attacking)] = "enemy/Attacking",
+            [typeof(Idle)] = "player/Idle",
+            [typeof(Moving)] = "player/Movement",
+            [typeof(Attacking)] = "player/Attacking",
         } });
         World.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);
         World.SetState<Idle>(characterEntity);

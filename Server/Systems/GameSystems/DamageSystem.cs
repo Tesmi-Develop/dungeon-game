@@ -13,7 +13,7 @@ public class DamageSystem : BaseSystem
     {
         Subscribe<Health, TookDamage>((entity, ref health, ref damageArg) =>
         {
-            health.Current -= damageArg.Value;
+            health.Current = Math.Clamp(health.Current - damageArg.Value, 0, health.Max);
             Console.WriteLine(health.Current);
             NetworkHelper.MakeDirty<Health>(World, entity);
         });
