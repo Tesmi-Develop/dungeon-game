@@ -36,7 +36,8 @@ public static class Program
         var logger = new ConsoleLogger();
         var world = new World();
         var time = new Time();
-        
+
+        world.WarmUpComponentsAsync();
         dependenciesContainer.RegisterSingleton<IEventBus>(world.Events);
         dependenciesContainer.RegisterSingleton<Time>(time);
         

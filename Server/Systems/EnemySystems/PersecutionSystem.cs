@@ -6,6 +6,7 @@ using Shared.Attributes;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.EngineComponents;
+using Shared.Components.States;
 using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.EnemySystems;
@@ -13,14 +14,14 @@ namespace Server.Systems.EnemySystems;
 [EcsSystem]
 public class PersecutionSystem : BaseSystem
 {
-    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<Speed, Target, NetworkTransform, State>();
+    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<Speed, Target, NetworkTransform, Moving>();
 
     [Priority(EcsPriority.AfterTargetScanner)]
     public override void GameUpdate(long tick, long predictTick)
     {
-        Query(_queryMeta).With((Entity entity, ref NetworkTransform transform, ref Target target, ref Speed speed, ref State state) =>
+        Query(_queryMeta).With((Entity entity, ref NetworkTransform transform, ref Target target, ref Speed speed) =>
         {
-            if (!target.TargetEntity.HasValue || state.StateType != StateType.Moving)
+            if (!target.TargetEntity.HasValue)
                 return;
             
             ref var targetTransform = ref GetComponent<NetworkTransform>(target.TargetEntity.Value);
@@ -28,9 +29,6 @@ public class PersecutionSystem : BaseSystem
             
             if (delta.Length < 0.001)
                 return;
-            
-            if (HasComponent<State>(entity))
-                GetComponent<State>(entity).StateType = StateType.Moving;
             
             var direction = delta.Normalized;
             

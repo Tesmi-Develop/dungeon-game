@@ -11,7 +11,7 @@ namespace Shared.Systems;
 
 public abstract class SharedAnimatorSystem : SharedSystem
 {
-    private readonly QueryMeta _query = new QueryMeta().WithAll<SpriteComponent, Animator>();
+    private readonly QueryMeta _query = new QueryMeta().WithAll<Animator>();
 
     protected abstract long GetCurrentTick();
     protected abstract AnimationClip GetAnimationClip(string clipName);
@@ -113,9 +113,6 @@ public abstract class SharedAnimatorSystem : SharedSystem
     
     public void Play(Entity entity, string clipName, bool? loop)
     {
-        if (!HasComponent<SpriteComponent>(entity))
-            AddComponent<SpriteComponent>(entity);
-        
         var clip = GetAnimationClip(clipName);
         Play(entity, clip, loop);
     }

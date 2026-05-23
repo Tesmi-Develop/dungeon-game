@@ -8,6 +8,8 @@ using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.Enemies.EnemyTags;
 using Shared.Components.EngineComponents;
+using Shared.Components.States;
+using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.EnemySystems;
@@ -16,18 +18,22 @@ namespace Server.Systems.EnemySystems;
 public class AttackerStateTransitionSystem : BaseSystem
 {
     private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<Target, State, AttackerTag, EnemyTag>();
+    private readonly List<Entity> _entities = [];
 
     [Priority(EcsPriority.AfterTargetScanner)]
     public override void GameUpdate(long tick, long predictTick)
     {
-        Query(_queryMeta).With<Target, State>((entity, ref target, ref state) =>
+        foreach (var entity in World.CollectEntities(_queryMeta, _entities))
         {
+            ref var target = ref GetComponent<Target>(entity);
+            ref var state = ref GetComponent<State>(entity);
+            
             if (state.FrozenState)
                 return;
             
             if (!target.TargetEntity.HasValue)
             {
-                SetState(entity, ref state, StateType.Idle);
+                World.SetState<Idle>(entity);
                 return;
             }
 
@@ -42,28 +48,16 @@ public class AttackerStateTransitionSystem : BaseSystem
                 var targetPosition = GetComponent<NetworkTransform>(target.TargetEntity.Value).Position;
                 if (targetPosition.Distance(myPosition) <= attackRange)
                 {
-                    SetState(entity, ref state, StateType.Attacking);
+                    World.SetState(entity, new Attacking { TargetPosition = targetPosition });
                     return;
                 }
             }
             
             if (HasComponent<NetworkTransform>(entity))
             {
-                SetState(entity, ref state, StateType.Moving);
+                World.SetState<Moving>(entity);
                 return;
             }
-        });
-    }
-
-    private void SetState(Entity entity, ref State state, StateType stateType)
-    {
-        var prevValue = state.PrevStateType;
-        state.StateType = stateType;
-        
-        if (state.StateType == prevValue)
-            return;
-        
-        NetworkHelper.MakeDirty<State>(World, entity);
-        Raise(entity, ref state, new StateUpdated());
+        }
     }
 }

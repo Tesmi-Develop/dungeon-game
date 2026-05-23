@@ -21,6 +21,15 @@ public static class WorldExtensions
             return entities;
         }
         
+        public List<Entity> CollectEntities(QueryMeta meta, List<Entity> entities)
+        {
+            if (entities.Count > 0)
+                entities.Clear();
+            
+            world.Query(meta).ForEach(entities.Add);
+            return entities;
+        }
+        
         public Entity GetFirstEntity(Query query)
         {
             foreach (var e in query)

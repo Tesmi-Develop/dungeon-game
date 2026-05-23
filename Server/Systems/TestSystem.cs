@@ -10,6 +10,7 @@ using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.Enemies.EnemyTags;
 using Shared.Components.EngineComponents;
+using Shared.Components.States;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
@@ -36,14 +37,14 @@ public class TestSystem : BaseSystem
         AddComponent(enemy, new EnemyTag());
         AddComponent(enemy, new AttackerTag());
         AddComponent(enemy, new PlayerTargetTag());
-        AddComponent(enemy, new State { StateType = StateType.Idle } );
-        AddComponent(enemy, new SpriteReference { Animations =
+        AddComponent(enemy, new AnimationStateMapping { Animations =
         {
-            [StateType.Idle] = "enemy/Idle",
-            [StateType.Moving] = "enemy/Movement",
-            [StateType.Attacking] = "enemy/Attacking",
+            [typeof(Idle)] = "enemy/Idle",
+            [typeof(Moving)] = "enemy/Movement",
+            [typeof(Attacking)] = "enemy/Attacking",
         } });
         World.AddCollision(enemy, new Vector2(32, 32), isTrigger: true);
+        World.SetState<Idle>(enemy);
         
         /*Task.Run(async () =>
         {

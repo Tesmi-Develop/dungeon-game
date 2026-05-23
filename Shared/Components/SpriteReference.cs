@@ -9,7 +9,6 @@ namespace Shared.Components;
 public partial struct SpriteReference : IComponent
 {
     public string DefaultTexturePatch = string.Empty;
-    public Dictionary<StateType, string> Animations = [];
     public Vector2 Scale = Vector2.One;
     
     public SpriteReference()

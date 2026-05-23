@@ -31,7 +31,7 @@ public class AnimatorSystem : SharedAnimatorSystem
     protected override void OnAnimationFrameIndexUpdate(Entity entity, ref Animator animator, int frameIndex)
     {
         if (!HasComponent<SpriteComponent>(entity))
-            return;
+            AddComponent<SpriteComponent>(entity);
         
         ref var sprite = ref GetComponent<SpriteComponent>(entity);
         var clip = animator.CurrentClip!;
