@@ -6,8 +6,8 @@ using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using LiteNetLib;
 using Shared.Components;
-using Shared.Components.Commands;
 using Shared.Components.EngineComponents;
+using Shared.Components.Requests;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.CharacterSystems;

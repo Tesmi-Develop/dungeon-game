@@ -14,7 +14,7 @@ namespace Server.Systems.EnemySystems;
 [EcsSystem]
 public class AttackerStateTransitionSystem : BaseSystem
 {
-    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<Target, State, AttackerTag, EnemyTag>();
+    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<Target, State, AttackerTag, EnemyTag>().WithAny<Idle, Moving>();
     private readonly List<Entity> _entities = [];
 
     [Priority(EcsPriority.AfterTargetScanner)]
@@ -29,10 +29,7 @@ public class AttackerStateTransitionSystem : BaseSystem
                 return;
             
             if (!target.TargetEntity.HasValue)
-            {
-                World.SetState<Idle>(entity);
                 return;
-            }
 
             if (!HasComponent<NetworkTransform>(entity))
                 return;

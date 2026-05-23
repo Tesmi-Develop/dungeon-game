@@ -50,5 +50,8 @@ public class InputStorage : EntitySystem
         
         if (_inputHandler.IsKeyHeld(Key.A))
             inputs.Add(Input.MoveLeft);
+        
+        if (_inputHandler.IsMouseButtonHeld(MouseButton.Left))
+            inputs.Add(Input.Attack);
     }
 }

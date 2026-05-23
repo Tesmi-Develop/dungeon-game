@@ -5,25 +5,22 @@ using Server.Helpers;
 using Server.Utilities;
 using Shared.Attributes;
 using Shared.Components;
-using Shared.Components.Commands;
+using Shared.Components.States;
+using Shared.Extensions;
 using Shared.SharedSystemRealisation;
+using MoveRequest = Shared.Components.Requests.MoveRequest;
 
 namespace Server.Systems.PlayerSystems;
 
 [EcsSystem]
 public class PlayerMovementSystem : BaseSystem
 {
-    private Query _query = null!;
-
-    public override void Initialize()
-    {
-        _query = GetQuery().WithAll<ClientData>().Build();
-    }
+    private readonly QueryMeta _meta = new QueryMeta().WithAll<ClientData>();
 
     [Priority(EcsPriority.StateUpdater + 1)]
     public override void GameUpdate(long tick, long _)
     {
-        _query.With((Entity clientEntity, ref ClientData clientData) =>
+        With(_meta, (Entity clientEntity, ref ClientData clientData) =>
         {
             if (!World.Has<ControlledEntity>(clientEntity))
                 return;
@@ -40,6 +37,7 @@ public class PlayerMovementSystem : BaseSystem
             
             ref var movingDirection = ref World.Get<MovingDirection>(characterEntity);
             movingDirection.Direction = inputData.Direction;
+            World.SetState<Moving>(characterEntity);
         });
     }
 }

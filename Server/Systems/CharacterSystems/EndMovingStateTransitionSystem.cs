@@ -12,23 +12,17 @@ using Shared.SharedSystemRealisation;
 namespace Server.Systems.CharacterSystems;
 
 [EcsSystem]
-public class MovingStateTransitionSystem : BaseSystem
+public class EndMovingStateTransitionSystem : BaseSystem
 {
-    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<MovingDirection, State>().WithAny<Idle, Moving>();
+    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<MovingDirection, State>().WithAll<Moving>();
 
     [Priority(EcsPriority.StateUpdater)]
     public override void GameUpdate(long tick, long predictTick)
     {
         With(_queryMeta, (Entity e, ref MovingDirection direction, ref State state) =>
         {
-            if (state.FrozenState)
-                return;
-
             if (direction.Direction != Vector2.Zero)
-            {
-                World.SetState<Moving>(e);
                 return;
-            }
             
             World.SetState<Idle>(e);
         });

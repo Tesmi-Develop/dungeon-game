@@ -83,10 +83,10 @@ public static class NetworkHelper
         if (inputData.Tick != tick)
             return false;
         
-        if (inputData.Input is null)
+        if (inputData.Input is not T dataInput)
             return false;
         
-        input = (T)inputData.Input;
+        input = dataInput;
         return true;
     }
 }

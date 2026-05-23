@@ -17,29 +17,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/MovementSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/MovingStateTransitionSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/MovingDirection.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/SharedSystemRealisation/SharedSystem.WithCollect.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/EndAttackStateTransitionSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerAttackSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shared/Components/Requests/AttackRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/DamageSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/GameSystems/DamageSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/DeferredEntitiesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/UtilitiySystems/DeferredEntitiesSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/DestroySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/UtilitiySystems/DestroySystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Data/Input.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Input.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/InternalSystems/InputStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/InternalSystems/InputStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterControllerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterControllerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Helpers/NetworkHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Helpers/NetworkHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/CharacterSystems/MovingStateTransitionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/EndMovingStateTransitionSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/DirectionHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/DirectionHandlerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/PersecutionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/PersecutionSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AnimationStateHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AnimationStateHandlerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/HitboxSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/GameSystems/HitboxSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/LifetimeSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/UtilitiySystems/LifetimeSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/LoadArenaTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/LoadArenaTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/MovementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerMovementSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/NetworkMetadataSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/Network/NetworkMetadataSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/SpawnerPlayerCharacterSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/SyncSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/Network/SyncSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/TilesetRefHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/GameSystems/TilesetRefHandlerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/SharedSystemRealisation/BaseSystem.Ecs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/SharedSystemRealisation/SharedSystem.Ecs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/SharedSystemRealisation/EcsPriority.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/SharedSystemRealisation/EcsPriority.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AttackHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/StateHandlers/AttackHandlerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerMovementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerMovementSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/Components/Commands/MoveRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Components/Requests/MoveRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" afterDir="false" />
@@ -95,16 +86,13 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aeddec7ccf3f1571cfd14ca2540abbf19f9846eb91bc3767e402298d4cbaa/ConcurrentDictionary.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff8f1c7d993fae2e299e8239bb5b8249de1701b89ba8022181c7ba5fdce2a5a/StreamReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/TakeDamageTrackerSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Extensions/EntityExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/AnimatorSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Server/Systems/DamageSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Server/Systems/DeferredEntitiesSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Server/Systems/CharacterSystems/EndAttackStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Server/Systems/EnemySystems/DirectionHandlerSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Server/Systems/EnemySystems/MovingStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Server/Systems/HitboxSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Server/Systems/LifetimeSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/AnimationStateMapping.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/Enemies/EnemyTags/AttackerTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/MovingDirection.cs" root0="FORCE_HIGHLIGHTING" />
@@ -149,7 +137,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "settings.editor.selected.configurable": "editor.preferences.completion.popup",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

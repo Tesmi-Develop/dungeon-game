@@ -34,16 +34,7 @@ public class AttackHandlerSystem : BaseSystem
         foreach (var entity in World.CollectEntities(_queryMeta, _entities))
         {
             ref var attackingState = ref GetComponent<Attacking>(entity);
-            ref var state = ref GetComponent<State>(entity);
             ref var animator = ref GetComponent<Animator>(entity);
-            
-            state.FrozenState = true;
-            if (!animator.IsPlaying)
-            {
-                state.FrozenState = false;
-                World.SetState<Idle>(entity);
-                return;
-            }
 
             if (!_animatorSystem.IsEventTriggered(entity, "Hit")) 
                 continue;
