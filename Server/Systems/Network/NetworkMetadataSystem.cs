@@ -5,7 +5,7 @@ using Server.Utilities;
 using Shared.Attributes;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.Network;
 
 [EcsSystem(EcsPriority.High)]
 public class NetworkMetadataSystem : BaseSystem

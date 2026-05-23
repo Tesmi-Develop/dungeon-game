@@ -31,6 +31,7 @@ public class TestSystem : BaseSystem
     {
         var enemy = EntityCreate();
         AddComponent(enemy, new NetworkTransform { Position = new Vector2(150, 0)});
+        AddComponent(enemy, new MovingDirection());
         AddComponent(enemy, new Target { TargetAcquisitionRadius = 200, TargetRetentionRadius = 300 });
         AddComponent(enemy, new AttackInfo { MaxTargetRange = 40, AttackSize = new Vector2(36, 28), Damage = 1 });
         AddComponent(enemy, new Speed { Value = 1f });

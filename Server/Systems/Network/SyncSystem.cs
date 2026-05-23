@@ -5,7 +5,6 @@ using Hypercube.Ecs.Components;
 using Hypercube.Ecs.Events;
 using Hypercube.Ecs.Lifetime;
 using Hypercube.Ecs.Queries;
-using Server.Extensions;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using LiteNetLib;
@@ -20,7 +19,7 @@ using Shared.Extensions;
 using Shared.NetworkUtilities;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.Network;
 
 [EcsSystem(EcsPriority.Low)]
 public class SyncSystem : BaseSystem

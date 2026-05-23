@@ -6,7 +6,7 @@ using Shared.Attributes;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.UtilitiySystems;
 
 [EcsSystem]
 public class DeferredEntitiesSystem : BaseSystem

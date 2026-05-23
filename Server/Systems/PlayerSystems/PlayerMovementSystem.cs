@@ -3,15 +3,15 @@ using Hypercube.Ecs.Queries;
 using Server.Components;
 using Server.Helpers;
 using Server.Utilities;
+using Shared.Attributes;
 using Shared.Components;
 using Shared.Components.Commands;
-using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.PlayerSystems;
 
 [EcsSystem]
-public class MovementSystem : BaseSystem
+public class PlayerMovementSystem : BaseSystem
 {
     private Query _query = null!;
 
@@ -20,6 +20,7 @@ public class MovementSystem : BaseSystem
         _query = GetQuery().WithAll<ClientData>().Build();
     }
 
+    [Priority(EcsPriority.StateUpdater + 1)]
     public override void GameUpdate(long tick, long _)
     {
         _query.With((Entity clientEntity, ref ClientData clientData) =>
@@ -34,14 +35,11 @@ public class MovementSystem : BaseSystem
             if (!NetworkHelper.TryGetInputFromTick<MoveRequest>(World, clientEntity, tick, out var inputData))
                 return;
             
-            if (!World.Has<NetworkTransform>(characterEntity) || !World.Has<Speed>(characterEntity))
+            if (!World.Has<MovingDirection>(characterEntity))
                 return;
             
-            ref var transform = ref World.Get<NetworkTransform>(characterEntity);
-            ref var speed = ref World.Get<Speed>(characterEntity);
-            
-            transform.Position += inputData.Direction * speed.Value;
-            NetworkHelper.MakeDirty<NetworkTransform>(World, characterEntity);
+            ref var movingDirection = ref World.Get<MovingDirection>(characterEntity);
+            movingDirection.Direction = inputData.Direction;
         });
     }
 }

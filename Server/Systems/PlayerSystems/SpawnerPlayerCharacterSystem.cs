@@ -9,10 +9,11 @@ using Server.Components.Events;
 using Server.Utilities;
 using Shared.Components;
 using Shared.Components.EngineComponents;
+using Shared.Components.States;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.PlayerSystems;
 
 [EcsSystem]
 public class SpawnerPlayerCharacterSystem : BaseSystem
@@ -60,14 +61,22 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
     public void SpawnPlayerCharacter(Entity playerEntity, Vector2 position, ref ClientData playerData)
     {
         var characterEntity = World.Create();
-        World.Add(playerEntity, new ControlledEntity { Reference = characterEntity });
+        AddComponent(playerEntity, new ControlledEntity { Reference = characterEntity });
         
-        World.Add(characterEntity, new NetworkTransform { Position = position });
-        World.Add(characterEntity, new SpriteReference { DefaultTexturePatch = string.Empty }); //TODO player sprite
-        World.Add(characterEntity, new Speed { Value = 4f });
-        World.Add(characterEntity, new PlayerCharacter { ClientId = playerData.Id });
-        World.Add(characterEntity, new Health() { Current = 10, Max = 10 });
+        AddComponent(characterEntity, new NetworkTransform { Position = position });
+        AddComponent(characterEntity, new MovingDirection());
+        //AddComponent(characterEntity, new SpriteReference { DefaultTexturePatch = string.Empty }); //TODO player sprite
+        AddComponent(characterEntity, new Speed { Value = 4f });
+        AddComponent(characterEntity, new PlayerCharacter { ClientId = playerData.Id });
+        AddComponent(characterEntity, new Health { Current = 10, Max = 10 });
+        AddComponent(characterEntity, new AnimationStateMapping { Animations =
+        {
+            [typeof(Idle)] = "enemy/Idle",
+            [typeof(Moving)] = "enemy/Movement",
+            [typeof(Attacking)] = "enemy/Attacking",
+        } });
         World.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);
+        World.SetState<Idle>(characterEntity);
     }
 
     public void DespawnPlayerCharacter(Entity clientEntity)

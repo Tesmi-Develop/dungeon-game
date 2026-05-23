@@ -4,7 +4,7 @@ using Server.Utilities;
 using Shared.Components;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.GameSystems;
 
 [EcsSystem]
 public class DamageSystem : BaseSystem

@@ -15,7 +15,7 @@ public class AnimationStateHandlerSystem : BaseSystem
     
     public override void BeforeInitialize()
     {
-        Subscribe<State, StateUpdated>((entity, ref state, ref args) =>
+        Subscribe<State, StateUpdated>((entity, ref state, ref _) =>
         {
             if (!HasComponent<AnimationStateMapping>(entity))
                 return;

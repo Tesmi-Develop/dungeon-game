@@ -8,7 +8,7 @@ using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 using Shared.Systems.Collisions;
 
-namespace Server.Systems;
+namespace Server.Systems.GameSystems;
 
 [EcsSystem]
 public class HitboxSystem : BaseSystem

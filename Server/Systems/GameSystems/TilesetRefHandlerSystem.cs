@@ -7,7 +7,7 @@ using Shared.Components.EngineComponents;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.GameSystems;
 
 [EcsSystem]
 public class TilesetRefHandlerSystem : BaseSystem

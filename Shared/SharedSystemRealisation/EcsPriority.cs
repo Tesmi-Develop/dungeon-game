@@ -7,10 +7,12 @@ public enum EcsPriority
     UpdateCollisions = -502,
     UpdateCollisionWorld = UpdateCollisions + 1,
     
+    BeforeUpdateCollisions = UpdateCollisionWorld + 1,
+    BeforeApplyDirection = BeforeUpdateCollisions + 1,
+    
     Default = 0,
     
     StateUpdater = 50,
-    
     AfterTargetScanner = TargetScanner - 1,
     TargetScanner = 100,
     

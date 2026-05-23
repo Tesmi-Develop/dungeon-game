@@ -5,7 +5,7 @@ using Server.Utilities;
 using Shared.Attributes;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems;
+namespace Server.Systems.UtilitiySystems;
 
 [EcsSystem]
 public class LifetimeSystem : BaseSystem
