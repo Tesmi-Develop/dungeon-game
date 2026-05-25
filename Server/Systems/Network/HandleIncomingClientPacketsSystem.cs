@@ -5,6 +5,7 @@ using Hypercube.Utilities.Dependencies;
 using MessagePack;
 using Server.Components;
 using Server.Utilities;
+using Shared.Attributes;
 using Shared.Data;
 using Shared.SharedSystemRealisation;
 
@@ -40,6 +41,16 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
         });
     }
 
+    [Priority(EcsPriority.Low)]
+    public override void AfterGameUpdate(long tick, long predictTick)
+    {
+        _query.With((Entity entity, ref ClientData clientData) =>
+        {
+            var inputs = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+            inputs.Clear();
+        });
+    }
+
     private void ProcessPacket(ref Packet packet, Entity entity)
     {
         switch (packet.PacketType)
@@ -67,7 +78,8 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
             clientData.Inputs.Add(new InputData { Tick = -1, Input = data });
             return;
         }
-        
-        clientData.InputsWithTick[tick % clientData.InputsWithTick.Length] = new InputData { Tick = tick, Input = data };
+
+        var inputs = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+        inputs[data.GetType()] = new InputData { Tick = tick, Input = data };
     }
 }

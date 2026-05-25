@@ -9,7 +9,7 @@ public struct ClientData : IComponent
     public Queue<Packet> PendingPackets = [];
     public Queue<Packet> IncomingPackets = [];
     public ClientConnection ClientConnection = null!;
-    public InputData[] InputsWithTick = new InputData[60];
+    public Dictionary<Type, InputData>[] InputsWithTick = new Dictionary<Type, InputData>[60];
     public List<InputData> Inputs = [];
     public long Id = 0;
 

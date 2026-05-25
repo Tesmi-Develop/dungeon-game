@@ -5,6 +5,8 @@ using Shared.Attributes;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.EngineComponents;
+using Shared.Components.States;
+using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.EnemySystems;
@@ -13,7 +15,7 @@ namespace Server.Systems.EnemySystems;
 public class PlayerTargetScannerSystem : BaseSystem
 {
     private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<PlayerTargetTag, Target, NetworkTransform>();
-    private readonly QueryMeta _playerQuery = new QueryMeta().WithAll<PlayerCharacter, NetworkTransform>();
+    private readonly QueryMeta _playerQuery = new QueryMeta().WithAll<PlayerCharacter, NetworkTransform>().WithNone<Died>();
     
     [Priority(EcsPriority.TargetScanner)]
     public override void GameUpdate(long tick, long predictTick)
@@ -27,7 +29,8 @@ public class PlayerTargetScannerSystem : BaseSystem
             }
             
             if (target.TargetEntity.HasValue && (!EntityAlive(target.TargetEntity.Value) ||
-                                                 !HasComponent<NetworkTransform>(target.TargetEntity.Value))
+                                                 !HasComponent<NetworkTransform>(target.TargetEntity.Value) || 
+                                                 !World.IsAliveCharacter(target.TargetEntity.Value))
                 )
             {
                 target.TargetEntity = null;

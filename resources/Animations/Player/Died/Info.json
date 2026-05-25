@@ -1,14 +1,14 @@
-{
-  "name": "player/Movement",
+﻿{
+  "name": "player/Died",
   "image": "Image.png",
-  "loop": true,
-  "duration": 0.8,
+  "loop": false,
+  "duration": 1.5,
   "frameSize": {
     "width": 64,
     "height": 64
   },
   "grid": {
-    "width": 8,
+    "width": 4,
     "height": 1
   }
 }

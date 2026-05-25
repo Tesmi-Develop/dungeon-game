@@ -79,7 +79,10 @@ public static class NetworkHelper
 
         ref var clientData = ref world.Get<ClientData>(clientEntity);
 
-        var inputData = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+        var inputs = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+        if (!inputs.TryGetValue(typeof(T), out var inputData))
+            return false;
+        
         if (inputData.Tick != tick)
             return false;
         

@@ -77,6 +77,7 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
             [typeof(Idle)] = "player/Idle",
             [typeof(Moving)] = "player/Movement",
             [typeof(Attacking)] = "player/Attacking",
+            [typeof(Died)] = "player/Died"
         } });
         World.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);
         World.SetState<Idle>(characterEntity);

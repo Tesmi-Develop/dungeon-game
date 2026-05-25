@@ -59,9 +59,13 @@ public class NetworkClientEntitySystem : BaseSystem
     private void RegisterClientEntity(ClientConnection clientConnection)
     {
         var entity = World.Create();
-        World.Add(entity, new ClientData { ClientConnection = clientConnection, Id = clientConnection.Id });
-        _clients.Add(clientConnection.Id, entity);
+        var clientData = new ClientData { ClientConnection = clientConnection, Id = clientConnection.Id };
+
+        for (var i = 0; i < clientData.InputsWithTick.Length; i++)
+            clientData.InputsWithTick[i] = new();
         
+        World.Add(entity, clientData);
+        _clients.Add(clientConnection.Id, entity);
         _eventBus.Raise(entity, ref World.Get<ClientData>(entity), new NewEntityClient { ClientEntity = entity });
     }
 

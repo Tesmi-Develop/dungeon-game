@@ -41,6 +41,7 @@ public class TestSystem : BaseSystem
         AddComponent(enemy, new PlayerTargetTag());
         AddComponent(enemy, new Health { Current = 1, Max = 1 });
         AddComponent(enemy, new Fraction { Value = FractionType.Enemies });
+        AddComponent(enemy, new ControlRotationByDirection());
         AddComponent(enemy, new AnimationStateMapping { Animations =
         {
             [typeof(Idle)] = "enemy/Idle",

@@ -11,7 +11,7 @@ namespace Server.Systems.CharacterSystems;
 [EcsSystem]
 public class DirectionHandlerSystem : BaseSystem
 {
-    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<MovingDirection, NetworkTransform, Animator>();
+    private readonly QueryMeta _queryMeta = new QueryMeta().WithAll<MovingDirection, NetworkTransform, Animator>().WithAll<ControlRotationByDirection>();
 
     [Priority(EcsPriority.BeforeApplyDirection)]
     public override void GameUpdate(long tick, long predictTick)
