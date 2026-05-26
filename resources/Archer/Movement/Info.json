@@ -1,0 +1,15 @@
+{
+  "name": "Archer/Movement",
+  "image": "run_enemy.png",
+  "loop": true,
+  "duration": 0.8,
+  "frameSize": {
+    "width": 64,
+    "height": 64
+  },
+  "grid": {
+    "width": 7,
+    "height": 1
+  }
+
+}

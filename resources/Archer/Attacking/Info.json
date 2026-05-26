@@ -1,0 +1,15 @@
+{
+  "name": "Archer/Attacking",
+  "image": "Attacking.png",
+  "loop": false,
+  "duration": 1.2,
+  "frameSize": {
+    "width": 64,
+    "height": 64
+  },
+  "grid": {
+    "width": 12,
+    "height": 1
+  },
+ 
+}

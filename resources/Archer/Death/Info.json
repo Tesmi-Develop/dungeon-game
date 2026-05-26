@@ -1,0 +1,15 @@
+{
+  "name": "Archer/Death",
+  "image": "death_enemy.png",
+  "loop": false,
+  "duration": 1.6,
+  "frameSize": {
+    "width": 64,
+    "height": 64
+  },
+  "grid": {
+    "width": 16,
+    "height": 1
+  }
+
+}
