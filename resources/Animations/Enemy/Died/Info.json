@@ -1,0 +1,14 @@
+﻿{
+  "name": "enemy/Died",
+  "image": "Image.png",
+  "loop": false,
+  "duration": 1.5,
+  "frameSize": {
+    "width": 32,
+    "height": 32
+  },
+  "grid": {
+    "width": 17,
+    "height": 1
+  }
+}

@@ -28,15 +28,16 @@ public class GameClient : INetEventListener
     private readonly LatencyProxy _proxy;
     private double _timeOffset;
     private const float TimeSmooth = 0.1f;
-    private const double TickRate = 60;
-    private const double TickMs = 1000.0 / TickRate;
+    private static readonly double TickRate = Config.TickRate;
+    private readonly double _tickMs = 1000.0 / TickRate;
+    
     public long Id => _serverPeer is null ? -1 : _id;
     private long _id = -1;
     public bool Connected => _serverPeer is not null && _serverPeer.ConnectionState == ConnectionState.Connected;
     
     public GameClient()
     {
-        _proxy = new LatencyProxy(this, 50, 120, 0);
+        _proxy = new LatencyProxy(this, 0, 0, 0);
         _client = new NetManager(_proxy)
         {
             UpdateTime = 0
@@ -48,7 +49,7 @@ public class GameClient : INetEventListener
         var localTime = _time.Elapsed.TotalMilliseconds;
         var synchronizedTime = localTime + _timeOffset;
         
-        return (long)Math.Floor(synchronizedTime / TickMs);
+        return (long)Math.Floor(synchronizedTime / _tickMs);
     }
     
     public double GetServerTickDouble()
@@ -56,7 +57,7 @@ public class GameClient : INetEventListener
         var localTime = _time.Elapsed.TotalMilliseconds;
         var synchronizedTime = localTime + _timeOffset;
         
-        return synchronizedTime / TickMs;
+        return synchronizedTime / _tickMs;
     }
     
     public double GetLocalTime()
@@ -204,7 +205,7 @@ public class GameClient : INetEventListener
             var diff = targetOffset - _timeOffset;
             
             _ping = (long)(Ping * 0.8 + rtt * 0.2);
-            LatencyTick = (long)Math.Floor(oneWay / TickMs);
+            LatencyTick = (long)Math.Floor(oneWay / _tickMs);
             
             if (Math.Abs(diff) > 66)
                 _timeOffset = targetOffset;

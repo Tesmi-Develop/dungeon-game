@@ -1,17 +1,20 @@
 ﻿using Client.Data;
-using Client.LifeCycles;
-using Client.Systems.PredictSystems;
-using Hypercube.Core.Ecs;
+using Client.InternalSystems;
+using Client.Utilities;
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using LiteNetLib;
 using Shared.Components;
-using Shared.Components.Commands;
+using Shared.Components.EngineComponents;
+using Shared.Components.Requests;
+using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.CharacterSystems;
 
-public class CharacterControllerSystem : EntitySystem, IServerUpdate
+[EcsSystem]
+public class CharacterControllerSystem : BaseSystem
 {
     [Dependency] private readonly InputStorage _inputStorage = null!;
     [Dependency] private readonly NetworkHelper _networkHelper = null!;
@@ -24,11 +27,11 @@ public class CharacterControllerSystem : EntitySystem, IServerUpdate
         _query = GetQuery().WithAll<NetworkTransform, PlayerCharacter, Speed>().Build();
     }
 
-    public void ServerUpdate(long serverTick, long predictTick)
+    public override void GameUpdate(long serverTick, long predictTick)
     {
         _query.With<NetworkTransform, PlayerCharacter, Speed>((entity, ref transform, ref playerCharacter, ref speed) =>
         {
-            if (_gameClient.Id != playerCharacter.ClientId)
+            if (_gameClient.Id != playerCharacter.ClientId || !World.IsAliveCharacter(entity))
                 return;
             
             var direction = new Vector2();

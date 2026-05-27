@@ -76,14 +76,12 @@ public class LatencyProxy : INetEventListener
     
     public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
     {
-        // Симуляция потери пакетов
         if (_enablePacketLoss && deliveryMethod == DeliveryMethod.Unreliable && _random.Next(100) < _packetLossChance)
         {
             reader.Recycle();
             return;
         }
         
-        // Симуляция задержки
         if (_enableLatency)
         {
             var delayMs = _random.Next(_minLatencyMs, _maxLatencyMs + 1);
@@ -107,7 +105,6 @@ public class LatencyProxy : INetEventListener
         }
     }
     
-    // Проксирование остальных методов
     public void OnPeerConnected(NetPeer peer)
     {
         _realListener.OnPeerConnected(peer);

@@ -1,7 +1,6 @@
 using Hypercube.Ecs;
 using Hypercube.Ecs.Components;
 using Hypercube.Ecs.Queries;
-using Server.Extensions;
 using Server.Components;
 using Shared.Data;
 using Shared.Extensions;
@@ -80,14 +79,17 @@ public static class NetworkHelper
 
         ref var clientData = ref world.Get<ClientData>(clientEntity);
 
-        var inputData = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+        var inputs = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+        if (!inputs.TryGetValue(typeof(T), out var inputData))
+            return false;
+        
         if (inputData.Tick != tick)
             return false;
         
-        if (inputData.Input is null)
+        if (inputData.Input is not T dataInput)
             return false;
         
-        input = (T)inputData.Input;
+        input = dataInput;
         return true;
     }
 }

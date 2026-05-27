@@ -10,6 +10,7 @@ using Server.Components.Events;
 using Server.Utilities;
 using Shared.Data;
 using Shared.Helpers;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.Network;
 
@@ -44,9 +45,8 @@ public class NetworkServer : BaseSystem, INetEventListener
         _logger.Info($"Server started on port {port}");
     }
 
-    public override void Update(long tick)
+    public override void GameUpdate(long tick, long _)
     {
-        
         while (_eventQueue.TryDequeue(out var eventInstance))
             RaiseEvent(eventInstance);
     }

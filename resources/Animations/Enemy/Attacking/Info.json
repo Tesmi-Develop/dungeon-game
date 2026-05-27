@@ -1,0 +1,20 @@
+﻿{
+  "name": "enemy/Attacking",
+  "image": "Image.png",
+  "loop": false,
+  "duration": 1.2,
+  "frameSize": {
+    "width": 64,
+    "height": 64
+  },
+  "grid": {
+    "width": 9,
+    "height": 1
+  },
+  "events": [
+    {
+      "name": "Hit",
+      "frameIndex": 6
+    }
+  ]
+}

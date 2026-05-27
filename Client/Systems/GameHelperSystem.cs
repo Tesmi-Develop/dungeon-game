@@ -1,12 +1,16 @@
-﻿using Hypercube.Core.Ecs;
+﻿using Client.Utilities;
+using Hypercube.Core.Ecs;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.Components.EngineComponents;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class GameHelperSystem : EntitySystem
+[EcsSystem]
+public class GameHelperSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;
     private Query _localCharacterQuery = null!;

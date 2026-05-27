@@ -1,15 +1,16 @@
-﻿using Client.Extensions;
-using Hypercube.Core.Ecs;
+﻿using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Core.Systems.Rendering;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Shared.Components;
 using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;
 
-public class SpriteGiverSystem : EntitySystem
+[EcsSystem]
+public class SpriteGiverSystem : BaseSystem
 {
     private Query _query = null!;
     private List<Entity> _entities = [];
@@ -24,7 +25,7 @@ public class SpriteGiverSystem : EntitySystem
         foreach (var e in World.CollectEntities(_query, _entities))
         {
             ref var reference = ref GetComponent<SpriteReference>(e);
-            AddComponent(e, new SpriteComponent {  Path = reference.Path == string.Empty ? "/textures/default.png" : reference.Path });
+            AddComponent(e, new SpriteComponent {  Path = reference.DefaultTexturePatch == string.Empty ? "/textures/default.png" : reference.DefaultTexturePatch });
         }
     }
 }

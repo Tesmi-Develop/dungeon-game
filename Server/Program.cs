@@ -1,30 +1,31 @@
-﻿using Hypercube.Core;
-using Hypercube.Core.Resources;
+﻿using Hypercube.Core.Resources;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Events;
-using Hypercube.Physics;
 using Hypercube.Physics.Collision;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using Server.Utilities;
+using Shared;
+using Shared.Data;
 using Shared.Helpers;
 
 namespace Server;
 
 public static class Program
 {
-    private static readonly int TickRate = 60;
+    private static readonly int MaxCatchUpTicks = 5;
 
     private static void InitResourceManager(DependenciesContainer dependenciesContainer)
     {
         var instance = new ResourceManager();
         dependenciesContainer.RegisterSingleton<IResourceManager>(instance);
         instance.AddAllLoaders();
-        instance.Mount(Config.MountFolders);
+        instance.Mount(Hypercube.Core.Config.MountFolders);
     }
     
     public static void Main()
     {
+        NetworkSideContext.NetworkSide = NetworkSide.Server;
         Thread.CurrentThread.Name = "Main";
         var dependenciesContainer = new DependenciesContainer();
         
@@ -34,48 +35,50 @@ public static class Program
         
         var logger = new ConsoleLogger();
         var world = new World();
-        var eventBus = world.Events;
         var time = new Time();
-        
-        dependenciesContainer.RegisterSingleton<IEventBus>(eventBus);
+
+        world.WarmUpComponentsAsync();
+        dependenciesContainer.RegisterSingleton<IEventBus>(world.Events);
         dependenciesContainer.RegisterSingleton<Time>(time);
         
-        var systemHandler = new EcsSystemHandler(world, logger, dependenciesContainer);
+        var systemEntry = new EcsSystemEntry(world, logger, dependenciesContainer);
         
-        systemHandler.InvokePreInitialize();
-        systemHandler.InvokeInitialize();
-        systemHandler.InvokePostInitialize();
-        
-        var tickDelta = 1000d / TickRate;
+        systemEntry.InvokeInitializePhase();
 
-        var stopwatch = time.Stopwatch;
-        stopwatch.Start();
+        time.Stopwatch.Start();
+        StartCycle(time, systemEntry);
+    }
 
-        double accumulator = 0;
-        var previous = stopwatch.Elapsed.TotalMilliseconds;
+    public static void StartCycle(Time time, EcsSystemEntry entry)
+    {
+        var tickIntervalMs = 1000.0 / Config.TickRate;
+        var nextTickTime = time.Stopwatch.Elapsed.TotalMilliseconds;
+        var startTime = time.Stopwatch.Elapsed.TotalMilliseconds;
 
         while (true)
         {
-            var current = stopwatch.Elapsed.TotalMilliseconds;
-            var frameTime = current - previous;
-            previous = current;
+            var currentTime = time.Stopwatch.Elapsed.TotalMilliseconds;
+            var targetTick = (int)Math.Floor((currentTime - startTime) / tickIntervalMs);
+            var ticksToProcess = targetTick - time.Tick;
 
-            accumulator += frameTime;
-
-            var maxTicksPerFrame = 5;
-            var processed = 0;
-
-            while (accumulator >= tickDelta && processed < maxTicksPerFrame)
+            if (ticksToProcess > 0)
             {
-                systemHandler.InvokeUpdateCycle(time.Tick);
-
-                accumulator -= tickDelta;
-                time.Tick++;
-
-                processed++;
+                var ticksToSimulate = Math.Min(ticksToProcess, MaxCatchUpTicks);
+                
+                if (ticksToProcess > MaxCatchUpTicks)
+                {
+                    var skipped = ticksToProcess - MaxCatchUpTicks;
+                    time.Tick += skipped;
+                }
+                
+                for (var i = 0; i < ticksToSimulate; i++)
+                {
+                    entry.InvokeGameUpdatePhase(time.Tick);
+                    time.Tick++;
+                }
             }
 
-            Thread.Yield();
+            Thread.Sleep(1);
         }
     }
 }

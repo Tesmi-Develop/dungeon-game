@@ -1,19 +1,23 @@
 ﻿using System.Text;
+using Client.Utilities;
+using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Graphics.Rendering;
 using Hypercube.Core.Graphics.Rendering.Context;
 using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;
-using Hypercube.Core.Systems;
 using Hypercube.Mathematics;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class PingDrawSystem : PatchEntitySystem
+[EcsSystem]
+public class PingDrawSystem : BaseSystem, IPatch
 {
     [Dependency] private GameClient _gameClient = null!;
     [Dependency] private readonly IResourceManager _resource = null!;
+    public int Priority => 0;
     
     private Font _font = null!;
 
@@ -22,14 +26,14 @@ public class PingDrawSystem : PatchEntitySystem
         _font = _resource.Load<Font>("/fonts/OpenSans.ttf", [("size", 18)]);
     }
 
-    public override void Draw(IRenderContext renderer, DrawPayload payload)
+    public void Draw(IRenderContext renderer, DrawPayload payload)
     {
         var sb = new StringBuilder();
-        sb.AppendLine($"Ping: {_gameClient.Ping}");
+        sb.AppendLine($"Ping: {_gameClient.Ping} ms");
         
         using (renderer.UseRenderState(payload.Window))
         {
-            renderer.DrawText(sb.ToString(), _font, new Vector2(0, -16), Color.White);
+            renderer.DrawText(sb.ToString(), _font, new Vector2(0, payload.Camera.Size.Y - 18), Color.White);
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿{
+  "name": "player/Died",
+  "image": "Image.png",
+  "loop": false,
+  "duration": 1.5,
+  "frameSize": {
+    "width": 64,
+    "height": 64
+  },
+  "grid": {
+    "width": 4,
+    "height": 1
+  }
+}

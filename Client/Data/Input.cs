@@ -6,4 +6,5 @@ public enum Input
     MoveRight,
     MoveUp,
     MoveDown,
+    Attack,
 }

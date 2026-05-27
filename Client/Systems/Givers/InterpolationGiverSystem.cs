@@ -1,15 +1,17 @@
 ﻿using Client.Components;
-using Client.Extensions;
-using Hypercube.Core.Ecs;
+using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;
 
-public class InterpolationGiverSystem : EntitySystem
+[EcsSystem]
+public class InterpolationGiverSystem : BaseSystem
 {
     private Query _query = null!;
     private readonly List<Entity> _entities = [];

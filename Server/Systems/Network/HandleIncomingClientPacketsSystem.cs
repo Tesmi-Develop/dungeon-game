@@ -4,7 +4,10 @@ using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using MessagePack;
 using Server.Components;
+using Server.Utilities;
+using Shared.Attributes;
 using Shared.Data;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.Network;
 
@@ -19,7 +22,7 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
         _query = GetQuery().WithAll<ClientData>().Build();
     }
     
-    public override void BeforeUpdate(long tick)
+    public override void BeforeGameUpdate(long tick, long _)
     {
         _query.With((Entity entity, ref ClientData playerData) =>
         {
@@ -35,6 +38,16 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
                     _logger.Warning($"Tried to process packet {packet.PacketType} with exception {e}");
                 }
             }
+        });
+    }
+
+    [Priority(EcsPriority.Low)]
+    public override void AfterGameUpdate(long tick, long predictTick)
+    {
+        _query.With((Entity entity, ref ClientData clientData) =>
+        {
+            var inputs = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+            inputs.Clear();
         });
     }
 
@@ -57,7 +70,7 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
         var componentId = reader.ReadInt32();
         var tick = reader.ReadInt64();
 
-        ref var clientData = ref world.Get<ClientData>(clientEntity);
+        ref var clientData = ref World.Get<ClientData>(clientEntity);
         var data = NetworkFactory.DeserializeRequestComponent(componentId, ref reader);
         
         if (tick == -1)
@@ -65,7 +78,8 @@ public class HandleIncomingClientPacketsSystem : BaseSystem
             clientData.Inputs.Add(new InputData { Tick = -1, Input = data });
             return;
         }
-        
-        clientData.InputsWithTick[tick % clientData.InputsWithTick.Length] = new InputData { Tick = tick, Input = data };
+
+        var inputs = clientData.InputsWithTick[tick % clientData.InputsWithTick.Length];
+        inputs[data.GetType()] = new InputData { Tick = tick, Input = data };
     }
 }

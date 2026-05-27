@@ -1,0 +1,14 @@
+﻿{
+  "name": "enemy/Idle",
+  "image": "Image.png",
+  "loop": true,
+  "duration": 0.8,
+  "frameSize": {
+    "width": 32,
+    "height": 32
+  },
+  "grid": {
+    "width": 6,
+    "height": 1
+  }
+}

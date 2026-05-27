@@ -1,6 +1,6 @@
 ﻿using Client.Components;
 using Client.Extensions;
-using Hypercube.Core.Ecs;
+using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Core.Systems.Rendering;
 using Hypercube.Core.Systems.Transform;
@@ -8,10 +8,13 @@ using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.Components.EngineComponents;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class InterpolationTransformComponentSystem : EntitySystem
+[EcsSystem]
+public class InterpolationTransformComponentSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _client = null!;
     private double _visualTickCursor = -1;
@@ -25,7 +28,7 @@ public class InterpolationTransformComponentSystem : EntitySystem
             .Build();
     }
 
-    public override void AfterUpdate(FrameEventArgs deltaTime)
+    public override void Update(FrameEventArgs deltaTime)
     {
         const double bufferTicks = 3.0;
         var targetTick = _client.GetServerTickDouble() - bufferTicks;

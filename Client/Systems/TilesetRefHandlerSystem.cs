@@ -1,20 +1,22 @@
-﻿using Client.Extensions;
-using Hypercube.Core.Ecs;
+﻿using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs.Queries;
 using Hypercube.Physics.Shapes;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.Extensions;
+using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-public class TilesetRefHandlerSystem : EntitySystem
+[EcsSystem]
+public class TilesetRefHandlerSystem : BaseSystem
 {
     private Query _query = null!;
 
     public override void Initialize()
     {
-        _query = GetQuery().WithAll<TilesetRefComponent, HitboxDeclarationComponent>().WithNone<HitboxComponent>()
+        _query = GetQuery().WithAll<TilesetRefComponent, HitboxDeclarationComponent>().WithNone<CollisionComponent>()
             .Build();
     }
 

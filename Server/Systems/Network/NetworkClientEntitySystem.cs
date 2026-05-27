@@ -6,8 +6,10 @@ using Hypercube.Utilities.Dependencies;
 using LiteNetLib;
 using Server.Components;
 using Server.Components.Events;
+using Server.Utilities;
 using Shared.Data;
 using Shared.Helpers;
+using Shared.SharedSystemRealisation;
 
 namespace Server.Systems.Network;
 
@@ -34,7 +36,7 @@ public class NetworkClientEntitySystem : BaseSystem
             if (!_clients.TryGetValue(args.ClientConnection.Id, out var entity))
                 return;
             
-            _eventBus.Raise(entity, ref world.Get<ClientData>(entity), new ClientEntityRemoved());
+            _eventBus.Raise(entity, ref World.Get<ClientData>(entity), new ClientEntityRemoved());
             DestroyClientEntity(args.ClientConnection.Id);
         }, (int)EventBusPriority.Lowest);
     }
@@ -49,18 +51,22 @@ public class NetworkClientEntitySystem : BaseSystem
         if (!_clients.TryGetValue(clientId, out var entity))
             return;
         
-        world.Delete(entity);
+        World.Delete(entity);
         _clients.Remove(clientId);
         _logger.Debug($"Client {clientId} has been destroyed");
     }
 
     private void RegisterClientEntity(ClientConnection clientConnection)
     {
-        var entity = world.Create();
-        world.Add(entity, new ClientData { ClientConnection = clientConnection, Id = clientConnection.Id });
-        _clients.Add(clientConnection.Id, entity);
+        var entity = World.Create();
+        var clientData = new ClientData { ClientConnection = clientConnection, Id = clientConnection.Id };
+
+        for (var i = 0; i < clientData.InputsWithTick.Length; i++)
+            clientData.InputsWithTick[i] = new();
         
-        _eventBus.Raise(entity, ref world.Get<ClientData>(entity), new NewEntityClient { ClientEntity = entity });
+        World.Add(entity, clientData);
+        _clients.Add(clientConnection.Id, entity);
+        _eventBus.Raise(entity, ref World.Get<ClientData>(entity), new NewEntityClient { ClientEntity = entity });
     }
 
     private void HandleIncomingPackets(Entity entity, ref ClientData clientData)
@@ -87,7 +93,7 @@ public class NetworkClientEntitySystem : BaseSystem
         }
     }
     
-    public override void BeforeUpdate(long tick)
+    public override void BeforeGameUpdate(long tick, long _)
     {
         _query.With((Entity entity, ref ClientData clientData) =>
         {
