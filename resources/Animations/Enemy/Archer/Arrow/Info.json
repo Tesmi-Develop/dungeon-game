@@ -1,6 +1,6 @@
 {
   "name": "Archer/Arrow",
-  "image": "arrow.png",
+  "image": "Image.png",
   "loop": true,
   "duration": 0.5,
   "frameSize": {

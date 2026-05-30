@@ -1,14 +1,14 @@
 {
-  "name": "Archer/IDLE",
-  "image": "idle_enemy.png",
+  "name": "Archer/Movement",
+  "image": "Image.png",
   "loop": true,
-  "duration": 1.3,
+  "duration": 0.8,
   "frameSize": {
     "width": 64,
     "height": 64
   },
   "grid": {
-    "width": 10,
+    "width": 7,
     "height": 1
   }
 
