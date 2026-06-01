@@ -5,7 +5,7 @@ namespace Shared.ResourcesData.TiledMapParts;
 
 public class TiledLayer
 {
-    public int[] Data { get; set; }
+    public uint[] Data { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
     public string Name { get; set; }
@@ -13,7 +13,7 @@ public class TiledLayer
     public bool Visible { get; set; }
     public List<Property> Properties { get; set; } = [];
 
-    public int GetTileAt(Vector2i point)
+    public uint GetTileAt(Vector2i point)
     {
         if (point.X < 0 || point.X >= Width || point.Y < 0 || point.Y >= Height)
             return 0;

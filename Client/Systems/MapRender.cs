@@ -13,19 +13,19 @@ namespace Client.Systems;
 [EcsSystem]
 public class MapRender : BaseSystem, IPatch
 {
-    [Dependency] private readonly MapHandler _mapHandler = null!;
+    [Dependency] private readonly Shared.MapRender _mapRender = null!;
     [Dependency] private readonly IResourceManager _resourceManager = null!;
     public int Priority => 2;
 
     public override void Initialize()
     {
-        _mapHandler.Compile(_resourceManager);
+        _mapRender.Compile(_resourceManager);
         var prototypeStorage = _resourceManager.Load<PrototypeStorage>("/prototypes.json");
-        _mapHandler.Load(World, prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
+        _mapRender.Load(World, prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
     }
 
     public void Draw(IRenderContext renderer, DrawPayload payload)
     {
-        _mapHandler.Draw(renderer, Vector2.Zero, Vector2.One / 2, new Vector2(2));
+        _mapRender.Draw(renderer, Vector2.Zero, Vector2.One / 2, new Vector2(2));
     }
 }

@@ -29,8 +29,8 @@ public static class EntryPoint
         MessagePackHelper.SetupMessagePack();
         container.Register<GameClient>();
         
-        var mapHandler = new MapHandler("/TiledMaps/Arena1/arena1.tmj");
-        container.RegisterSingleton<MapHandler>(mapHandler);
+        var mapHandler = new MapRender("/TiledMaps/Arena1/arena1.tmj");
+        container.RegisterSingleton<MapRender>(mapHandler);
     }
 
     [EntryPoint(EntryPointStage.BeforeEntityInitialization)]

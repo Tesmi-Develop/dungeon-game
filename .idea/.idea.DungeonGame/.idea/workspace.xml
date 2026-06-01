@@ -17,31 +17,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/Components/Light.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BlendMode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Shaders/light_mask.shd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Extensions/CameraExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Extensions/CameraExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/EntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/EntryPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/MapRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/MapRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/LoadArenaTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/LoadArenaTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/MapHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/MapRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/ResourcesData/TiledMapParts/TiledLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/ResourcesData/TiledMapParts/TiledLayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.Internal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.Internal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/Headless/HeadlessRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/Headless/HeadlessRenderingApi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/Batch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/Batch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/BatchData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/BatchData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/IRenderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/IRenderContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Draw.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Draw.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.RenderStateScope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.RenderStateScope.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Text.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Text.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/Scopes/RenderStateScope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/Scopes/RenderStateScope.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Resources/Preloading/PreloadContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Resources/Preloading/PreloadContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
@@ -142,7 +128,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "enemy-system",
+    "git-widget-placeholder": "light-system",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -227,7 +213,7 @@
       <workItem from="1779712651459" duration="816000" />
       <workItem from="1779772230250" duration="272000" />
       <workItem from="1780214464798" duration="24210000" />
-      <workItem from="1780302262438" duration="14721000" />
+      <workItem from="1780302262438" duration="18697000" />
     </task>
     <servers />
   </component>

@@ -15,13 +15,13 @@ public class LoadArenaTest : BaseSystem
     [Dependency] private readonly IResourceManager _resourceManager = null!;
     [Dependency] private readonly ILogger _logger = null!;
     [Dependency] private readonly SpawnerPlayerCharacterSystem _characterSystem = null!;
-    private MapHandler _mapHandler = null!;
+    private MapRender _mapRender = null!;
     private PrototypeStorage _prototypeStorage = null!;
     
     public override void Initialize()
     {
-        _mapHandler = new MapHandler("/TiledMaps/Arena1/arena1.tmj");
-        _mapHandler.Compile(_resourceManager);
+        _mapRender = new MapRender("/TiledMaps/Arena1/arena1.tmj");
+        _mapRender.Compile(_resourceManager);
         
         _prototypeStorage = _resourceManager.Load<PrototypeStorage>("/prototypes.json");
         Task.Run(async () =>
@@ -30,7 +30,7 @@ public class LoadArenaTest : BaseSystem
             
         });
         
-        _mapHandler.Load(World, _prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
+        _mapRender.Load(World, _prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
         _logger.Debug("Loaded Arena1");
         _characterSystem.InitiateSpawnPlayerCharacters();
     }
