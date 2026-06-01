@@ -17,29 +17,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterDirectionSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerDirectionHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/ControlRotationByDirection.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/Requests/SetRotation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Components/Light.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BlendMode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/Shaders/light_mask.shd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Components/ClientData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Components/ClientData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Helpers/NetworkHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Helpers/NetworkHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/CharacterSystems/DirectionHandlerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/CharacterSystems/DirectionHandlerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/PlayerTargetScannerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/PlayerTargetScannerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/Network/HandleIncomingClientPacketsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/Network/HandleIncomingClientPacketsSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/Network/NetworkClientEntitySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/Network/NetworkClientEntitySystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/Extensions/CameraExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Extensions/CameraExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.Internal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.Internal.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/Headless/HeadlessRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/Headless/HeadlessRenderingApi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/Batch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/Batch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/BatchData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/BatchData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/IRenderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/IRenderContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Draw.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Draw.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.RenderStateScope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.RenderStateScope.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Text.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Text.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/Scopes/RenderStateScope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/Scopes/RenderStateScope.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Resources/Preloading/PreloadContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Resources/Preloading/PreloadContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
@@ -47,13 +47,6 @@
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Enemy/Died/Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Enemy/Died/Image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Info.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Idle/Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Idle/Image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Idle/Info.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Idle/Info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Movement/Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Movement/Image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Movement/Info.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Movement/Info.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +60,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/00FAD605894D980B45DCDEB2/Hypercube.Utilities.Analyzers/Hypercube.Utilities.Analyzers.Generators.IdStructGenerator/TextureHandle_IdBindings.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/A17AFC6F91AF0DDE0C8C4D6F/Shared.Roslyn/Shared.Roslyn.UnifiedNetworkGenerator/NetworkFactory.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/19/f08e234d/ValidationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/46/b9987ebf/ITweenBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
@@ -82,6 +76,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3437ef7dc73051855accd6b62fb29b740b17b5220d6da288fefeba3f7a73a57/LambdaExpression.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cca26e6dd627c1a7919bec86cb05b6d975a30287456f7daa8773a92451a/List.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5ab43d59e56b22c69189093d92eb7b616ee7ac95be06c592c93409214b2/Array.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5acc345db3c207bc9d886a36ff14867ef8d65557432172c2a42f19aeac04d1b/Nullable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/75a0de2ec7cb5efe9e04d6c27f921e6c7e5726d6208edfb6d81e5350df4a7e/RuntimeHandles.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/76bfc310d2c1ee89b5a3bb7f318b5c55015f66ebdf298211386b17a57fc25b/Type.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85937d2be7ea998560ccec1e692cc0e99e681983381ded1f4623b2fc5a89d1b/TimeSpan.cs" root0="FORCE_HIGHLIGHTING" />
@@ -91,7 +86,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c24d475d83442e0a97ce97fdd4d43d6b5a3977b2a474c7996b895330c6b0/Span.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fc881f48416c295d6332d0f5c0f653a410779aa3d7549afe5d0bf67cdd458/Math.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff8f1c7d993fae2e299e8239bb5b8249de1701b89ba8022181c7ba5fdce2a5a/StreamReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Client/Components/Light.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Client/Systems/LightSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/TakeDamageTrackerSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Extensions/EntityExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/AnimatorSystem.cs" root0="FORCE_HIGHLIGHTING" />
@@ -114,6 +111,8 @@
     <setting file="file://$PROJECT_DIR$/Shared/Extensions/WorldStateExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Systems/SharedAnimatorSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/hypercube/src/Hypercube.Core/Ecs/EntitySystemManager.WorldDynamic.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BlendMode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -132,27 +131,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.Client.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.Server.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;enemy-system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion.popup&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Client.executor": "Run",
+    ".NET Project.Server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "enemy-system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.completion.popup",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Compound.Server + Client">
     <configuration name="Server + Client" type="CompoundRunConfigurationType">
       <toRun name="Client" type="DotNetProject" />
@@ -224,7 +223,11 @@
       <workItem from="1779249483813" duration="9483000" />
       <workItem from="1779594606894" duration="376000" />
       <workItem from="1779678349459" duration="716000" />
-      <workItem from="1779685997050" duration="3086000" />
+      <workItem from="1779685997050" duration="3520000" />
+      <workItem from="1779712651459" duration="816000" />
+      <workItem from="1779772230250" duration="272000" />
+      <workItem from="1780214464798" duration="24210000" />
+      <workItem from="1780302262438" duration="14721000" />
     </task>
     <servers />
   </component>

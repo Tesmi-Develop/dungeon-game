@@ -24,7 +24,7 @@ namespace Client.Systems;
 public class TakeDamageEffectSystem : BaseSystem, IPatch
 {
     [Dependency] private readonly IResourceManager _resourceManager = null!;
-    public int Priority => 0;
+    public int Priority => -10;
     private Shader _shader = null!;
     private GTween? _tween;
     private float _intensity;
@@ -89,10 +89,11 @@ public class TakeDamageEffectSystem : BaseSystem, IPatch
         
         using (renderer.UseRenderState(payload.Window))
         {
-            _shader.Use();
+            renderer.SetShader(_shader);
             _shader.SetUniform("intensity", _intensity);
-            _shader.Stop();
-            renderer.DrawRectangle(Rect2.FromSize(Vector2.Zero, payload.Window.Size), Color.White, shader: _shader);
+            
+            renderer.DrawRectangle(Rect2.FromSize(Vector2.Zero, payload.Window.Size), Color.White);
+            renderer.ClearShader();
         }
     }
 }
