@@ -8,7 +8,6 @@ using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics;
 using Hypercube.Mathematics.Vectors;
-using Hypercube.Physics;
 using Hypercube.Physics.Mathematics;
 using Hypercube.Physics.Shapes;
 using Hypercube.Utilities.Dependencies;

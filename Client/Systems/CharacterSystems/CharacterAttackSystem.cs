@@ -4,7 +4,6 @@ using Client.Utilities;
 using Hypercube.Core.Input.Handler;
 using Hypercube.Core.Viewports;
 using Hypercube.Ecs.Queries;
-using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using LiteNetLib;
 using Shared.Components;

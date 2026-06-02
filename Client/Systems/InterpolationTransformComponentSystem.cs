@@ -7,7 +7,6 @@ using Hypercube.Core.Systems.Transform;
 using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
-using Shared.Components;
 using Shared.Components.EngineComponents;
 using Shared.SharedSystemRealisation;
 

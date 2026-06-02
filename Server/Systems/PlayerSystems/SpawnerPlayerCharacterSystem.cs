@@ -20,7 +20,6 @@ namespace Server.Systems.PlayerSystems;
 [EcsSystem]
 public class SpawnerPlayerCharacterSystem : BaseSystem
 {
-    [Dependency] private readonly ILogger _logger = null!;
     [Dependency] private readonly IEventBus _eventBus = null!;
     private Query _queryDescription = null!;
     private Query _queryPlayers = null!;
@@ -35,7 +34,7 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
     {
         _eventBus.Subscribe((Entity playerEntity, ref ClientData playerData, ref NewEntityClient _) =>
         {
-            InitiateSpawnPlayerCharacters();
+            SpawnPlayerCharacterInSpawnPoint(playerEntity);
         });
         
         _eventBus.Subscribe((Entity clientEntity, ref ClientData clientData, ref ClientEntityRemoved _) =>
@@ -44,43 +43,24 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
         });
     }
 
-    public void InitiateSpawnPlayerCharacters()
+    public void SpawnPlayerCharacterInSpawnPoint(Entity playerEntity)
     {
         var entity = World.GetFirstEntity(_queryDescription);
-        if (entity == Entity.Invalid)
+        if (entity == Entity.Invalid || !World.Has<NetworkTransform>(entity))
         {
-            _logger.Warning("Not found player spawner entity");
+            Logger.Warning("Not found player spawner entity");
             return;
         }
         
-        _queryPlayers.With((Entity clientEntity, ref ClientData clientData) =>
-        {
-            var networkTransform = World.Get<NetworkTransform>(entity);
-            SpawnPlayerCharacter(clientEntity, networkTransform.Position, ref clientData);
-        });
+        var spawnPoint = World.Get<NetworkTransform>(entity).Position;
+        SpawnPlayerCharacter(playerEntity, spawnPoint);
     }
 
-    public void SpawnPlayerCharacter(Entity playerEntity, Vector2 position, ref ClientData playerData)
+    public void SpawnPlayerCharacter(Entity playerEntity, Vector2 position)
     {
-        var characterEntity = World.Create();
+        var playerData = World.Get<ClientData>(playerEntity);
+        var characterEntity = Prefabs.CreatePlayer(World, position, playerData.Id);
         AddComponent(playerEntity, new ControlledEntity { Reference = characterEntity });
-        
-        AddComponent(characterEntity, new NetworkTransform { Position = position });
-        AddComponent(characterEntity, new MovingDirection());
-        AddComponent(characterEntity, new AttackInfo { MaxTargetRange = 40, AttackSize = new Vector2(36, 28), Damage = 1 });
-        AddComponent(characterEntity, new Speed { Value = 4f });
-        AddComponent(characterEntity, new PlayerCharacter { ClientId = playerData.Id });
-        AddComponent(characterEntity, new Health { Current = 10, Max = 10 });
-        AddComponent(characterEntity, new Fraction { Value = FractionType.Players });
-        AddComponent(characterEntity, new AnimationStateMapping { Animations =
-        {
-            [typeof(Idle)] = "player/Idle",
-            [typeof(Moving)] = "player/Movement",
-            [typeof(Attacking)] = "player/Attacking",
-            [typeof(Died)] = "player/Died"
-        } });
-        World.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);
-        World.SetState<Idle>(characterEntity);
     }
 
     public void DespawnPlayerCharacter(Entity clientEntity)

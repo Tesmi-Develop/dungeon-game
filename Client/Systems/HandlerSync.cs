@@ -2,7 +2,6 @@
 using Client.InternalSystems;
 using Client.Utilities;
 using Hypercube.Ecs;
-using Hypercube.Ecs.Events;
 using Hypercube.Utilities.Dependencies;
 using MessagePack;
 using Shared.Data;

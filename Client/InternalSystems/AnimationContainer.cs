@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Hypercube.Core.Ecs;
-using Hypercube.Core.Graphics.Rendering.Api;
 using Hypercube.Core.Graphics.Rendering.Manager;
 using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;

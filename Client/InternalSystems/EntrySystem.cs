@@ -99,7 +99,7 @@ public class EntrySystem : EntitySystem
     {
         var list = new List<IPatch>();
         
-        foreach (var system in _clientSystems)
+        foreach (var system in _allSystems)
         {
             if (system is IPatch patchSystem)
                 list.Add(patchSystem);

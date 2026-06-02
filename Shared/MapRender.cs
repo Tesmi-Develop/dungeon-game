@@ -2,6 +2,7 @@
 using Hypercube.Core.Graphics.Rendering.Context;
 using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;
+using Hypercube.Core.Viewports;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Components;
 using Hypercube.Mathematics;
@@ -33,31 +34,21 @@ public class MapRender : IDisposable
     
     private readonly Dictionary<uint, TiledTileRenderData> _tileDefinitions = new();
     private ResourcePath _path;
+    public string Name => _path;
 
     private struct TiledTileRenderData
     {
-        public uint RawGid { get; set; }
         public uint TileId { get; set; }
         public TiledTilesetReference Source { get; set; }
         public TiledTileDefinition? TileDefinition { get; set; }
         
-        public bool FlipHorizontal { get; set; }
-        public bool FlipVertical { get; set; }
-        public bool FlipDiagonal { get; set; }
-        public bool RotateHex120 { get; set; }
-        
-        public static TiledTileRenderData FromGid(uint gid, TiledTilesetReference source, TiledTileDefinition? definition)
+        public static TiledTileRenderData FromStaticData(uint tileId, TiledTilesetReference source, TiledTileDefinition? definition)
         {
             return new TiledTileRenderData
             {
-                RawGid = gid,
-                TileId = gid & ~ALL_FLAGS_MASK,
+                TileId = tileId,
                 Source = source,
-                TileDefinition = definition,
-                FlipHorizontal = (gid & FLIPPED_HORIZONTALLY_FLAG) != 0,
-                FlipVertical = (gid & FLIPPED_VERTICALLY_FLAG) != 0,
-                FlipDiagonal = (gid & FLIPPED_DIAGONALLY_FLAG) != 0,
-                RotateHex120 = (gid & ROTATED_HEXAGONAL_120_FLAG) != 0
+                TileDefinition = definition
             };
         }
     }
@@ -86,13 +77,18 @@ public class MapRender : IDisposable
         _path = tiledMapPath;
     }
     
-        public void Draw(IRenderContext renderContext, Vector2 position, Vector2 anchor, Vector2 scale)
+    public void Draw(IRenderContext renderContext, ICamera camera, Vector2 position, Vector2 anchor, Vector2 scale)
     {
         var tileW = Map.TileWidth;
         var tileH = Map.TileHeight;
         var tileSize = new Vector2(tileW, tileH);
         var mapSize = new Vector2(Map.Width * tileW, Map.Height * tileH);
 
+        const float padding = 10.0f;
+        
+        var cameraBounds = GetCameraWorldBounds(camera);
+        var cullingBounds = cameraBounds.Inflate(new Vector2(padding, padding));
+        
         foreach (var layer in Map.Layers.Where(l =>
                  {
                      var visibleProperty = l.Properties.Find(e => e.Name == "Visible");
@@ -106,11 +102,16 @@ public class MapRender : IDisposable
                 {
                     var rawGid = (uint)layer.GetTileAt(new Vector2i(x, y));
                     if (rawGid == 0) continue;
-                    
-                    var tileId = rawGid & ~ALL_FLAGS_MASK;
+
+                    var inv = ~ALL_FLAGS_MASK;
+                    var tileId = rawGid & inv;
                     if (!_tileDefinitions.TryGetValue(tileId, out var tileData))
                         continue;
-
+                    
+                    bool flipH = (rawGid & FLIPPED_HORIZONTALLY_FLAG) != 0;
+                    bool flipV = (rawGid & FLIPPED_VERTICALLY_FLAG) != 0;
+                    bool flipD = (rawGid & FLIPPED_DIAGONALLY_FLAG) != 0;
+                    
                     var tileset = tileData.Source.Source!;
                     var texture = tileset.Texture!;
                     var localId = tileData.TileId - (uint)tileData.Source.FirstGid;
@@ -120,48 +121,67 @@ public class MapRender : IDisposable
                     
                     var texSize = texture.Size;
                     
+                    // Базовые UV координаты
                     var uvTopLeft = new Vector2(column * tileW, (row + 1) * tileH) / texSize;
                     var uvBottomRight = new Vector2((column + 1) * tileW, row * tileH) / texSize;
                     var uv = new Rect2(uvTopLeft, uvBottomRight);
                     
+                    // Расчет позиции в мире
                     var correctedY = (Map.Height - 1 - y); 
                     var offset = new Vector2(x * tileW, correctedY * tileH);
                     var screenPos = position + (offset * scale) - (mapSize * scale * anchor);
                     
+                    // Базовый масштаб спрайта
                     var finalScale = tileSize / texture.Size * scale;
+                    
+                    // Рассчитываем угол поворота
                     var rotation = Angle.Zero;
+                    
+                    if (flipH)
+                    {
+                        finalScale = finalScale.WithX(-finalScale.X);
+                    }
+                    
+                    if (flipV)
+                    {
+                        finalScale = finalScale.WithY(-finalScale.Y);
+                    }
+                    
+                    // Обработка флапов Tiled
+                    if (flipD)
+                    {
+                        rotation += Angle.FromDegrees(90);
+
+                        var temp = finalScale.X;
+                        finalScale = finalScale.WithX(finalScale.Y);
+                        finalScale = finalScale.WithY(temp);
+                    }
+                    
+                    // Проверяем, есть ли дополнительное свойство Rotation у тайла
+                    if (tileData.TileDefinition != null)
+                    {
+                        var rotationProp = tileData.TileDefinition.Properties.Find(p => p.Name == "Rotation");
+                        if (rotationProp != null && rotationProp.Type == "float")
+                        {
+                            rotation += Angle.FromDegrees(rotationProp.GetValue<float>());
+                        }
+                    }
+                    
+                    // Расчет границ для клиппинга
+                    var spriteSizePixels = new Vector2(tileW * scale.X, tileH * scale.Y);
+                    var spriteBounds = Rect2.FromCenter(screenPos, spriteSizePixels);
+                    
+                    if (!spriteBounds.Intersects(cullingBounds))
+                    {
+                        continue;
+                    }
+                    
                     var color = Color.White;
-                    
-                    if (tileData.FlipDiagonal)
-                    {
-                        uv = new Rect2(
-                            new Vector2(uvTopLeft.Y, uvTopLeft.X),
-                            new Vector2(uvBottomRight.Y, uvBottomRight.X)
-                        );
-                        
-                        finalScale = new Vector2(finalScale.Y, finalScale.X);
-                    }
-                    
-                    if (tileData.FlipHorizontal)
-                    {
-                        uv = new Rect2(
-                            new Vector2(uv.TopRight.X, uv.TopRight.Y),
-                            new Vector2(uv.BottomLeft.X, uv.BottomLeft.Y)
-                        );
-                    }
-                    
-                    if (tileData.FlipVertical)
-                    {
-                        uv = new Rect2(
-                            new Vector2(uv.BottomLeft.X, uv.BottomLeft.Y),
-                            new Vector2(uv.TopRight.X, uv.TopRight.Y)
-                        );
-                    }
-                    
+
                     renderContext.DrawTexture(
                         texture,
                         screenPos,
-                        rotation,
+                        rotation, // <-- Теперь передаем реальный угол
                         finalScale, 
                         color,
                         uv
@@ -169,6 +189,16 @@ public class MapRender : IDisposable
                 }
             }
         }
+    }
+        
+    private Rect2 GetCameraWorldBounds(ICamera camera)
+    {
+        var halfWidthWorld = (camera.Size.X * 0.5f) / camera.Scale.X;
+        var halfHeightWorld = (camera.Size.Y * 0.5f) / camera.Scale.Y;
+        
+        var center = camera.Position.Xy;
+        
+        return Rect2.FromCenter(center, new Vector2(halfWidthWorld * 2, halfHeightWorld * 2));
     }
 
     public void Load(World world, PrototypeStorage prototypes, Vector2 position, Vector2 anchor, Vector2 scale)
@@ -214,6 +244,7 @@ public class MapRender : IDisposable
         
         world.Add(entity, new NetworkTransform { Position = worldPosition });
         world.Add(entity, new TilesetRefComponent { Ref = tileset, Size = scaledTileSize  });
+        world.Add(entity, new MapComponentTag());
 
         if (!prototypes.TryGetPrototype(typeName, out var proto))
             return;
@@ -269,11 +300,14 @@ public class MapRender : IDisposable
             var texture = resourceManager.Load<Texture>(texturePath);
             tileset.Texture = texture;
 
+            // Заполняем словарь статическими данными. 
+            // Ключом является ЧИСТЫЙ ID тайла (без флагов), так как флаги зависят от размещения на карте.
             for (var i = 0; i < tileset.TileCount; i++)
             {
-                var gid = (uint)(i + tilesetRef.FirstGid);
-                _tileDefinitions[gid] = TiledTileRenderData.FromGid(
-                    gid, 
+                var pureTileId = (uint)(i + tilesetRef.FirstGid);
+                
+                _tileDefinitions[pureTileId] = TiledTileRenderData.FromStaticData(
+                    pureTileId, 
                     tilesetRef, 
                     tileset.Tiles.Find(r => r.Id == i)
                 );

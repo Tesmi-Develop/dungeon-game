@@ -3,7 +3,6 @@ using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
-using Shared.Components;
 using Shared.Components.EngineComponents;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;

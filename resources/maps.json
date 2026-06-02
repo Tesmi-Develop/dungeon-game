@@ -1,0 +1,12 @@
+﻿{
+  "1": {
+    "name": "Prolog",
+    "path": "/TiledMaps/Arena1/arena2.tmj",
+    "scale": 2
+  },
+  "2": {
+    "name": "Prolog2",
+    "path": "/TiledMaps/Arena1/arena1.tmj",
+    "scale": 2
+  }
+}

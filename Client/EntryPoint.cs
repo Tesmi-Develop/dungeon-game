@@ -7,9 +7,7 @@ using Hypercube.Core.Execution.Timing;
 using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Resources;
 using Hypercube.Core.Resources.Preloading;
-using Hypercube.Core.UI;
 using Hypercube.Core.UI.Manager;
-using Hypercube.Physics;
 using Hypercube.Physics.Collision;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
@@ -28,9 +26,6 @@ public static class EntryPoint
         Contacts.Initialize();
         MessagePackHelper.SetupMessagePack();
         container.Register<GameClient>();
-        
-        var mapHandler = new MapRender("/TiledMaps/Arena1/arena1.tmj");
-        container.RegisterSingleton<MapRender>(mapHandler);
     }
 
     [EntryPoint(EntryPointStage.BeforeEntityInitialization)]

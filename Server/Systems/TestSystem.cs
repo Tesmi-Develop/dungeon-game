@@ -30,27 +30,7 @@ public class TestSystem : BaseSystem
     
     public override void AfterInitialize()
     {
-        var enemy = EntityCreate();
-        AddComponent(enemy, new NetworkTransform { Position = new Vector2(150, 0)});
-        AddComponent(enemy, new MovingDirection());
-        AddComponent(enemy, new Target { TargetAcquisitionRadius = 200, TargetRetentionRadius = 300 });
-        AddComponent(enemy, new AttackInfo { MaxTargetRange = 40, AttackSize = new Vector2(36, 28), Damage = 1 });
-        AddComponent(enemy, new Speed { Value = 1f });
-        AddComponent(enemy, new EnemyTag());
-        AddComponent(enemy, new AttackerTag());
-        AddComponent(enemy, new PlayerTargetTag());
-        AddComponent(enemy, new Health { Current = 1, Max = 1 });
-        AddComponent(enemy, new Fraction { Value = FractionType.Enemies });
-        AddComponent(enemy, new ControlRotationByDirection());
-        AddComponent(enemy, new AnimationStateMapping { Animations =
-        {
-            [typeof(Idle)] = "enemy/Idle",
-            [typeof(Moving)] = "enemy/Movement",
-            [typeof(Attacking)] = "enemy/Attacking",
-            [typeof(Died)] = "enemy/Died"
-        } });
-        World.AddCollision(enemy, new Vector2(32, 32), isTrigger: true);
-        World.SetState<Idle>(enemy);
+        /**/
         
         /*Task.Run(async () =>
         {

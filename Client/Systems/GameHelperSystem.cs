@@ -1,5 +1,4 @@
 ﻿using Client.Utilities;
-using Hypercube.Core.Ecs;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;

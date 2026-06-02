@@ -1,31 +1,36 @@
-﻿using Client.Utilities;
-using Hypercube.Core.Graphics.Patching;
+﻿using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Graphics.Rendering;
 using Hypercube.Core.Graphics.Rendering.Context;
+using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;
+using Hypercube.Core.Systems.Rendering;
+using Hypercube.Core.Systems.Transform;
+using Hypercube.Core.Viewports;
+using Hypercube.Ecs.Queries;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
-using Shared;
+using Shared.Components;
 using Shared.SharedSystemRealisation;
+using Shared.Systems;
 
 namespace Client.Systems;
 
 [EcsSystem]
-public class MapRender : BaseSystem, IPatch
+public class MapRender : SharedMapHandlerSystem, IPatch
 {
-    [Dependency] private readonly Shared.MapRender _mapRender = null!;
     [Dependency] private readonly IResourceManager _resourceManager = null!;
+    private readonly QueryMeta _meta = new QueryMeta().WithAll<GameMap>();
     public int Priority => 2;
-
-    public override void Initialize()
-    {
-        _mapRender.Compile(_resourceManager);
-        var prototypeStorage = _resourceManager.Load<PrototypeStorage>("/prototypes.json");
-        _mapRender.Load(World, prototypeStorage, Vector2.Zero, Vector2.One / 2, new Vector2(2));
-    }
 
     public void Draw(IRenderContext renderer, DrawPayload payload)
     {
-        _mapRender.Draw(renderer, Vector2.Zero, Vector2.One / 2, new Vector2(2));
+        Query(_meta).With<GameMap>((entity, ref info) =>
+        {
+            if (info.MapName == string.Empty)
+                return;
+
+            var render = GetMap(info.MapName);
+            render.Draw(renderer, payload.Camera, info.Position, info.Anchor, info.Scale);
+        });
     }
 }
