@@ -1,9 +1,34 @@
 {
-    "activeFile": "",
+    "activeFile": "Arena1/arena1.tmx",
     "expandedProjectPaths": [
+        "Arena1",
+        "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
+        "Arena1/arena1.tmx": {
+            "scale": 8,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 295,
+                "y": 308.9375
+            }
+        },
+        "Arena1/arena1.tmx#utilities": {
+            "scaleInDock": 1
+        },
+        "D:/10labOVP/dungeon-game/resources/Atlases/arena0.tsx": {
+            "scaleInDock": 3
+        },
+        "D:/10labOVP/dungeon-game/resources/Atlases/arena1.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/10labOVP/dungeon-game/resources/Atlases/test2.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/10labOVP/dungeon-game/resources/Atlases/utilities.tsx": {
+            "scaleInDock": 1
+        },
         "D:/Projects/DeathBall/death-ball/resources/Atlases/test2.tsx": {
             "scaleInDock": 3,
             "scaleInEditor": 4
@@ -11,9 +36,18 @@
         "D:/Projects/DeathBall/death-ball/resources/Atlases/utilities.tsx": {
             "scaleInDock": 11,
             "scaleInEditor": 1
+        },
+        "arena2.tmj": {
+            "scale": 1.6862499999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 308.9696071163826,
+                "y": 244.62564862861385
+            }
         }
     },
-    "last.exportedFilePath": "D:/Projects/DeathBall/death-ball/resources/TiledMaps",
+    "last.exportedFilePath": "D:/10labOVP/dungeon-game/resources/TiledMaps/Arena1",
+    "last.externalTilesetPath": "D:/10labOVP/dungeon-game/resources/Atlases",
     "last.imagePath": "D:/Projects/DeathBall/death-ball/resources/Atlases/images",
     "map.height": 30,
     "map.lastUsedExportFilter": "JSON map-файлы (*.tmj *.json)",
@@ -21,15 +55,17 @@
     "map.tileWidth": 16,
     "map.width": 30,
     "openFiles": [
-        "D:/Projects/DeathBall/death-ball/resources/Atlases/utilities.tsx",
-        "D:/Projects/DeathBall/death-ball/resources/Atlases/test2.tsx"
+        "Arena1/arena1.tmx"
     ],
     "project": "arena2.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Arena1/arena1.tmx",
+        "arena2.tmj",
         "D:/Projects/DeathBall/death-ball/resources/Atlases/utilities.tsx",
         "D:/Projects/DeathBall/death-ball/resources/Atlases/test2.tsx"
     ],
+    "tileset.lastUsedFilter": "Файлы набора тайлов Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,
