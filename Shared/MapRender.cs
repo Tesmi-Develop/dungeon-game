@@ -72,7 +72,40 @@ public class MapRender : IDisposable
             }
         }
     }
+    
+    public Rect2i GetVisibleTileRange(
+        ICamera camera, 
+        Vector2 mapPosition, 
+        Vector2 mapAnchor, 
+        Vector2 mapScale,
+        int padding = 1)
+    {
+        var tileW = Map.TileWidth;
+        var tileH = Map.TileHeight;
 
+        var mapPixelSize = new Vector2(Map.Width * tileW, Map.Height * tileH);
+        var cameraBounds = GetCameraWorldBounds(camera);
+        var mapTopLeft = mapPosition - (mapPixelSize * mapScale * mapAnchor);
+        
+        var localLeft   = (cameraBounds.Left   - mapTopLeft.X) / mapScale.X;
+        var localRight  = (cameraBounds.Right  - mapTopLeft.X) / mapScale.X;
+
+        var localTop    = (mapTopLeft.Y + mapPixelSize.Y * mapScale.Y - cameraBounds.Bottom) / mapScale.Y;
+        var localBottom = (mapTopLeft.Y + mapPixelSize.Y * mapScale.Y - cameraBounds.Top)    / mapScale.Y;
+        
+        var minX = (int)Math.Floor(localLeft / tileW);
+        var minY = (int)Math.Floor(localTop / tileH);
+        var maxX = (int)Math.Ceiling(localRight / tileW);
+        var maxY = (int)Math.Ceiling(localBottom / tileH);
+        
+        minX = Math.Max(0, minX - padding);
+        minY = Math.Max(0, minY - padding);
+        maxX = Math.Min(Map.Width, maxX + padding);
+        maxY = Math.Min(Map.Height, maxY + padding);
+
+        return new Rect2i(minX, minY, maxX, maxY);
+    }
+    
     // ==================================================================
     // Tile Layers Rendering
     // ==================================================================
@@ -84,19 +117,17 @@ public class MapRender : IDisposable
         var cameraBounds = GetCameraWorldBounds(camera);
         var cullingBounds = cameraBounds.Inflate(new Vector2(20, 20));
 
+        var visibleRect = GetVisibleTileRange(camera, position, anchor, scale);
+        
         foreach (var layer in Map.Layers.OfType<TileLayer>())
         {
             if (!IsLayerVisible(layer)) continue;
 
-            for (int y = 0; y < layer.Height; y++)
+            for (var y = visibleRect.Top; y < visibleRect.Bottom; y++)
             {
-                for (int x = 0; x < layer.Width; x++)
+                for (var x = visibleRect.Left; x < visibleRect.Right; x++)
                 {
-                    var spriteSizePixels = new Vector2(Map.TileWidth * scale.X, Map.TileHeight * scale.Y);
                     var worldPos = CalculateWorldPosition(position, anchor, scale, mapPixelSize, x * Map.TileWidth, y * Map.TileHeight);
-                    var spriteBounds = Rect2.FromCenter(worldPos, spriteSizePixels);
-                    if (!spriteBounds.Intersects(cullingBounds))
-                        continue;
                     
                     var index = y * layer.Width + x;
                     var tileId = layer.GetGlobalTileIDAtCoord(x, y);
@@ -161,9 +192,9 @@ public class MapRender : IDisposable
 
         foreach (var layer in Map.Layers.OfType<TileLayer>())
         {
-            for (int y = 0; y < layer.Height; y++)
+            for (var y = 0; y < layer.Height; y++)
             {
-                for (int x = 0; x < layer.Width; x++)
+                for (var x = 0; x < layer.Width; x++)
                 {
                     var gid = layer.GetGlobalTileIDAtCoord(x, y);
                     if (gid == 0) continue;
