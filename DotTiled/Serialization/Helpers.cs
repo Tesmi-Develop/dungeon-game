@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using DotTiled.Layers;
+using DotTiled.Properties;
+using DotTiled.Properties.CustomTypes;
+using DotTiled.Tilesets;
 
 namespace DotTiled.Serialization;
 

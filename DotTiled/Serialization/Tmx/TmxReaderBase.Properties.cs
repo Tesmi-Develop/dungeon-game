@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Xml;
+using DotTiled.Properties;
+using DotTiled.Properties.CustomTypes;
 
 namespace DotTiled.Serialization.Tmx;
 

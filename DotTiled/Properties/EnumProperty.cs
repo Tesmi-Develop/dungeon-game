@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents an enum property.
@@ -12,7 +12,7 @@ public class EnumProperty : IProperty<ISet<string>>
   public required string Name { get; set; }
 
   /// <inheritdoc/>
-  public PropertyType Type => DotTiled.PropertyType.Enum;
+  public PropertyType Type => Properties.PropertyType.Enum;
 
   /// <summary>
   /// The type of the class property. This will be the name of a custom defined
@@ -20,6 +20,8 @@ public class EnumProperty : IProperty<ISet<string>>
   /// </summary>
   public required string PropertyType { get; set; }
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The value of the enum property.
   /// </summary>

@@ -1,3 +1,5 @@
+using DotTiled.Tilesets;
+
 namespace DotTiled.Serialization;
 
 /// <summary>

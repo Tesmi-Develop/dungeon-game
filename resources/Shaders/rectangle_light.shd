@@ -1,0 +1,48 @@
+﻿#version 460
+
+[fragment]
+out vec4 FragColor;
+
+in vec4 Color;
+in vec2 TexCoord;
+
+uniform float intensity = 1.0;
+uniform float falloff = 0.5;
+uniform vec2 maskSize;
+
+void main()
+{
+    vec2 st = TexCoord * 2.0 - 1.0;
+            
+    float ratio = maskSize.x / maskSize.y;
+        
+    vec2 size = vec2(ratio, 1.0);
+    if (ratio < 1.0) size = vec2(1.0, 1.0 / ratio);
+        
+    vec2 d = abs(st) * size;
+        
+    float dist = max(d.x / size.x, d.y / size.y);
+        
+    float lightShape = 1.0 - smoothstep(falloff, 1.0, dist);
+    
+    FragColor = vec4(Color.rgb, lightShape * intensity * Color.a);
+}
+
+[vertex]
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec4 aColor;
+layout (location = 2) in vec2 aTexCoord;
+
+out vec4 Color;
+out vec2 TexCoord;
+
+uniform mat4 projection;
+uniform mat4 model;
+uniform mat4 view;
+
+void main()
+{
+    gl_Position = vec4(aPos, 1.0) * model * view * projection;
+    Color = aColor;
+    TexCoord = aTexCoord;
+}

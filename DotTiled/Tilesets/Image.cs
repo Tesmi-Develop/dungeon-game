@@ -1,4 +1,6 @@
-namespace DotTiled;
+using DotTiled.Properties;
+
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// The format of an image.

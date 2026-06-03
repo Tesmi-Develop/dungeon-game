@@ -37,7 +37,7 @@ public class SyncComponentGenerator : IIncrementalGenerator
                 var attributeContainingTypeSymbol = attributeSymbol.ContainingType;
                 var fullName = attributeContainingTypeSymbol.ToDisplayString();
 
-                if (fullName == "Shared.Attributes.SyncComponentAttribute")
+                if (fullName == "Shared.Attributes.Engine.SyncComponentAttribute")
                 {
                     var symbol = context.SemanticModel.GetDeclaredSymbol(structDeclaration) as INamedTypeSymbol;
                     if (symbol is null) return null;
@@ -60,7 +60,7 @@ public class SyncComponentGenerator : IIncrementalGenerator
         var fields = symbol.GetMembers()
             .OfType<IFieldSymbol>()
             .Where(f => !f.IsStatic)
-            .Where(f => !f.GetAttributes().Any(a => a?.AttributeClass?.ToDisplayString() == "Shared.Attributes.NonSyncedAttribute"))
+            .Where(f => !f.GetAttributes().Any(a => a?.AttributeClass?.ToDisplayString() == "Shared.Attributes.Engine.NonSyncedAttribute"))
             .OrderBy(f => f.Name)
             .ToList();
 

@@ -3,6 +3,7 @@ using Hypercube.Core.Systems.Rendering;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 using Shared.Components;
 using Shared.ResourcesData;
 using Shared.SharedSystemRealisation;

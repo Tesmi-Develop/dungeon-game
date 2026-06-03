@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a color property.
@@ -11,6 +11,8 @@ public class ColorProperty : IProperty<Optional<TiledColor>>
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.Color;
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The color value of the property.
   /// </summary>

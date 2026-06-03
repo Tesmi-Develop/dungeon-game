@@ -1,6 +1,6 @@
 using System;
 
-namespace DotTiled;
+namespace DotTiled.Layers;
 
 /// <summary>
 /// Represents a tile layer in a map.

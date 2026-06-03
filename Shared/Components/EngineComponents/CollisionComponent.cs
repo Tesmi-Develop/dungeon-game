@@ -3,6 +3,7 @@ using Hypercube.Mathematics;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Physics.Shapes;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 
 namespace Shared.Components.EngineComponents;
 

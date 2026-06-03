@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a boolean property.
@@ -10,6 +10,8 @@ public class BoolProperty : IProperty<bool>
 
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.Bool;
+
+  public object SourceValue => Value;
 
   /// <summary>
   /// The boolean value of the property.

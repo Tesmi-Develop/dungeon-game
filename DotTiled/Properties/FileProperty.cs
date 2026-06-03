@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a file property.
@@ -11,6 +11,8 @@ public class FileProperty : IProperty<string>
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.File;
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The value of the property.
   /// </summary>

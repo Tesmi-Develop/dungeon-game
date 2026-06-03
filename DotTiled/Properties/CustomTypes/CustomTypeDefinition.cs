@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties.CustomTypes;
 
 /// <summary>
 /// Base class for custom type definitions.

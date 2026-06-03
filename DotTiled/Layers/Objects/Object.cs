@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using DotTiled.Properties;
+using DotTiled.Tilesets;
 
-namespace DotTiled;
+namespace DotTiled.Layers.Objects;
 
 /// <summary>
 /// Base class for objects in object layers.

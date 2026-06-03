@@ -8,12 +8,19 @@ in vec2 TexCoord;
 
 uniform float intensity = 1.0;
 uniform float falloff = 0.5;
+uniform vec2 maskSize;
 
 void main()
 {
     vec2 centerDist = TexCoord - vec2(0.5);
+    
+    float aspectRatio = maskSize.x / maskSize.y;
+    centerDist.x *= aspectRatio;
+    
     float dist = length(centerDist) * 2.0;
+    
     float lightShape = 1.0 - smoothstep(falloff, 1.0, dist);
+    
     float alpha = lightShape * intensity * Color.a;
     
     FragColor = vec4(Color.rgb, alpha);

@@ -4,6 +4,7 @@ using Hypercube.Utilities.Dependencies;
 using Server.Extensions;
 using Server.Utilities;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.EngineComponents;

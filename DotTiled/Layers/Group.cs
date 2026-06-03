@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DotTiled;
+namespace DotTiled.Layers;
 
 /// <summary>
 /// Represents a group of layers, to form a hierarchy.

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Interface for objects that have properties attached to them.

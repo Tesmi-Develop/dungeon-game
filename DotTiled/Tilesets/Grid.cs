@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Orientation of the grid for the tiles in this tileset.

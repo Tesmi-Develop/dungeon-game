@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Xml;
+using DotTiled.Properties.CustomTypes;
+using DotTiled.Tilesets;
 
 namespace DotTiled.Serialization.Tmx;
 

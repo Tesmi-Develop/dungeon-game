@@ -1,7 +1,7 @@
 ﻿using Hypercube.Core.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
-using Shared.Components;
+using Shared.Components.EngineComponents;
 
 namespace Client.InternalSystems;
 

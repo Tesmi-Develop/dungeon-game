@@ -2,6 +2,7 @@
 using Hypercube.Ecs.Queries;
 using Server.Utilities;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 using Shared.Components.Enemies;
 using Shared.Components.Enemies.EnemyTags;
 using Shared.Components.EngineComponents;

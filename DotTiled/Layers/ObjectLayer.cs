@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using DotTiled.Layers.Objects;
+using DotTiled.Properties;
 
-namespace DotTiled;
+namespace DotTiled.Layers;
 
 /// <summary>
 /// Represents the order in which objects can be drawn.

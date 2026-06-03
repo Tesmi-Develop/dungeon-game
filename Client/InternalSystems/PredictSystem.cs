@@ -3,6 +3,7 @@ using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 
 namespace Client.InternalSystems;
 

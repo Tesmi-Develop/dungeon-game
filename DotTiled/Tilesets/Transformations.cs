@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Represents which transformations can be applied to a tile in a tileset.

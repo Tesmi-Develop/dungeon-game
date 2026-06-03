@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Is used to specify an offset in pixels in tilesets, to be applied when drawing a tile from the related tileset.

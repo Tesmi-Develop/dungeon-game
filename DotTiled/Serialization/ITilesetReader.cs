@@ -1,4 +1,5 @@
 using System;
+using DotTiled.Tilesets;
 
 namespace DotTiled.Serialization;
 

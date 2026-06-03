@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DotTiled;
+namespace DotTiled.Properties.CustomTypes;
 
 /// <summary>
 /// Represents the types of objects that can use a custom class.

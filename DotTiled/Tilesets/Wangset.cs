@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using DotTiled.Properties;
 
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Defines a list of colors and any number of Wang tiles using these colors.

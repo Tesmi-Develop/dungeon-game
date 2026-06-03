@@ -1,4 +1,6 @@
-namespace DotTiled;
+using DotTiled.Tilesets;
+
+namespace DotTiled.Layers;
 
 /// <summary>
 /// Represents an image layer in a map.

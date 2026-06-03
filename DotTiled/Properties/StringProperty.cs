@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a string property.
@@ -11,6 +11,8 @@ public class StringProperty : IProperty<string>
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.String;
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The string value of the property.
   /// </summary>

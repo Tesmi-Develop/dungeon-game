@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Properties.CustomTypes;
 
 /// <summary>
 /// Represents the storage type of a custom enum.

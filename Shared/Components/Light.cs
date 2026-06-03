@@ -2,8 +2,15 @@
 using Hypercube.Mathematics;
 using Hypercube.Mathematics.Vectors;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 
 namespace Shared.Components;
+
+public enum LightType : byte
+{
+    Circle,
+    Rectangle
+}
 
 [SyncComponent]
 public partial struct Light : IComponent
@@ -30,11 +37,13 @@ public partial struct Light : IComponent
     };
     
     public float Radius = 10;
+    public Vector2 Size;
     public Color Color = Color.White;
     public bool IsActive = true;
     public float Intensity = 1;
     public float ColorIntensity = 0;
     public float Falloff = 0.3f;
+    public LightType LightType = LightType.Circle;
     public Vector2 Offset = default;
 
     public Light()

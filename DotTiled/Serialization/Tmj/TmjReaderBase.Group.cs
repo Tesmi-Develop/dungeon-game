@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using DotTiled.Layers;
+using DotTiled.Properties;
 
 namespace DotTiled.Serialization.Tmj;
 

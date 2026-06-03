@@ -6,6 +6,7 @@ using MessagePack;
 using Server.Components;
 using Server.Utilities;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 using Shared.Data;
 using Shared.SharedSystemRealisation;
 

@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.Linq;
+using DotTiled.Properties;
 
-namespace DotTiled;
+namespace DotTiled.Layers.Objects;
 
 /// <summary>
 /// The horizontal alignment of text.

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace DotTiled;
+namespace DotTiled.Layers.Objects;
 
 /// <summary>
 /// A polyline object in a map. The existing <see cref="Object.X"/> and <see cref="Object.Y"/> properties are used as

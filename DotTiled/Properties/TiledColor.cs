@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a Tiled color.

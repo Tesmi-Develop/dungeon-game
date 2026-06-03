@@ -1,3 +1,6 @@
+using DotTiled.Layers.Objects;
+using DotTiled.Tilesets;
+
 namespace DotTiled;
 
 /// <summary>

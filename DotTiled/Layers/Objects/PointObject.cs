@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Layers.Objects;
 
 /// <summary>
 /// A point object in a map. The existing <see cref="Object.X"/> and <see cref="Object.Y"/> properties are used to

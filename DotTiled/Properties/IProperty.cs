@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Interface for properties that can be attached to objects, tiles, tilesets, maps etc.
@@ -14,6 +14,8 @@ public interface IProperty
   /// The type of the property.
   /// </summary>
   PropertyType Type { get; }
+
+  object SourceValue { get; }
 
   /// <summary>
   /// Clones the property, only used for copying properties when performing overriding

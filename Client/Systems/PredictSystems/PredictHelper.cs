@@ -3,6 +3,7 @@ using Client.Utilities;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Components;
 using Shared.Components;
+using Shared.Components.EngineComponents;
 using Shared.Helpers;
 using Shared.SharedSystemRealisation;
 

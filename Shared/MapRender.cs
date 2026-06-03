@@ -1,6 +1,9 @@
 ﻿using System.Text.Json;
 using DotTiled;
+using DotTiled.Layers;
+using DotTiled.Properties;
 using DotTiled.Serialization;
+using DotTiled.Tilesets;
 using Hypercube.Core.Graphics.Rendering.Context;
 using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;
@@ -12,8 +15,9 @@ using Hypercube.Mathematics.Shapes;
 using Hypercube.Mathematics.Vectors;
 using Shared.Components;
 using Shared.Components.EngineComponents;
+using Shared.Components.MapComponents;
 using NetworkTransform = Shared.Components.EngineComponents.NetworkTransform;
-using Object = DotTiled.Object;
+using Object = DotTiled.Layers.Objects.Object;
 
 namespace Shared;
 
@@ -115,7 +119,6 @@ public class MapRender : IDisposable
         var mapPixelSize = new Vector2(Map.Width * Map.TileWidth, Map.Height * Map.TileHeight);
 
         var cameraBounds = GetCameraWorldBounds(camera);
-        var cullingBounds = cameraBounds.Inflate(new Vector2(20, 20));
 
         var visibleRect = GetVisibleTileRange(camera, position, anchor, scale);
         
@@ -212,54 +215,41 @@ public class MapRender : IDisposable
                     var worldPos = CalculateWorldPosition(position, anchor, scale, mapPixelSize, 
                                                         x * Map.TileWidth, y * Map.TileHeight);
 
-                    CreateEntityFromTile(world, prototypes, tileset, typeName.Value, worldPos, 
-                                       new Vector2(Map.TileWidth, Map.TileHeight) * scale);
+                    CreateEntityFromTile(world, tileset, typeName.Value, worldPos, 
+                                       new Vector2(Map.TileWidth, Map.TileHeight) * scale, scale);
                 }
             }
         }
-
-        // 2. Object Layers
+        
         foreach (var layer in Map.Layers.OfType<ObjectLayer>())
         {
-            if (!IsLayerVisible(layer)) continue;
-
             foreach (var obj in layer.Objects)
             {
                 if (!obj.TryGetProperty("Type", out StringProperty typeName))
                     continue;
 
-                var worldPos = CalculateObjectWorldPosition(position, anchor, scale, obj);
-                CreateEntityFromObject(world, prototypes, typeName.Value, worldPos, obj);
+                var worldPos = CalculateWorldPosition(position, anchor, scale, mapPixelSize, 
+                    obj.X, obj.Y) + (new Vector2(obj.Width, -obj.Height) * scale) / 2;
+                CreateEntityFromObject(world, typeName.Value, worldPos, obj, scale);
             }
         }
     }
-    
-    private Vector2 CalculateObjectWorldPosition(Vector2 position, Vector2 anchor, Vector2 scale, Object obj)
+
+    private void CreateEntityFromTile(World world, Tileset tileset,
+        string typeName, Vector2 worldPosition, Vector2 scaledSize, Vector2 scale)
     {
-        var mapHeightPixels = Map.Height * Map.TileHeight;
-        var worldY = mapHeightPixels - obj.Y; // Flip Y (Tiled -> world)
-
-        var mapPixelSize = new Vector2(Map.Width * Map.TileWidth, mapHeightPixels);
-        var offset = new Vector2(obj.X, worldY);
-
-        return position + (offset * scale) - (mapPixelSize * scale * anchor);
+        CreateEntityBase(world, typeName, worldPosition, scaledSize, scale, tileset.GetProperties(), tileset);
     }
 
-    private void CreateEntityFromTile(World world, PrototypeStorage prototypes, Tileset tileset, 
-                                      string typeName, Vector2 worldPosition, Vector2 scaledSize)
-    {
-        CreateEntityBase(world, prototypes, typeName, worldPosition, scaledSize, tileset);
-    }
-
-    private void CreateEntityFromObject(World world, PrototypeStorage prototypes, string typeName, 
-                                        Vector2 worldPosition, Object obj)
+    private void CreateEntityFromObject(World world, string typeName,
+        Vector2 worldPosition, Object obj, Vector2 scale)
     {
         var size = new Vector2(obj.Width, obj.Height);
-        CreateEntityBase(world, prototypes, typeName, worldPosition, size, null, obj);
+        CreateEntityBase(world, typeName, worldPosition, size, scale, obj.GetProperties(), null, obj);
     }
 
-    private void CreateEntityBase(World world, PrototypeStorage prototypes, string typeName, 
-                                  Vector2 worldPosition, Vector2 size, Tileset? tileset = null, Object? obj = null)
+    private void CreateEntityBase(World world, string typeName, 
+                                  Vector2 worldPosition, Vector2 size, Vector2 scale, IList<IProperty> sourceProperties, Tileset? tileset = null, Object? obj = null)
     {
         var entity = world.Create();
 
@@ -270,36 +260,26 @@ public class MapRender : IDisposable
 
         world.Add(entity, new MapComponentTag());
 
-        if (obj != null) {}
-            //world.Add(entity, new TiledObjectComponent { Object = obj });
+        if (obj != null)
+            world.Add(entity, new TiledObjectComponent { Object = obj, Scale = scale });
 
-        if (!prototypes.TryGetPrototype(typeName, out var prototype))
+        if (!ComponentTypes.TryGetValue(typeName, out var compType))
+            return;
+        
+        var component = Activator.CreateInstance(compType);
+        if (component == null) 
             return;
 
-        foreach (var (compName, properties) in prototype)
+        foreach (var property in sourceProperties)
         {
-            if (!ComponentTypes.TryGetValue(compName, out var compType))
+            if (property.Name == "Type")
                 continue;
-
-            var component = Activator.CreateInstance(compType);
-            if (component == null) continue;
-
-            foreach (var (propName, value) in properties)
-            {
-                var field = compType.GetField(propName);
-                if (field != null)
-                {
-                    field.SetValue(component, ConvertValue(value, field.FieldType));
-                    continue;
-                }
-
-                var prop = compType.GetProperty(propName);
-                if (prop?.CanWrite == true)
-                    prop.SetValue(component, ConvertValue(value, prop.PropertyType));
-            }
-
-            world.Add(entity, component);
+            
+            var fieldInfo = compType.GetField(property.Name);
+            fieldInfo?.SetValue(component, property.SourceValue);
         }
+        
+        world.Add(entity, component);
     }
 
     private object? ConvertValue(object? value, Type targetType)
@@ -333,24 +313,6 @@ public class MapRender : IDisposable
         var correctedY = Map.Height * Map.TileHeight - y;
         var offset = new Vector2(x, correctedY);
         return position + (offset * scale) - (mapPixelSize * scale * anchor);
-    }
-
-    private Vector2 CalculateFinalScale(Vector2 tileSize, Vector2 texSize, Vector2 scale, 
-                                        bool h, bool v, bool d, out Angle rotation)
-    {
-        rotation = Angle.Zero;
-        var s = Vector2.One;
-
-        if (d)
-        {
-            rotation = Angle.FromDegrees(-90);
-            s = new Vector2(1, -1);
-        }
-
-        if (h) { rotation = -rotation; s = s.WithX(-s.X); }
-        if (v) { rotation = -rotation; s = s.WithY(-s.Y); }
-
-        return s * (tileSize / texSize * scale);
     }
 
     private bool IsLayerVisible(BaseLayer layer)

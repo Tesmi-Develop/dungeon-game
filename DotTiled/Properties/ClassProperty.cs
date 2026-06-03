@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a class property.
@@ -12,7 +12,7 @@ public class ClassProperty : HasPropertiesBase, IProperty<IList<IProperty>>
   public required string Name { get; set; }
 
   /// <inheritdoc/>
-  public PropertyType Type => DotTiled.PropertyType.Class;
+  public PropertyType Type => Properties.PropertyType.Class;
 
   /// <summary>
   /// The type of the class property. This will be the name of a custom defined
@@ -20,6 +20,8 @@ public class ClassProperty : HasPropertiesBase, IProperty<IList<IProperty>>
   /// </summary>
   public required string PropertyType { get; set; }
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The properties of the class property.
   /// </summary>

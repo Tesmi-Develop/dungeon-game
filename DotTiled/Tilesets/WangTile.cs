@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Represents a Wang tile in a Wang set.

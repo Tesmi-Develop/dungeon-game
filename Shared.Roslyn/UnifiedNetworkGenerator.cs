@@ -9,8 +9,8 @@ namespace Shared.Roslyn;
 [Generator]
 public sealed class UnifiedNetworkGenerator : IIncrementalGenerator
 {
-    private const string SyncAttribute = "Shared.Attributes.SyncComponentAttribute";
-    private const string RequestAttribute = "Shared.Attributes.RequestComponentAttribute";
+    private const string SyncAttribute = "Shared.Attributes.Engine.SyncComponentAttribute";
+    private const string RequestAttribute = "Shared.Attributes.Engine.RequestComponentAttribute";
 
     private static readonly string[] TargetAttributeFullNames = [
         "Shared.Attributes.NumeratorAttribute", 
@@ -95,6 +95,7 @@ public sealed class UnifiedNetworkGenerator : IIncrementalGenerator
         sb.AppendLine("using MessagePack;");
         sb.AppendLine("using Shared.NetworkUtilities;");
         sb.AppendLine("using Shared.Components;");
+        sb.AppendLine("using Shared.Components.EngineComponents;");
         sb.AppendLine("using Shared.Helpers;");
         sb.AppendLine("using Shared.Data;");
         sb.AppendLine("using Hypercube.Ecs.Events;");

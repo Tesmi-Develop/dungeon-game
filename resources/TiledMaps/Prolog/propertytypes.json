@@ -1,0 +1,32 @@
+[
+    {
+        "color": "#ffffff00",
+        "drawFill": true,
+        "id": 3,
+        "members": [
+            {
+                "name": "Falloff",
+                "type": "float",
+                "value": 0.3
+            },
+            {
+                "name": "Intensity",
+                "type": "float",
+                "value": 1
+            }
+        ],
+        "name": "Light",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    }
+]

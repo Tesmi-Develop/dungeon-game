@@ -1,5 +1,6 @@
 ﻿using Hypercube.Ecs.Components;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 using Shared.Data;
 
 namespace Shared.Components;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using DotTiled.Properties;
 
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Represents a Wang color in a Wang set.

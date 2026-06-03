@@ -1,7 +1,7 @@
 ﻿using Hypercube.Ecs.Components;
 using Shared.Data;
 
-namespace Shared.Components;
+namespace Shared.Components.EngineComponents;
 
 public struct EntityPredictHistory : IComponent
 {

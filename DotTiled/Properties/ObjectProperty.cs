@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents an object property.
@@ -11,6 +11,8 @@ public class ObjectProperty : IProperty<uint>
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.Object;
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The object identifier referenced by the property.
   /// </summary>

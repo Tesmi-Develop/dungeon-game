@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
+using DotTiled.Layers;
+using DotTiled.Layers.Objects;
+using DotTiled.Properties;
+using DotTiled.Tilesets;
+using Object = DotTiled.Layers.Objects.Object;
 
 namespace DotTiled.Serialization.Tmx;
 
@@ -36,7 +41,7 @@ public abstract partial class TmxReaderBase
     // Elements
     var propertiesCounter = 0;
     List<IProperty> properties = Helpers.ResolveClassProperties(@class, _customTypeResolver);
-    List<DotTiled.Object> objects = [];
+    List<Object> objects = [];
 
     _reader.ProcessChildren("objectgroup", (r, elementName) => elementName switch
     {
@@ -68,12 +73,12 @@ public abstract partial class TmxReaderBase
     };
   }
 
-  internal DotTiled.Object ReadObject()
+  internal Object ReadObject()
   {
     // Attributes
     var templateSource = _reader.GetOptionalAttribute("template");
     Template template = null;
-    DotTiled.Object obj = null;
+    Object obj = null;
     if (templateSource.HasValue)
     {
       template = _externalTemplateResolver(templateSource.Value);
@@ -104,7 +109,7 @@ public abstract partial class TmxReaderBase
     var visible = _reader.GetOptionalAttributeParseable<uint>("visible").GetValueOr(visibleDefault ? 1u : 0u) == 1;
 
     // Elements
-    DotTiled.Object foundObject = null;
+    Object foundObject = null;
     int propertiesCounter = 0;
     List<IProperty> properties = Helpers.ResolveClassProperties(type, _customTypeResolver) ?? propertiesDefault;
 
@@ -148,7 +153,7 @@ public abstract partial class TmxReaderBase
     return OverrideObject(obj, foundObject);
   }
 
-  internal static DotTiled.Object OverrideObject(DotTiled.Object obj, DotTiled.Object foundObject)
+  internal static Object OverrideObject(Object obj, Object foundObject)
   {
     if (obj is null)
       return foundObject;
@@ -324,7 +329,7 @@ public abstract partial class TmxReaderBase
     Tileset tileset = null;
 
     // Should contain exactly one of
-    DotTiled.Object obj = null;
+    Object obj = null;
 
     _reader.ProcessChildren("template", (r, elementName) => elementName switch
     {

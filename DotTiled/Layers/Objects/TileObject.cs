@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Layers.Objects;
 
 /// <summary>
 /// A tile object in a map.

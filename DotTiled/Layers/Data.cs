@@ -1,6 +1,6 @@
 using System;
 
-namespace DotTiled;
+namespace DotTiled.Layers;
 
 /// <summary>
 /// Specifies the encoding used to encode the tile layer data.

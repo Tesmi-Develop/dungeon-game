@@ -1,4 +1,4 @@
-namespace Shared.Attributes;
+namespace Shared.Attributes.Engine;
 
 [AttributeUsage(AttributeTargets.Struct)]
 public sealed class SyncComponentAttribute : Attribute

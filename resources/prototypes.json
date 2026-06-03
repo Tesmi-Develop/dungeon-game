@@ -6,5 +6,8 @@
   },
   "PlayerSpawner": {
     "PlayerSpawner": {}
+  },
+  "SourceLight": {
+    "SourceLight": {}
   }
 }

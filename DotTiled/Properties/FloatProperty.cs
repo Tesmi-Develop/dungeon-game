@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents a float property.
@@ -11,6 +11,8 @@ public class FloatProperty : IProperty<float>
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.Float;
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The float value of the property.
   /// </summary>

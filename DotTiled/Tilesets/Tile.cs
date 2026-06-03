@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using DotTiled.Layers;
+using DotTiled.Properties;
 
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// Represents a single tile in a tileset, when using a collection of images to represent the tileset.

@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace DotTiled;
+namespace DotTiled.Layers.Objects;
 
 /// <summary>
 /// A rectangle object in a map. The existing <see cref="Object.X"/>, <see cref="Object.Y"/>, <see cref="Object.Width"/>,

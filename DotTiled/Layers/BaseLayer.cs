@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using DotTiled.Properties;
 
-namespace DotTiled;
+namespace DotTiled.Layers;
 
 /// <summary>
 /// Base class for all layer types in a map.

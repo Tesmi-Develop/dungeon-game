@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DotTiled.Tilesets;
 
 namespace DotTiled.Serialization;
 

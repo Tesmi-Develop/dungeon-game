@@ -1,4 +1,4 @@
-﻿namespace Shared.Attributes;
+﻿namespace Shared.Attributes.Engine;
 
 public class PredicateAttribute : Attribute
 {

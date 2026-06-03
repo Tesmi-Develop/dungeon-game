@@ -1,8 +1,10 @@
 using System;
 using System.IO;
 using System.Xml;
+using DotTiled.Properties.CustomTypes;
 using DotTiled.Serialization.Tmj;
 using DotTiled.Serialization.Tmx;
+using DotTiled.Tilesets;
 
 namespace DotTiled.Serialization;
 

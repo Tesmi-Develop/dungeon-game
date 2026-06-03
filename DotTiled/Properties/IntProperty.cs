@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Properties;
 
 /// <summary>
 /// Represents an integer property.
@@ -11,6 +11,8 @@ public class IntProperty : IProperty<int>
   /// <inheritdoc/>
   public PropertyType Type => PropertyType.Int;
 
+  public object SourceValue => Value;
+  
   /// <summary>
   /// The integer value of the property.
   /// </summary>

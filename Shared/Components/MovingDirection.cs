@@ -1,5 +1,6 @@
 ﻿using Hypercube.Mathematics.Vectors;
 using Shared.Attributes;
+using Shared.Attributes.Engine;
 
 namespace Shared.Components;
 

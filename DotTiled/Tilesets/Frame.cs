@@ -1,4 +1,4 @@
-namespace DotTiled;
+namespace DotTiled.Tilesets;
 
 /// <summary>
 /// A single frame of an animated tile.
