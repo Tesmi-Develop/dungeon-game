@@ -1,0 +1,326 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace DotTiled.Serialization.Tmx;
+
+public abstract partial class TmxReaderBase
+{
+  internal Tileset ReadTileset(
+    Optional<string> parentVersion = default,
+    Optional<string> parentTiledVersion = default)
+  {
+    var firstGID = _reader.GetOptionalAttributeParseable<uint>("firstgid");
+    var source = _reader.GetOptionalAttribute("source");
+
+    // Check if external tileset
+    if (source.HasValue && firstGID.HasValue)
+    {
+      // Is external tileset
+      var externalTileset = CloneTileset(_externalTilesetResolver(source.Value));
+      externalTileset.FirstGID = firstGID;
+      externalTileset.Source = source;
+
+      _reader.ProcessChildren("tileset", (r, elementName) => r.Skip);
+      return externalTileset;
+    }
+
+    // Attributes
+    var version = _reader.GetOptionalAttribute("version").GetValueOrOptional(parentVersion);
+    var tiledVersion = _reader.GetOptionalAttribute("tiledversion").GetValueOrOptional(parentTiledVersion);
+    var name = _reader.GetRequiredAttribute("name");
+    var @class = _reader.GetOptionalAttribute("class").GetValueOr("");
+    var tileWidth = _reader.GetRequiredAttributeParseable<int>("tilewidth");
+    var tileHeight = _reader.GetRequiredAttributeParseable<int>("tileheight");
+    var spacing = _reader.GetOptionalAttributeParseable<int>("spacing").GetValueOr(0);
+    var margin = _reader.GetOptionalAttributeParseable<int>("margin").GetValueOr(0);
+    var tileCount = _reader.GetRequiredAttributeParseable<int>("tilecount");
+    var columns = _reader.GetRequiredAttributeParseable<int>("columns");
+    var objectAlignment = _reader.GetOptionalAttributeEnum<ObjectAlignment>("objectalignment", s => s switch
+    {
+      "unspecified" => ObjectAlignment.Unspecified,
+      "topleft" => ObjectAlignment.TopLeft,
+      "top" => ObjectAlignment.Top,
+      "topright" => ObjectAlignment.TopRight,
+      "left" => ObjectAlignment.Left,
+      "center" => ObjectAlignment.Center,
+      "right" => ObjectAlignment.Right,
+      "bottomleft" => ObjectAlignment.BottomLeft,
+      "bottom" => ObjectAlignment.Bottom,
+      "bottomright" => ObjectAlignment.BottomRight,
+      _ => throw new InvalidOperationException($"Unknown object alignment '{s}'")
+    }).GetValueOr(ObjectAlignment.Unspecified);
+    var renderSize = _reader.GetOptionalAttributeEnum<TileRenderSize>("tilerendersize", s => s switch
+    {
+      "tile" => TileRenderSize.Tile,
+      "grid" => TileRenderSize.Grid,
+      _ => throw new InvalidOperationException($"Unknown render size '{s}'")
+    }).GetValueOr(TileRenderSize.Tile);
+    var fillMode = _reader.GetOptionalAttributeEnum<FillMode>("fillmode", s => s switch
+    {
+      "stretch" => FillMode.Stretch,
+      "preserve-aspect-fit" => FillMode.PreserveAspectFit,
+      _ => throw new InvalidOperationException($"Unknown fill mode '{s}'")
+    }).GetValueOr(FillMode.Stretch);
+
+    // Elements
+    Image image = null;
+    TileOffset tileOffset = null;
+    Grid grid = null;
+    var propertiesCounter = 0;
+    List<IProperty> properties = Helpers.ResolveClassProperties(@class, _customTypeResolver);
+    List<Wangset> wangsets = null;
+    Transformations transformations = null;
+    List<Tile> tiles = [];
+
+    _reader.ProcessChildren("tileset", (r, elementName) => elementName switch
+    {
+      "image" => () => Helpers.SetAtMostOnce(ref image, ReadImage(), "Image"),
+      "tileoffset" => () => Helpers.SetAtMostOnce(ref tileOffset, ReadTileOffset(), "TileOffset"),
+      "grid" => () => Helpers.SetAtMostOnce(ref grid, ReadGrid(), "Grid"),
+      "properties" => () => Helpers.SetAtMostOnceUsingCounter(ref properties, Helpers.MergeProperties(properties, ReadProperties()).ToList(), "Properties", ref propertiesCounter),
+      "wangsets" => () => Helpers.SetAtMostOnce(ref wangsets, ReadWangsets(), "Wangsets"),
+      "transformations" => () => Helpers.SetAtMostOnce(ref transformations, ReadTransformations(), "Transformations"),
+      "tile" => () => tiles.Add(ReadTile()),
+      _ => r.Skip
+    });
+
+    return new Tileset
+    {
+      Version = version,
+      TiledVersion = tiledVersion,
+      FirstGID = firstGID,
+      Source = source,
+      Name = name,
+      Class = @class,
+      TileWidth = tileWidth,
+      TileHeight = tileHeight,
+      Spacing = spacing,
+      Margin = margin,
+      TileCount = tileCount,
+      Columns = columns,
+      ObjectAlignment = objectAlignment,
+      RenderSize = renderSize,
+      FillMode = fillMode,
+      Image = image,
+      TileOffset = tileOffset,
+      Grid = grid,
+      Properties = properties ?? [],
+      Wangsets = wangsets ?? [],
+      Transformations = transformations,
+      Tiles = tiles ?? []
+    };
+  }
+
+  internal Image ReadImage()
+  {
+    // Attributes
+    var format = _reader.GetOptionalAttributeEnum<ImageFormat>("format", s => s switch
+    {
+      "png" => ImageFormat.Png,
+      "jpg" => ImageFormat.Jpg,
+      "bmp" => ImageFormat.Bmp,
+      "gif" => ImageFormat.Gif,
+      _ => throw new InvalidOperationException($"Unknown image format '{s}'")
+    });
+    var source = _reader.GetOptionalAttribute("source");
+    var transparentColor = _reader.GetOptionalAttributeClass<TiledColor>("trans");
+    var width = _reader.GetOptionalAttributeParseable<int>("width");
+    var height = _reader.GetOptionalAttributeParseable<int>("height");
+
+    _reader.ProcessChildren("image", (r, elementName) => elementName switch
+    {
+      "data" => throw new NotSupportedException("Embedded image data is not supported."),
+      _ => r.Skip
+    });
+
+    if (!format.HasValue && source.HasValue)
+      format = Helpers.ParseImageFormatFromSource(source.Value);
+
+    return new Image
+    {
+      Format = format,
+      Source = source,
+      TransparentColor = transparentColor,
+      Width = width,
+      Height = height,
+    };
+  }
+
+  internal TileOffset ReadTileOffset()
+  {
+    // Attributes
+    var x = _reader.GetOptionalAttributeParseable<float>("x").GetValueOr(0f);
+    var y = _reader.GetOptionalAttributeParseable<float>("y").GetValueOr(0f);
+
+    _reader.ReadStartElement("tileoffset");
+    return new TileOffset { X = x, Y = y };
+  }
+
+  internal Grid ReadGrid()
+  {
+    // Attributes
+    var orientation = _reader.GetOptionalAttributeEnum<GridOrientation>("orientation", s => s switch
+    {
+      "orthogonal" => GridOrientation.Orthogonal,
+      "isometric" => GridOrientation.Isometric,
+      _ => throw new InvalidOperationException($"Unknown orientation '{s}'")
+    }).GetValueOr(GridOrientation.Orthogonal);
+    var width = _reader.GetRequiredAttributeParseable<int>("width");
+    var height = _reader.GetRequiredAttributeParseable<int>("height");
+
+    _reader.ReadStartElement("grid");
+    return new Grid { Orientation = orientation, Width = width, Height = height };
+  }
+
+  internal Transformations ReadTransformations()
+  {
+    // Attributes
+    var hFlip = _reader.GetOptionalAttributeParseable<uint>("hflip").GetValueOr(0) == 1;
+    var vFlip = _reader.GetOptionalAttributeParseable<uint>("vflip").GetValueOr(0) == 1;
+    var rotate = _reader.GetOptionalAttributeParseable<uint>("rotate").GetValueOr(0) == 1;
+    var preferUntransformed = _reader.GetOptionalAttributeParseable<uint>("preferuntransformed").GetValueOr(0) == 1;
+
+    _reader.ReadStartElement("transformations");
+    return new Transformations { HFlip = hFlip, VFlip = vFlip, Rotate = rotate, PreferUntransformed = preferUntransformed };
+  }
+
+  internal Tile ReadTile()
+  {
+    // Attributes
+    var id = _reader.GetRequiredAttributeParseable<uint>("id");
+    var type = _reader.GetOptionalAttribute("type").GetValueOr("");
+    var probability = _reader.GetOptionalAttributeParseable<float>("probability").GetValueOr(0f);
+    var x = _reader.GetOptionalAttributeParseable<int>("x").GetValueOr(0);
+    var y = _reader.GetOptionalAttributeParseable<int>("y").GetValueOr(0);
+    var width = _reader.GetOptionalAttributeParseable<int>("width");
+    var height = _reader.GetOptionalAttributeParseable<int>("height");
+
+    // Elements
+    var propertiesCounter = 0;
+    List<IProperty> properties = Helpers.ResolveClassProperties(type, _customTypeResolver);
+    Image image = null;
+    ObjectLayer objectLayer = null;
+    List<Frame> animation = null;
+
+    _reader.ProcessChildren("tile", (r, elementName) => elementName switch
+    {
+      "properties" => () => Helpers.SetAtMostOnceUsingCounter(ref properties, Helpers.MergeProperties(properties, ReadProperties()).ToList(), "Properties", ref propertiesCounter),
+      "image" => () => Helpers.SetAtMostOnce(ref image, ReadImage(), "Image"),
+      "objectgroup" => () => Helpers.SetAtMostOnce(ref objectLayer, ReadObjectLayer(), "ObjectLayer"),
+      "animation" => () => Helpers.SetAtMostOnce(ref animation, r.ReadList<Frame>("animation", "frame", (ar) =>
+      {
+        var tileID = ar.GetRequiredAttributeParseable<uint>("tileid");
+        var duration = ar.GetRequiredAttributeParseable<int>("duration");
+        return new Frame { TileID = tileID, Duration = duration };
+      }), "Animation"),
+      _ => r.Skip
+    });
+
+    return new Tile
+    {
+      ID = id,
+      Type = type,
+      Probability = probability,
+      X = x,
+      Y = y,
+      Width = width.HasValue ? width.Value : image?.Width.GetValueOr(0) ?? 0,
+      Height = height.HasValue ? height.Value : image?.Height.GetValueOr(0) ?? 0,
+      Properties = properties ?? [],
+      Image = image is null ? Optional.Empty : image,
+      ObjectLayer = objectLayer is null ? Optional.Empty : objectLayer,
+      Animation = animation ?? []
+    };
+  }
+
+  internal List<Wangset> ReadWangsets() =>
+    _reader.ReadList<Wangset>("wangsets", "wangset", r => ReadWangset());
+
+  internal Wangset ReadWangset()
+  {
+    // Attributes
+    var name = _reader.GetRequiredAttribute("name");
+    var @class = _reader.GetOptionalAttribute("class").GetValueOr("");
+    var tile = _reader.GetRequiredAttributeParseable<int>("tile");
+
+    // Elements
+    var propertiesCounter = 0;
+    List<IProperty> properties = Helpers.ResolveClassProperties(@class, _customTypeResolver);
+    List<WangColor> wangColors = [];
+    List<WangTile> wangTiles = [];
+
+    _reader.ProcessChildren("wangset", (r, elementName) => elementName switch
+    {
+      "properties" => () => Helpers.SetAtMostOnceUsingCounter(ref properties, Helpers.MergeProperties(properties, ReadProperties()).ToList(), "Properties", ref propertiesCounter),
+      "wangcolor" => () => wangColors.Add(ReadWangColor()),
+      "wangtile" => () => wangTiles.Add(ReadWangTile()),
+      _ => r.Skip
+    });
+
+    if (wangColors.Count > 254)
+      throw new ArgumentException("Wangset can have at most 254 Wang colors.");
+
+    return new Wangset
+    {
+      Name = name,
+      Class = @class,
+      Tile = tile,
+      Properties = properties ?? [],
+      WangColors = wangColors,
+      WangTiles = wangTiles
+    };
+  }
+
+  internal WangColor ReadWangColor()
+  {
+    // Attributes
+    var name = _reader.GetRequiredAttribute("name");
+    var @class = _reader.GetOptionalAttribute("class").GetValueOr("");
+    var color = _reader.GetRequiredAttributeParseable<TiledColor>("color");
+    var tile = _reader.GetRequiredAttributeParseable<int>("tile");
+    var probability = _reader.GetOptionalAttributeParseable<float>("probability").GetValueOr(0f);
+
+    // Elements
+    var propertiesCounter = 0;
+    List<IProperty> properties = Helpers.ResolveClassProperties(@class, _customTypeResolver);
+
+    _reader.ProcessChildren("wangcolor", (r, elementName) => elementName switch
+    {
+      "properties" => () => Helpers.SetAtMostOnceUsingCounter(ref properties, Helpers.MergeProperties(properties, ReadProperties()).ToList(), "Properties", ref propertiesCounter),
+      _ => r.Skip
+    });
+
+    return new WangColor
+    {
+      Name = name,
+      Class = @class,
+      Color = color,
+      Tile = tile,
+      Probability = probability,
+      Properties = properties ?? []
+    };
+  }
+
+  internal WangTile ReadWangTile()
+  {
+    // Attributes
+    var tileID = _reader.GetRequiredAttributeParseable<uint>("tileid");
+    var wangID = _reader.GetRequiredAttributeParseable<byte[]>("wangid", s =>
+    {
+      // Comma-separated list of indices (0-254)
+      var indices = s.Split(',').Select(i => byte.Parse(i, CultureInfo.InvariantCulture)).ToArray();
+      if (indices.Length > 8)
+        throw new ArgumentException("Wang ID can have at most 8 indices.");
+      return indices;
+    });
+
+    _reader.ReadStartElement("wangtile");
+
+    return new WangTile
+    {
+      TileID = tileID,
+      WangID = wangID
+    };
+  }
+}

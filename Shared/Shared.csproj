@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotTiled\DotTiled.csproj" />
     <ProjectReference Include="..\hypercube\src\Hypercube.Core\Hypercube.Core.csproj" />
     <ProjectReference Include="..\hypercube\submodules\ecs\src\Hypercube.Ecs\Hypercube.Ecs.csproj" />
     <ProjectReference Include="..\Shared.Roslyn\Shared.Roslyn.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
