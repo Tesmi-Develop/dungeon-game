@@ -77,6 +77,32 @@ public class MapRender : IDisposable
         _path = tiledMapPath;
     }
     
+    public (Angle Rotation, Vector2 Scale) GetTiledTransformation(bool h, bool v, bool d)
+    {
+        var rotation = 0;
+        var scale = Vector2.One;
+
+        if (d)
+        {
+            rotation = -90;
+            scale = new Vector2(1, -1);
+        }
+
+        if (h)
+        {
+            rotation = -rotation;
+            scale = scale.WithX(-scale.X);
+        }
+
+        if (v)
+        {
+            rotation = -rotation;
+            scale = scale.WithY(-scale.Y);
+        }
+
+        return (Angle.FromDegrees(rotation), scale);
+    }
+    
     public void Draw(IRenderContext renderContext, ICamera camera, Vector2 position, Vector2 anchor, Vector2 scale)
     {
         var tileW = Map.TileWidth;
@@ -121,43 +147,19 @@ public class MapRender : IDisposable
                     
                     var texSize = texture.Size;
                     
-                    // Базовые UV координаты
                     var uvTopLeft = new Vector2(column * tileW, (row + 1) * tileH) / texSize;
                     var uvBottomRight = new Vector2((column + 1) * tileW, row * tileH) / texSize;
                     var uv = new Rect2(uvTopLeft, uvBottomRight);
                     
-                    // Расчет позиции в мире
                     var correctedY = (Map.Height - 1 - y); 
                     var offset = new Vector2(x * tileW, correctedY * tileH);
                     var screenPos = position + (offset * scale) - (mapSize * scale * anchor);
                     
-                    // Базовый масштаб спрайта
                     var finalScale = tileSize / texture.Size * scale;
                     
-                    // Рассчитываем угол поворота
-                    var rotation = Angle.Zero;
+                    var (rotation, signScale) = GetTiledTransformation(flipH, flipV, flipD);
+                    finalScale = signScale * finalScale;
                     
-                    if (flipH)
-                    {
-                        finalScale = finalScale.WithX(-finalScale.X);
-                    }
-                    
-                    if (flipV)
-                    {
-                        finalScale = finalScale.WithY(-finalScale.Y);
-                    }
-                    
-                    // Обработка флапов Tiled
-                    if (flipD)
-                    {
-                        rotation += Angle.FromDegrees(90);
-
-                        var temp = finalScale.X;
-                        finalScale = finalScale.WithX(finalScale.Y);
-                        finalScale = finalScale.WithY(temp);
-                    }
-                    
-                    // Проверяем, есть ли дополнительное свойство Rotation у тайла
                     if (tileData.TileDefinition != null)
                     {
                         var rotationProp = tileData.TileDefinition.Properties.Find(p => p.Name == "Rotation");
@@ -167,21 +169,18 @@ public class MapRender : IDisposable
                         }
                     }
                     
-                    // Расчет границ для клиппинга
                     var spriteSizePixels = new Vector2(tileW * scale.X, tileH * scale.Y);
                     var spriteBounds = Rect2.FromCenter(screenPos, spriteSizePixels);
                     
                     if (!spriteBounds.Intersects(cullingBounds))
-                    {
                         continue;
-                    }
                     
                     var color = Color.White;
 
                     renderContext.DrawTexture(
                         texture,
                         screenPos,
-                        rotation, // <-- Теперь передаем реальный угол
+                        rotation,
                         finalScale, 
                         color,
                         uv
