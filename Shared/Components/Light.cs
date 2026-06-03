@@ -1,10 +1,12 @@
 ﻿using Hypercube.Ecs.Components;
 using Hypercube.Mathematics;
 using Hypercube.Mathematics.Vectors;
+using Shared.Attributes;
 
-namespace Client.Components;
+namespace Shared.Components;
 
-public struct Light : IComponent
+[SyncComponent]
+public partial struct Light : IComponent
 {
     public static Light Default => new()
     {
@@ -27,11 +29,15 @@ public struct Light : IComponent
         Offset = new Vector2(0, 10)
     };
     
-    public float Radius;
-    public Color Color;
-    public bool IsActive;
-    public float Intensity;
-    public float ColorIntensity;
-    public float Falloff;
-    public Vector2 Offset;
+    public float Radius = 10;
+    public Color Color = Color.White;
+    public bool IsActive = true;
+    public float Intensity = 1;
+    public float ColorIntensity = 0;
+    public float Falloff = 0.3f;
+    public Vector2 Offset = default;
+
+    public Light()
+    {
+    }
 }

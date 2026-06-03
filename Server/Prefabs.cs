@@ -59,6 +59,12 @@ public static class Prefabs
         } });
         world.AddCollision(characterEntity, new Vector2(32, 32), isTrigger: true);
         world.SetState<Idle>(characterEntity);
+        world.Add(characterEntity, new Light()
+        {
+            Radius = 150,
+            Intensity = 1,
+            Falloff = 0.3f
+        });
 
         return characterEntity;
     }
