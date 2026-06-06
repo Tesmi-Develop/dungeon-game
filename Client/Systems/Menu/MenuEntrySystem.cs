@@ -79,12 +79,17 @@ public class MenuEntrySystem : BaseSystem
         });
     }
 
-    private async Task StartConnect(string address, int port)
+    private async Task StartConnect(string address, int port, int timeoutMs = 10000)
     {
+        var startTime = DateTime.UtcNow;
+    
         while (!_gameClient.Connected)
         {
+            if ((DateTime.UtcNow - startTime).TotalMilliseconds > timeoutMs)
+                throw new TimeoutException($"Не удалось подключиться к {address}:{port} в течение {timeoutMs} мс");
+            
             await _gameClient.ConnectAsync(address, port);
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
         }
     }
     
@@ -102,7 +107,7 @@ public class MenuEntrySystem : BaseSystem
         if (_gameClient.Connected)
             return;
         
-        await StartConnect("127.0.0.1", 5000);
+        await StartConnect("185.212.119.242", 5000);
         _sceneSystem.SetScene(SceneType.Game);
     }
 }

@@ -6,4 +6,5 @@ namespace Shared.Components.States;
 public struct Attacking : IComponent
 {
     public Vector2 TargetPosition;
+    public Vector2 Direction;
 }

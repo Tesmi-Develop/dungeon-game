@@ -3,6 +3,7 @@ using Client.Events;
 using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Utilities.Dependencies;
+using LiteNetLib;
 using Shared.Attributes.Engine;
 using Shared.Data;
 using Shared.SharedSystemRealisation;
@@ -41,15 +42,24 @@ public class HandlerNetworkPackets : BaseSystem
 
     private bool HandlePacket(Packet packet, bool buffering)
     {
+        if (packet.DeliveryType != DeliveryMethod.Unreliable)
+            Logger.Trace($"Start handle packet type: {packet.PacketType} DebugId: {packet.DebugId}");
         var eventData = new HandlePacketEvent { Packet = packet };
         Raise(ref eventData);
 
         if (eventData.Handled)
+        {
+            if (packet.DeliveryType != DeliveryMethod.Unreliable)
+                Logger.Trace($"Packet handled type: {packet.PacketType} DebugId: {packet.DebugId}");
             return true;
-        
+        }
+
         if (buffering)
+        {
+            Logger.Trace($"Packet was sent to the buffer type: {packet.PacketType} DebugId: {packet.DebugId}");
             _packetBuffer.Add(packet);
-        
+        }
+
         return false;
     }
 }

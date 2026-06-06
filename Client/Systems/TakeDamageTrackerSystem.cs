@@ -12,6 +12,7 @@ public class TakeDamageTrackerSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;
     [Dependency] private readonly TakeDamageEffectSystem _damageEffectSystem = null!;
+    [Dependency] private readonly TakeDamageSpriteEffectSystem _damageSpriteEffectSystem = null!;
     
     public override void Initialize()
     {
@@ -30,6 +31,14 @@ public class TakeDamageTrackerSystem : BaseSystem
             var delta = args.Previous.Current - component.Current;
             var intensity = delta / (float)component.Max;
             _damageEffectSystem.Invoke(intensity);
+        });
+        
+        Subscribe<Health, ComponentDirtyEvent<Health>>((entity, ref component, ref args) =>
+        {
+            if (args.Previous.Current <= component.Current)
+                return;
+
+            _damageSpriteEffectSystem.Invoke(1, entity);
         });
     }
 }

@@ -14,4 +14,16 @@
    <property name="Type" value="PlayerSpawner"/>
   </properties>
  </tile>
+ <tile id="2">
+  <properties>
+   <property name="Enemy" value="Melee"/>
+   <property name="Type" value="EnemySpawner"/>
+  </properties>
+ </tile>
+ <tile id="3">
+  <properties>
+   <property name="Enemy" value="Melee1"/>
+   <property name="Type" value="EnemySpawner"/>
+  </properties>
+ </tile>
 </tileset>

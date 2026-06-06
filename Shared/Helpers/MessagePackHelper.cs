@@ -42,4 +42,12 @@ public static class MessagePackHelper
         span[6] = (byte)(value >> 48);
         span[7] = (byte)(value >> 56);
     }
+    
+    public static void WriteInt32(Span<byte> span, int value)
+    {
+        span[0] = (byte)value;
+        span[1] = (byte)(value >> 8);
+        span[2] = (byte)(value >> 16);
+        span[3] = (byte)(value >> 24);
+    }
 }

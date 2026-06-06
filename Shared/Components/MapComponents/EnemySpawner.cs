@@ -2,4 +2,7 @@
 
 namespace Shared.Components.MapComponents;
 
-public struct PlayerSpawner : IComponent;
+public struct EnemySpawner : IComponent
+{
+    public string Enemy;
+}

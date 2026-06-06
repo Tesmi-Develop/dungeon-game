@@ -81,13 +81,20 @@ public class NetworkClientEntitySystem : BaseSystem
     {
         while (clientData.PendingPackets.TryDequeue(out var packet))
         {
-            var finalData = new byte[1 + 8 + packet.Data.Length];
+            var finalData = new byte[1 + 4 + 8 + packet.Data.Length];
             finalData[0] = (byte)packet.PacketType;
-            MessagePackHelper.WriteInt64(new Span<byte>(finalData, 1, 8), packet.Tick);
-            packet.Data.CopyTo(finalData.AsMemory(1 + 8));
+            MessagePackHelper.WriteInt32(new Span<byte>(finalData, 1, 4), packet.DebugId);
+            MessagePackHelper.WriteInt64(new Span<byte>(finalData, 5, 8), packet.Tick);
+            packet.Data.CopyTo(finalData.AsMemory(1 + 4 + 8));
             
             if (packet.DeliveryType != DeliveryMethod.Unreliable)
-                _logger.Debug($"Sending packet {packet.PacketType}");
+                _logger.Debug($"Sending packet {packet.PacketType}, DebugId: {packet.DebugId}");
+
+            var maxSize = clientData.ClientConnection.Peer.GetMaxSinglePacketSize(packet.DeliveryType);
+            if (packet.Data.Length >= maxSize)
+            {
+                _logger.Warning($"Unreliable or ReliableSequenced packet size exceeded maximum of {maxSize} bytes, Size: {packet.Data.Length},  DebugId: {packet.DebugId}, type: {packet.PacketType}");
+            }
             
             clientData.ClientConnection.Send(finalData, packet.DeliveryType);
         }

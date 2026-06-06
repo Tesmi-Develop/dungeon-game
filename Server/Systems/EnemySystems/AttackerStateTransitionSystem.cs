@@ -30,7 +30,7 @@ public class AttackerStateTransitionSystem : BaseSystem
                 state.FrozenState || 
                 !target.TargetEntity.HasValue || 
                 !HasComponent<NetworkTransform>(entity))
-                return;
+                continue;
 
             var myPosition = GetComponent<NetworkTransform>(entity).Position;
             
@@ -41,14 +41,14 @@ public class AttackerStateTransitionSystem : BaseSystem
                 if (targetPosition.Distance(myPosition) <= attackRange)
                 {
                     World.SetState(entity, new Attacking { TargetPosition = targetPosition });
-                    return;
+                    continue;
                 }
             }
             
             if (HasComponent<NetworkTransform>(entity))
             {
                 World.SetState<Moving>(entity);
-                return;
+                continue;
             }
         }
     }

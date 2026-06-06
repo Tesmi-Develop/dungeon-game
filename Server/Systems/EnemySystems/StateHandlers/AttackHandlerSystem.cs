@@ -1,5 +1,6 @@
 ﻿using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
+using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using Server.Extensions;
 using Server.Utilities;
@@ -46,7 +47,7 @@ public class AttackHandlerSystem : BaseSystem
             var attackInfo = GetComponent<AttackInfo>(entity);
             var fractionValue = HasComponent<Fraction>(entity) ? GetComponent<Fraction>(entity).Value : FractionType.Players;
                 
-            var direction = (attackingState.TargetPosition - transform.Position).Normalized;
+            var direction = attackingState.Direction == Vector2.Zero ? (attackingState.TargetPosition - transform.Position).Normalized : attackingState.Direction;
             var radius = attackInfo.AttackSize.X / 2 + collision.Size.X / 2;
                 
             World.CreateDamageableCollision(new WorldExtensions.CollisionInfo

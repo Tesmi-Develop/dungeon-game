@@ -8,4 +8,5 @@ namespace Shared.Components;
 public partial struct MovingDirection
 {
     public Vector2 Direction;
+    public Vector2 VisualDirection;
 }

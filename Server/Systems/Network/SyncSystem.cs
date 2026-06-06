@@ -36,7 +36,9 @@ public class SyncSystem : BaseSystem
     private readonly ConcurrentQueue<(Entity entity, int NetId)> _additionalQueue = [];
     private readonly ConcurrentQueue<long> _destroyedEntities = [];
     private readonly List<Entity> _tempEntityList = [];
+    private readonly HashSet<long> _removedEntities = [];
     private readonly ArrayBufferWriter<byte> _tempBuffer = new (1024);
+    private int freeId = 0;
     
     private void RegisterRemovalHook<T>(int netId) where T : struct, IComponent
     {
@@ -86,9 +88,10 @@ public class SyncSystem : BaseSystem
             genericMethod.Invoke(this, [netId]);
         }
         
-        _eventBus.Subscribe((Entity entity, ref NetworkEntityTag _, ref RemovedEvent _) =>
+        _eventBus.Subscribe((ref RemovedEntityEvent args) =>
         {
-            _destroyedEntities.Enqueue(entity.GetFullMask());
+            Logger.Trace($"Deferred  removal {args.Entity.GetFullMask()}");
+            _destroyedEntities.Enqueue(args.Entity.GetFullMask());
         });
         
         _eventBus.Subscribe((Entity _, ref ClientData playerData, ref NewEntityClient _) =>
@@ -129,7 +132,8 @@ public class SyncSystem : BaseSystem
         var packet = new Packet
         {
             PacketType = PacketType.Hydrate,
-            Data = _bufferWriter.WrittenSpan.ToArray()
+            Data = _bufferWriter.WrittenSpan.ToArray(),
+            DebugId = freeId++,
         };
         
         clientData.PendingPackets.Enqueue(packet);
@@ -158,12 +162,20 @@ public class SyncSystem : BaseSystem
 
     private void SerializeDestroyedEntities()
     {
+        if (_destroyedEntities.IsEmpty)
+            return;
+        
+        _tempBuffer.Clear();
         var actualCount = 0;
         var writer = new MessagePackWriter(_tempBuffer);
         
         while (_destroyedEntities.TryDequeue(out var mask))
         {
+            if (_removedEntities.Contains(mask))
+                continue;
+            
             writer.WriteInt64(mask);
+            Logger.Trace($"Write destroing entity {mask}");
             actualCount++;
         }
 
@@ -172,6 +184,7 @@ public class SyncSystem : BaseSystem
         if (actualCount <= 0) 
             return;
         
+        _removedEntities.Clear();
         _bufferWriter.Clear();
         MessagePackSerializer.Serialize(_bufferWriter, actualCount);
         _bufferWriter.Write(_tempBuffer.WrittenSpan);
@@ -179,6 +192,9 @@ public class SyncSystem : BaseSystem
 
     private void SerializeRemovedComponents()
     {
+        if (_removalQueue.IsEmpty)
+            return;
+        
         _tempBuffer.Clear();
         var writer = new MessagePackWriter(_tempBuffer);
     
@@ -287,8 +303,12 @@ public class SyncSystem : BaseSystem
             PacketType = packetType,
             DeliveryType = deliveryType,
             Data = _bufferWriter.WrittenSpan.ToArray(),
+            DebugId = freeId++,
             Tick = tick
         };
+        
+        if (deliveryType != DeliveryMethod.Unreliable)
+            Logger.Debug($"Push packet {packet.PacketType}, DebugId: {packet.DebugId}");
         
         PushAllClientsSyncData(packet);
     }

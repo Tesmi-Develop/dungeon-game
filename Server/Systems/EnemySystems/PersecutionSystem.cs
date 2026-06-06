@@ -36,6 +36,7 @@ public class PersecutionSystem : BaseSystem
             
             var direction = delta.Normalized;
             movingDirection.Direction = direction;
+            movingDirection.VisualDirection = direction;
         });
     }
 }

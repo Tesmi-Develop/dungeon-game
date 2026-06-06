@@ -215,8 +215,14 @@ public class MapRender : IDisposable
                     var worldPos = CalculateWorldPosition(position, anchor, scale, mapPixelSize, 
                                                         x * Map.TileWidth, y * Map.TileHeight);
 
-                    CreateEntityFromTile(world, tileset, typeName.Value, worldPos, 
-                                       new Vector2(Map.TileWidth, Map.TileHeight) * scale, scale);
+                    CreateEntityFromTile(
+                        world, 
+                        tileset, 
+                        typeName.Value,
+                        tileDef,
+                        worldPos,
+                        new Vector2(Map.TileWidth, Map.TileHeight) * scale,
+                        scale);
                 }
             }
         }
@@ -236,9 +242,9 @@ public class MapRender : IDisposable
     }
 
     private void CreateEntityFromTile(World world, Tileset tileset,
-        string typeName, Vector2 worldPosition, Vector2 scaledSize, Vector2 scale)
+        string typeName, Tile tile, Vector2 worldPosition, Vector2 scaledSize, Vector2 scale)
     {
-        CreateEntityBase(world, typeName, worldPosition, scaledSize, scale, tileset.GetProperties(), tileset);
+        CreateEntityBase(world, typeName, worldPosition, scaledSize, scale, tile.GetProperties(), tileset);
     }
 
     private void CreateEntityFromObject(World world, string typeName,
@@ -269,7 +275,7 @@ public class MapRender : IDisposable
         var component = Activator.CreateInstance(compType);
         if (component == null) 
             return;
-
+        
         foreach (var property in sourceProperties)
         {
             if (property.Name == "Type")

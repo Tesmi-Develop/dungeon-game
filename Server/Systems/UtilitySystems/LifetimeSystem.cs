@@ -6,26 +6,22 @@ using Shared.Attributes;
 using Shared.Attributes.Engine;
 using Shared.SharedSystemRealisation;
 
-namespace Server.Systems.UtilitiySystems;
+namespace Server.Systems.UtilitySystems;
 
 [EcsSystem]
 public class LifetimeSystem : BaseSystem
 {
     private QueryMeta _queryMeta = new QueryMeta().WithAll<Lifetime>().WithNone<DeferredTag>();
-    private List<Entity> _entities = [];
     
     [Priority(EcsPriority.Low)]
     public override void AfterGameUpdate(long tick, long predictTick)
     {
-        Query(_queryMeta).With<Lifetime>((entity, ref lifetimeComponent) =>
+        With<Lifetime>(_queryMeta, (entity, ref lifetimeComponent) =>
         {
             lifetimeComponent.RemainingTicks--;
 
             if (lifetimeComponent.RemainingTicks <= 0)
-                _entities.Add(entity);
+                EntityDestroy(entity);
         });
-
-        foreach (var e in _entities)
-            EntityDestroy(e);
     }
 }

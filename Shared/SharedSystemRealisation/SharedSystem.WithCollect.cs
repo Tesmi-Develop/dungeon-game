@@ -12,6 +12,13 @@ public partial class SharedSystem
     private List<Entity> _entities = [];
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void ForEach(QueryMeta meta, Action<Entity> action)
+    {
+        foreach (var entity in World.CollectEntities(Query(meta), _entities))
+            action(entity);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void With<T1>(QueryMeta meta, EntityRefAction<T1> action) where T1 : struct, IComponent
     {
         foreach (var entity in World.CollectEntities(Query(meta), _entities))

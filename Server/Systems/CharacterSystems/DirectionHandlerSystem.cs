@@ -21,7 +21,7 @@ public class DirectionHandlerSystem : BaseSystem
         {
             var prevScale = animator.Scale;
             
-            animator.Scale = animator.Scale.WithX(movingDirection.Direction.X < 0 ? -1 : 1);
+            animator.Scale = animator.Scale.WithX(movingDirection.VisualDirection.X < 0 ? -1 : 1);
             
             if (animator.Scale == prevScale)
                 return;

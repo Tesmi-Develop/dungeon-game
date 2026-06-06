@@ -35,7 +35,7 @@ public class PlayerAttackSystem : BaseSystem
             
             ref var transform = ref World.Get<NetworkTransform>(characterEntity);
 
-            World.SetState(characterEntity, new Attacking { TargetPosition = transform.Position + inputData.Direction });
+            World.SetState(characterEntity, new Attacking { Direction = inputData.Direction });
         });
     }
 }

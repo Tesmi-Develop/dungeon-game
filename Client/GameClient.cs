@@ -153,16 +153,17 @@ public class GameClient : INetEventListener
         }
     }
 
-    private void HandleIncomingData(PacketType packetType, long serverTick, byte[] data, DeliveryMethod deliveryType)
+    private void HandleIncomingData(PacketType packetType, long serverTick, byte[] data, DeliveryMethod deliveryType, int debugId)
     {
         if (deliveryType != DeliveryMethod.Unreliable)
-            _logger.Debug($"Got packet type: {packetType}");
+            _logger.Debug($"Got packet type: {packetType}, DebugId: {debugId}");
         
         Packets.Enqueue(new Packet
         {
             PacketType = packetType, 
             Data = new Memory<byte>(data, 0, data.Length),
             DeliveryType = deliveryType,
+            DebugId = debugId,
             Tick = serverTick
         });
     }
@@ -223,9 +224,10 @@ public class GameClient : INetEventListener
             return;
         }
         
+        var debugId = reader.GetInt();
         var serverTick = reader.GetLong();
         var data = reader.GetRemainingBytes();
-        HandleIncomingData(packetType, serverTick, data, deliveryMethod);
+        HandleIncomingData(packetType, serverTick, data, deliveryMethod, debugId);
     }
 
     public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)

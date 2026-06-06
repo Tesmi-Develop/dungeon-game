@@ -20,7 +20,17 @@ public class HandlerSync : BaseSystem
     
     public override void Initialize()
     {
-        Subscribe<HandlePacketEvent>(OnHandlePacket);
+        Subscribe<HandlePacketEvent>((ref args) =>
+        {
+            try
+            {
+                OnHandlePacket(ref args);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        });
     }
 
     private void OnHandlePacket(ref HandlePacketEvent args)
@@ -89,7 +99,7 @@ public class HandlerSync : BaseSystem
                 // TODO do packet splitting and don't drop the current one
             }
 
-            var entity = GetNetworkEntity(entityId);
+            var entity = GetNetworkEntity(entityId, false);
             var componentCounts = reader.ReadInt32();
 
             for (var j = 0; j < componentCounts; j++)
@@ -141,6 +151,7 @@ public class HandlerSync : BaseSystem
 
     private void DoEntitiesDeletion(ReadOnlyMemory<byte> payload)
     {
+        Logger.Trace("Start entity deletions");
         var reader = new MessagePackReader(payload);
         var count = reader.ReadInt32();
 
@@ -151,10 +162,13 @@ public class HandlerSync : BaseSystem
         }
     }
 
-    public Entity GetNetworkEntity(long entityId)
+    public Entity GetNetworkEntity(long entityId, bool shouldCreate = true)
     {
         if (_networkEntitiesById.TryGetValue(entityId, out var entity))
             return entity;
+
+        if (!shouldCreate)
+            return Entity.Invalid;
         
         entity = EntityCreate();
         _networkEntitiesById.Add(entityId, entity);
@@ -185,9 +199,13 @@ public class HandlerSync : BaseSystem
     public void RemoveNetworkEntity(long entityId)
     {
         if (!_networkEntitiesById.Remove(entityId, out var entity))
+        {
+            Logger.Warning($"Try delete entity with id {entityId}");
             return;
+        }
         
         _networkEntitiesByEntity.Remove(entity);
         World.Delete(entity);
+        Logger.Trace($"Removed Network Entity {entity} with ServerMask: {entityId}");
     }
 }

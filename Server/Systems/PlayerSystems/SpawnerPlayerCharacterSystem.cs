@@ -10,6 +10,7 @@ using Server.Utilities;
 using Shared.Components;
 using Shared.Components.Enemies;
 using Shared.Components.EngineComponents;
+using Shared.Components.MapComponents;
 using Shared.Components.States;
 using Shared.Data;
 using Shared.Extensions;
@@ -54,6 +55,7 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
         
         var spawnPoint = World.Get<NetworkTransform>(entity).Position;
         SpawnPlayerCharacter(playerEntity, spawnPoint);
+        Logger.Debug("Spawned player spawn point " + spawnPoint);
     }
 
     public void SpawnPlayerCharacter(Entity playerEntity, Vector2 position)
@@ -69,7 +71,6 @@ public class SpawnerPlayerCharacterSystem : BaseSystem
             return;
         
         var controlled = World.Get<ControlledEntity>(clientEntity);
-        var clientData = World.Get<ClientData>(clientEntity);
         if (!World.Validate(controlled.Reference))
             return;
         
