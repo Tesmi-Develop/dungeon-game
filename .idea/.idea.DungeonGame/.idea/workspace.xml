@@ -17,45 +17,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageEffect.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageSpriteEffectSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/MapSystems/EnemySpawnerSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/MapComponents/EnemySpawner.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hypercube/submodules/ecs/src/Hypercube.Ecs/Lifetime/RemovedEntityEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/Shaders/overlay.shd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/GameClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/GameClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/HandlerNetworkPackets.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/HandlerNetworkPackets.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/HandlerSync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/HandlerSync.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/Network/NetworkClientEntitySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/Network/NetworkClientEntitySystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/Network/SyncSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/Network/SyncSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/UtilitiySystems/DeferredEntitiesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/UtilitySystems/DeferredEntitiesSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/UtilitiySystems/DestroySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/UtilitySystems/DestroySystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/UtilitiySystems/LifetimeSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/UtilitySystems/LifetimeSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Components/Enemies/EnemySpawner.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Components/MapComponents/PlayerSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Components/MapComponents/PlayerSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Data/Packet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Data/Packet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Helpers/MessagePackHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/Helpers/MessagePackHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/MapRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/MapRender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/SharedSystemRealisation/SharedSystem.WithCollect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/SharedSystemRealisation/SharedSystem.WithCollect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/Menu/MenuEntrySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Menu/MenuEntrySystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Config.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Config.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Surface.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs/src/Hypercube.Ecs/World.Entities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs/src/Hypercube.Ecs/World.Entities.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Atlases/utilities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Atlases/utilities.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Prolog/Prolog.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Prolog/Prolog.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +50,7 @@
     <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/A17AFC6F91AF0DDE0C8C4D6F/Shared.Roslyn/Shared.Roslyn.SyncComponentGenerator/Animator_SyncGenerated.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/A17AFC6F91AF0DDE0C8C4D6F/Shared.Roslyn/Shared.Roslyn.UnifiedNetworkGenerator/NetworkFactory.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2a1380a6e164a9b9350a0a0ad5ed6711f000/07/563fc717/NetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2a1380a6e164a9b9350a0a0ad5ed6711f000/78/9711d90f/LiteNetPeer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2a1380a6e164a9b9350a0a0ad5ed6711f000/f2/1d11b9ec/LiteNetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/19/f08e234d/ValidationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/46/b9987ebf/ITweenBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
@@ -197,28 +168,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.Client.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.Server.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;level-system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion.popup&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Client.executor": "Run",
+    ".NET Project.Server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "dev",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.completion.popup",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Compound.Server + Client">
+}]]></component>
+  <component name="RunManager" selected=".NET Project.Client">
     <configuration name="Server + Client" type="CompoundRunConfigurationType">
       <toRun name="Client" type="DotNetProject" />
       <toRun name="Server" type="DotNetProject" />
@@ -305,6 +276,7 @@
       <workItem from="1780703428890" duration="67000" />
       <workItem from="1780740622143" duration="12373000" />
       <workItem from="1780753446371" duration="3866000" />
+      <workItem from="1780766694074" duration="655000" />
     </task>
     <servers />
   </component>

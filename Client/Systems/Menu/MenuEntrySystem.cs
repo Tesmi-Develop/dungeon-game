@@ -107,7 +107,7 @@ public class MenuEntrySystem : BaseSystem
         if (_gameClient.Connected)
             return;
         
-        await StartConnect("185.212.119.242", 5000);
+        await StartConnect("109.120.176.80", 5000);
         _sceneSystem.SetScene(SceneType.Game);
     }
 }

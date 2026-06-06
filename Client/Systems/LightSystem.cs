@@ -68,7 +68,6 @@ public class LightSystem : BaseSystem, IPatch
             Query(_meta).With<Light, NetworkTransform>((entity, ref light, ref transform) =>
             {
                 var shader = ResolveLightShader(renderer, ref light);
-
                 var size = light.LightType == LightType.Circle ? new Vector2(light.Radius * 2) : light.Size;
                 
                 shader.SetUniform("intensity", light.Intensity);
@@ -98,6 +97,7 @@ public class LightSystem : BaseSystem, IPatch
                     ),
                     light.Color.WithA(light.ColorIntensity)
                 );
+                renderer.ClearShader();
             });
         }
         
