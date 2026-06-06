@@ -3,7 +3,6 @@ using Hypercube.Core.Audio.Manager;
 using Hypercube.Core.Ecs;
 using Hypercube.Core.Execution.Attributes;
 using Hypercube.Core.Execution.Enums;
-using Hypercube.Core.Execution.Timing;
 using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Resources;
 using Hypercube.Core.Resources.Preloading;
@@ -11,7 +10,6 @@ using Hypercube.Core.UI.Manager;
 using Hypercube.Physics.Collision;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
-using Shared;
 using Shared.Data;
 using Shared.Helpers;
 
@@ -56,11 +54,9 @@ public static class EntryPoint
         var uiManager = container.Resolve<IUIManager>();
         var resourceManager = container.Resolve<IResourceManager>();
         var gameClient = container.Resolve<GameClient>();
-
-        var time = container.Resolve<ITime>();
         
         gameClient.Start();
-        while (!gameClient.Connected)
+        /*while (!gameClient.Connected)
         {
             gameClient.ConnectAsync("127.0.0.1", 5000).ContinueWith(task =>
             {
@@ -70,7 +66,7 @@ public static class EntryPoint
                 }
             });
             Thread.Sleep(1000);
-        }
+        }*/
     }
     
     public static void StartPreload(PreloadContext preloadContext, ILogger logger, ManualResetEventSlim loaded)

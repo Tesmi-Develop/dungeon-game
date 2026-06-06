@@ -1,4 +1,5 @@
-﻿using Client.Utilities;
+﻿using Client.Data;
+using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Core.Systems.Rendering;
 using Hypercube.Ecs;
@@ -9,7 +10,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class SpriteGiverSystem : BaseSystem
 {
     private Query _query = null!;

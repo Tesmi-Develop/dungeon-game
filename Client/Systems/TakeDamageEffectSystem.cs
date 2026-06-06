@@ -1,4 +1,5 @@
-﻿using Client.Utilities;
+﻿using Client.Data;
+using Client.Utilities;
 using GTweens.Builders;
 using GTweens.Easings;
 using GTweens.Extensions;
@@ -17,7 +18,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class TakeDamageEffectSystem : BaseSystem, IPatch
 {
     [Dependency] private readonly IResourceManager _resourceManager = null!;

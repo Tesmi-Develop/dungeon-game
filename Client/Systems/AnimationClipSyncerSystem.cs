@@ -1,15 +1,15 @@
-﻿using Client.InternalSystems;
+﻿using Client.Data;
+using Client.InternalSystems;
 using Client.Utilities;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
-using Shared.Attributes;
 using Shared.Attributes.Engine;
 using Shared.Components;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class AnimationClipSyncerSystem : BaseSystem
 {
     [Dependency] private AnimationContainer _animationContainer = null!;

@@ -1,4 +1,5 @@
 ﻿using Client.Components;
+using Client.Data;
 using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs;
@@ -7,7 +8,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.CharacterSystems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class CharacterBypassInterpolationSystem : BaseSystem
 {
     [Dependency] private readonly GameHelperSystem _gameHelperSystem = null!;

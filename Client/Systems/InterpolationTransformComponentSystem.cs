@@ -1,4 +1,5 @@
 ﻿using Client.Components;
+using Client.Data;
 using Client.Extensions;
 using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
@@ -12,7 +13,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class InterpolationTransformComponentSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _client = null!;

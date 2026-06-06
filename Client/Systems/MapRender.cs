@@ -1,13 +1,9 @@
-﻿using Hypercube.Core.Graphics.Patching;
+﻿using Client.Data;
+using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Graphics.Rendering;
 using Hypercube.Core.Graphics.Rendering.Context;
-using Hypercube.Core.Graphics.Resources;
 using Hypercube.Core.Resources;
-using Hypercube.Core.Systems.Rendering;
-using Hypercube.Core.Systems.Transform;
-using Hypercube.Core.Viewports;
 using Hypercube.Ecs.Queries;
-using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
 using Shared.SharedSystemRealisation;
@@ -15,7 +11,7 @@ using Shared.Systems;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class MapRender : SharedMapHandlerSystem, IPatch
 {
     [Dependency] private readonly IResourceManager _resourceManager = null!;

@@ -1,4 +1,5 @@
-﻿using Client.InternalSystems;
+﻿using Client.Data;
+using Client.InternalSystems;
 using Client.Utilities;
 using Hypercube.Core.Input.Handler;
 using Hypercube.Core.Viewports;
@@ -14,7 +15,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.CharacterSystems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class CharacterDirectionSystem : BaseSystem
 {
     [Dependency] private readonly InputStorage _inputStorage = null!;

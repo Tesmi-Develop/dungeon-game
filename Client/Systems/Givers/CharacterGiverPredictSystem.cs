@@ -1,4 +1,5 @@
-﻿using Client.Systems.PredictSystems;
+﻿using Client.Data;
+using Client.Systems.PredictSystems;
 using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Ecs.Queries;
@@ -9,7 +10,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.Givers;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class CharacterGiverPredictSystem : BaseSystem
 {
     [Dependency] private readonly PredictHelper _predictHelper = null!;

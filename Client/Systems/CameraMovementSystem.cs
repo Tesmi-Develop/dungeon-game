@@ -1,9 +1,9 @@
-﻿using Client.Utilities;
+﻿using Client.Data;
+using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Core.Viewports;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
-using Shared.Attributes;
 using Shared.Attributes.Engine;
 using Shared.Components;
 using Shared.Components.EngineComponents;
@@ -11,7 +11,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class CameraMovementSystem : BaseSystem
 {
     [Dependency] private readonly ICameraManager _camera = null!;

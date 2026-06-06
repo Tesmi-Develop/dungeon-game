@@ -1,4 +1,5 @@
-﻿using Client.Events;
+﻿using Client.Data;
+using Client.Events;
 using Client.InternalSystems;
 using Client.Utilities;
 using Hypercube.Ecs;
@@ -9,7 +10,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class HandlerSync : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;

@@ -1,4 +1,5 @@
-﻿using Client.Utilities;
+﻿using Client.Data;
+using Client.Utilities;
 using Hypercube.Utilities.Dependencies;
 using Shared.Components;
 using Shared.Events;
@@ -6,7 +7,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class TakeDamageTrackerSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;

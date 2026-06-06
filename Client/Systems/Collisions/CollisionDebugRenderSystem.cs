@@ -1,4 +1,5 @@
-﻿using Client.Utilities;
+﻿using Client.Data;
+using Client.Utilities;
 using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Graphics.Rendering;
 using Hypercube.Core.Graphics.Rendering.Context;
@@ -18,7 +19,7 @@ using Shared.Systems.Collisions;
 
 namespace Client.Systems.Collisions;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
 {
     public const bool DebugDrawNearbyCollisions = true;

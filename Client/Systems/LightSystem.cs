@@ -1,4 +1,4 @@
-﻿using Client.Components;
+﻿using Client.Data;
 using Client.Utilities;
 using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Graphics.Rendering;
@@ -12,51 +12,74 @@ using Hypercube.Mathematics;
 using Hypercube.Mathematics.Shapes;
 using Hypercube.Mathematics.Vectors;
 using Hypercube.Utilities.Dependencies;
+using Shared.Components;
 using Shared.Components.EngineComponents;
 using Shared.Extensions;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class LightSystem : BaseSystem, IPatch
 {
     [Dependency] private readonly IResourceManager _resourceManager = null!;
     [Dependency] private readonly IRenderContext _renderContext = null!;
     [Dependency] private readonly ICameraManager _cameraManager = null!;
 
-    public float DarkAlpha = 0.3f;
+    public float DarkAlpha = 1f;
     private QueryMeta _meta = new QueryMeta().WithAll<Light, NetworkTransform>();
-    private Shader _shader = null!;
+    private Shader _circle_light_shader = null!;
+    private Shader _rectangle_light_shader = null!;
     private Surface _surface = default;
     
     public int Priority => -9;
 
     public override void Initialize()
     {
-        _shader = _resourceManager.Load<Shader>("/Shaders/light_mask.shd");
+        _circle_light_shader = _resourceManager.Load<Shader>("/Shaders/circle_light.shd");
+        _rectangle_light_shader = _resourceManager.Load<Shader>("/Shaders/rectangle_light.shd");
         _surface = _renderContext.CreateSurface(new Vector2i(4000, 4000));
     }
 
+    private Shader ResolveLightShader(IRenderContext renderer, ref Light light)
+    {
+        if (light.LightType == LightType.Circle)
+        {
+            renderer.SetShader(_circle_light_shader);
+            return _circle_light_shader;
+        }
+        
+        if (light.LightType == LightType.Rectangle)
+        {
+            renderer.SetShader(_rectangle_light_shader);
+            return _rectangle_light_shader;
+        }
+        
+        throw new NotSupportedException($"Unsupported lighttype {light.LightType}");
+    }
+    
     public void Draw(IRenderContext renderer, DrawPayload payload)
     {
         _surface.Color = Color.Black.WithA(DarkAlpha);
-        
-        renderer.SetShader(_shader);
         renderer.BindSurface(_surface);
         
         using (renderer.UseRenderState(_surface))
         {
             Query(_meta).With<Light, NetworkTransform>((entity, ref light, ref transform) =>
             {
-                _shader.SetUniform("intensity", light.Intensity);
-                _shader.SetUniform("falloff", light.Falloff);
+                var shader = ResolveLightShader(renderer, ref light);
+
+                var size = light.LightType == LightType.Circle ? new Vector2(light.Radius * 2) : light.Size;
+                
+                shader.SetUniform("intensity", light.Intensity);
+                shader.SetUniform("falloff", light.Falloff);
+                shader.SetUniform("maskSize", size);
 
                 var finalPosition = transform.Position;
-                var leftPosition = finalPosition.X - light.Radius;
-                var topPosition = finalPosition.Y + light.Radius;
-                var rightPosition = finalPosition.X + light.Radius;
-                var bottomPosition = finalPosition.Y - light.Radius;
+                var leftPosition = finalPosition.X - size.X / 2;
+                var topPosition = finalPosition.Y + size.Y / 2;
+                var rightPosition = finalPosition.X + size.X / 2;
+                var bottomPosition = finalPosition.Y - size.Y / 2;
             
                 renderer.SetBlendMode(BlendMode.Subtractive);
                 renderer.DrawRectangle(
@@ -66,6 +89,7 @@ public class LightSystem : BaseSystem, IPatch
                     ),
                     Color.White
                 );
+                
                 renderer.SetBlendMode(BlendMode.Additive);
                 renderer.DrawRectangle(
                     new Rect2(
@@ -74,7 +98,6 @@ public class LightSystem : BaseSystem, IPatch
                     ),
                     light.Color.WithA(light.ColorIntensity)
                 );
-            
             });
         }
         

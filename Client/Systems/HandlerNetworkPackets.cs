@@ -1,15 +1,15 @@
-﻿using Client.Events;
+﻿using Client.Data;
+using Client.Events;
 using Client.Utilities;
 using Hypercube.Core.Execution.LifeCycle;
 using Hypercube.Utilities.Dependencies;
-using Shared.Attributes;
 using Shared.Attributes.Engine;
 using Shared.Data;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class HandlerNetworkPackets : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Client.Data;
 using Client.Utilities;
 using Hypercube.Core.Graphics.Patching;
 using Hypercube.Core.Graphics.Rendering;
@@ -12,7 +13,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class PingDrawSystem : BaseSystem, IPatch
 {
     [Dependency] private GameClient _gameClient = null!;

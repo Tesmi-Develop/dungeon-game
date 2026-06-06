@@ -1,4 +1,5 @@
 ﻿using Client.Components;
+using Client.Data;
 using Client.Utilities;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
@@ -7,7 +8,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class SnapshotCollectorSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _client = null!;

@@ -1,4 +1,5 @@
-﻿using Client.Utilities;
+﻿using Client.Data;
+using Client.Utilities;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
 using Hypercube.Utilities.Dependencies;
@@ -8,7 +9,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class GameHelperSystem : BaseSystem
 {
     [Dependency] private readonly GameClient _gameClient = null!;

@@ -87,9 +87,17 @@ public class GameClient : INetEventListener
         _ = ReceivePing();
     }
     
-    public async Task ConnectAsync(string ip, int port)
+    public Task ConnectAsync(string ip, int port)
     {
-        _client.Connect(ip, port, "DeathBall");
+        try
+        {
+            _client.Connect(ip, port, "DeathBall");
+            return Task.CompletedTask;
+        }
+        catch (Exception exception)
+        {
+            return Task.FromException(exception);
+        }
     }
     
     public void Send(PacketType packetType, byte[] data, DeliveryMethod deliveryMethod)

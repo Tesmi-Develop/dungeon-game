@@ -8,4 +8,5 @@ public class BaseSystem : SharedSystem
     public virtual void BeforeUpdate(FrameEventArgs eventArgs) {}
     public virtual void Update(FrameEventArgs eventArgs) {}
     public virtual void AfterUpdate(FrameEventArgs eventArgs) {}
+    public virtual void Destroy() {}
 }

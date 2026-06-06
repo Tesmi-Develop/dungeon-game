@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using Client.Data;
 using Client.InternalSystems;
 using Client.Utilities;
 using Hypercube.Utilities.Dependencies;
@@ -9,7 +10,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class NetworkHelper : BaseSystem
 {
     [Dependency] private readonly GameClient _client = null!;

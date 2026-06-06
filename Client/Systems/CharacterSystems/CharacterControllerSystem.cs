@@ -13,7 +13,7 @@ using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.CharacterSystems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class CharacterControllerSystem : BaseSystem
 {
     [Dependency] private readonly InputStorage _inputStorage = null!;

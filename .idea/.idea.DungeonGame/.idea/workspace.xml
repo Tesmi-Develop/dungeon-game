@@ -17,60 +17,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Server/Prefabs.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Stages/Prolog.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/GameplaySystems/GameStageHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/GameplaySystems/GameplayEntitySystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Systems/GameplaySystems/MapHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/NonSyncedAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/Numerator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/PredicateAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/PriorityAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/RequestComponentAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/SyncComponentAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/Engine/SyncPolicyAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Attributes/GameStageAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/GameMap.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/GameplayTag.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/MapComponentTag.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Components/Stage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Data/MapInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Events/StageUpdated.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/GameStageInterface/IGameStage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/ResourceLoaders/MapsLoader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/ResourcesData/Maps.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shared/Systems/MapHandlerSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/maps.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Data/SceneType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/InternalSystems/SceneSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/SceneAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Systems/Menu/MenuEntrySystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/EntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/EntryPoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/InternalSystems/AnimationContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/InternalSystems/AnimationContainer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/GameClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/GameClient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/InternalSystems/EntrySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/InternalSystems/EntrySystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/InternalSystems/PredictSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/InternalSystems/PredictSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/AnimationClipSyncerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/AnimationClipSyncerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/AnimatorSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/AnimatorSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/CameraMovementSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CameraMovementSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterBypassInterpolationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterBypassInterpolationSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterControllerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterControllerSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterDirectionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterDirectionSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/GameHelperSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/GameHelperSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/Givers/CharacterGiverPredictSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Givers/CharacterGiverPredictSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/Givers/InterpolationGiverSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Givers/InterpolationGiverSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/Givers/SpriteGiverSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Givers/SpriteGiverSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/Givers/TransformGiverSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Givers/TransformGiverSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/HandlerNetworkPackets.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/HandlerNetworkPackets.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/HandlerSync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/HandlerSync.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/InterpolationTransformComponentSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/InterpolationTransformComponentSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/MapRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/MapRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/NetworkHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/NetworkHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/PingDrawSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/PingDrawSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/PredictSystems/PredictHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/PredictSystems/PredictHelper.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/SnapshotCollectorSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/SnapshotCollectorSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/SpawnLocalCharacterSystem.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Systems/TakeDamageTrackerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageTrackerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/TestAnimator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/LoadArenaTest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/PlayerSystems/SpawnerPlayerCharacterSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/TestSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/NonSyncedAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/Numerator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/PredicateAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/PriorityAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/RequestComponentAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/SyncComponentAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/Attributes/SyncPolicyAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shared/MapRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shared/MapRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Utilities/BaseSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Utilities/BaseSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DungeonGame.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/DungeonGame.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Config.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Config.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" afterDir="false" />
@@ -81,7 +62,7 @@
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Arena1/arena2.tmj" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Arena1/arena2.tmj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +84,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/00FAD605894D980B45DCDEB2/Hypercube.Utilities.Analyzers/Hypercube.Utilities.Analyzers.Generators.IdStructGenerator/TextureHandle_IdBindings.g.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/A17AFC6F91AF0DDE0C8C4D6F/Shared.Roslyn/Shared.Roslyn.SyncComponentGenerator/Animator_SyncGenerated.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/A17AFC6F91AF0DDE0C8C4D6F/Shared.Roslyn/Shared.Roslyn.UnifiedNetworkGenerator/NetworkFactory.g.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2a1380a6e164a9b9350a0a0ad5ed6711f000/07/563fc717/NetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2a1380a6e164a9b9350a0a0ad5ed6711f000/f2/1d11b9ec/LiteNetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/19/f08e234d/ValidationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/46/b9987ebf/ITweenBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/4f/ab052aa0/Tweener`1.cs" root0="FORCE_HIGHLIGHTING" />
@@ -112,25 +96,50 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/89/f20e896d/GTweenExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/97/df0071b7/GTween.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ab68e5a80ec2495bb3b5762719953336a600/d4/aff625d8/InterpolationTweenBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1397244feca2b98c94794228f1dadb2cfea792e7280a122fb84e070e919ab55/Optional.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/15a5dcb46cf0fd71b1459436498ef2a5e5378f37988df52e2d3997cc6d0656c/String.Comparison.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/17f03828dcbd42ef6b891f67bf459c45cec090362a6b7789108ab9f28a154e95/Dictionary.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e626c23acbb2647d9b16f4de6e8bb65ee802c45f6fec3e81472bdf8d797135/MethodBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e8c32362ff486e4e342292ccce957781165d4f6305c795c1d6b1b473e4c0a3/Parallel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/228bff957d5b9f32cfbedd8bf82a5d3e862ec3e051593a67913b95ae288287/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/31617a8f8b74486c92d30fb5d57b315a6bfe1ec3d33779e4131492fdcfc37/DefaultInterpolatedStringHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3437ef7dc73051855accd6b62fb29b740b17b5220d6da288fefeba3f7a73a57/LambdaExpression.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cca26e6dd627c1a7919bec86cb05b6d975a30287456f7daa8773a92451a/List.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/56e85112bb394b43ae69c75f28f1525a683121bb77ae34f859c5cb25e9ee4/BaseLayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5ab43d59e56b22c69189093d92eb7b616ee7ac95be06c592c93409214b2/Array.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5acc345db3c207bc9d886a36ff14867ef8d65557432172c2a42f19aeac04d1b/Nullable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5fcadafde3d1b2175cf423d5bad459790ab4be333c17aeade5ad61284cafa90/TmxMapReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/609195886e8f89608e61155236eac80a8112fa8cf9ec1c8ab14a883f539954b/IHasProperties.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/727e45d119d124e436ce557285eb69c5129e6116f747f364a53b81609b11eb/TmxReaderBase.TileLayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7569c31c9a327ceae22dfa1bdea9bc378344382cf7e1779324a37deb29aaebfb/AppContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/75a0de2ec7cb5efe9e04d6c27f921e6c7e5726d6208edfb6d81e5350df4a7e/RuntimeHandles.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/76bfc310d2c1ee89b5a3bb7f318b5c55015f66ebdf298211386b17a57fc25b/Type.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/83b59271fd23ce8ee3c7effe4ea1f363d39dba8caf3d7df941be96625a8263c/Loader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85937d2be7ea998560ccec1e692cc0e99e681983381ded1f4623b2fc5a89d1b/TimeSpan.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/906be5a482423eea5a9ae97d4b3df122c9a31d51a05b1ef8642a32bb58fdde/ObjectLayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/923e881d2face21dfd1b93d7f8eed86b92b7e52ae1ad92bf6372ad712a846/UnaryExpression.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9b12f08b109a6ab047fa7d677ae1e8f74a983e59cdc2bd6d876f6f23947a54/XmlReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a74bd63dc1e12675e58da83786ac16c4a2819dede86db43e63e81b1a10adb034/Tileset.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a9248336d43ced21bd2686565d12e553e4eff5649025633bb6218cf137c3dbb/Data.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aadaaf4efbe68ad73995d7353014e8b3c0b234d5c19ab464c32bf5e7a4947d3e/MapReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aeddec7ccf3f1571cfd14ca2540abbf19f9846eb91bc3767e402298d4cbaa/ConcurrentDictionary.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/af94a3bff178236a93cbdf155c233be4197453edcb95211952aa867397822/Tile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bf146a92fd353929b0ccbd15defe43d84d33f5bce0df5bffdd9fe95e63f3d49/TmxReaderBase.Data.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c24d475d83442e0a97ce97fdd4d43d6b5a3977b2a474c7996b895330c6b0/Span.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c4cc93541ef81bc9beecf72b805e14b4bfb2cb27df655d7c06dbcca1f3a8a0/Wangset.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c794baab3518d05f8546334d672798d62c10be97c2de99a62b39b885a637/TaskContinuation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d669988dec7bcbf53731b2cacf24a1249a39964f8b18cfdccf34a9a38a89b1/ExtensionsXmlReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db408dffef112f962718b68c4380bd9da76e5b5253b34d87ca686c7c71e10cb/Map.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/eb9eb5a3bc4986e4af92e721dc0443c6f204ac323075615617829bcdb8e99e/TmxReaderBase.Map.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f985201285bbd597ad49326e21449aa814f7ea4b8d8a15916216e519e578a83d/TileLayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fc881f48416c295d6332d0f5c0f653a410779aa3d7549afe5d0bf67cdd458/Math.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff8f1c7d993fae2e299e8239bb5b8249de1701b89ba8022181c7ba5fdce2a5a/StreamReader.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Client/Components/Light.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Client/Data/SceneType.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Client/InternalSystems/SceneSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/CharacterSystems/CharacterAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/LightSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Client/Systems/Menu/MenuEntrySystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Systems/TakeDamageTrackerSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Extensions/EntityExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Prefabs.cs" root0="FORCE_HIGHLIGHTING" />
@@ -140,6 +149,8 @@
     <setting file="file://$PROJECT_DIR$/Server/Systems/CharacterSystems/EndAttackStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/EnemySystems/AttackerStateTransitionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/GameplaySystems/MapHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Server/Systems/MapSystems/LightSourceHandlerSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Server/Systems/MapSystems/WallHandlerSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server/Systems/PlayerSystems/PlayerAttackSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/AnimationStateMapping.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/ControlRotationByDirection.cs" root0="FORCE_HIGHLIGHTING" />
@@ -147,6 +158,8 @@
     <setting file="file://$PROJECT_DIR$/Shared/Components/GameMap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/GameplayTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/MapComponentTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Shared/Components/MapComponents/SourceLight.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Shared/Components/MapComponents/Wall.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/MovingDirection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/Requests/SetRotation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Shared/Components/Stage.cs" root0="FORCE_HIGHLIGHTING" />
@@ -284,7 +297,15 @@
       <workItem from="1780214464798" duration="24210000" />
       <workItem from="1780302262438" duration="18697000" />
       <workItem from="1780387801493" duration="12475000" />
-      <workItem from="1780417212948" duration="2943000" />
+      <workItem from="1780417212948" duration="3022000" />
+      <workItem from="1780459977270" duration="10714000" />
+      <workItem from="1780474834939" duration="9005000" />
+      <workItem from="1780485602472" duration="178000" />
+      <workItem from="1780485793810" duration="9135000" />
+      <workItem from="1780494996206" duration="2792000" />
+      <workItem from="1780577479898" duration="5501000" />
+      <workItem from="1780703428890" duration="67000" />
+      <workItem from="1780740622143" duration="3872000" />
     </task>
     <servers />
   </component>

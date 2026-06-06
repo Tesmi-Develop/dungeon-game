@@ -1,15 +1,35 @@
 {
-    "activeFile": "",
+    "activeFile": "Prolog.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
+        "D:/Projects/DungeonGame/dungeon-game/resources/Atlases/arena0.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/Projects/DungeonGame/dungeon-game/resources/Atlases/arena1.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/Projects/DungeonGame/dungeon-game/resources/Atlases/utilities.tsx": {
+            "scaleInDock": 1
+        },
+        "Prolog.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1242,
+                "y": 1202
+            }
+        }
     },
     "last.objectTypesPath": "D:/Projects/DungeonGame/dungeon-game/resources/TiledMaps/Prolog/propertytypes.json",
     "openFiles": [
+        "Prolog.tmx"
     ],
     "project": "безымянный.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "Prolog.tmx"
     ]
 }

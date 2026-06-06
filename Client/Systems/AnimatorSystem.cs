@@ -1,4 +1,5 @@
-﻿using Client.InternalSystems;
+﻿using Client.Data;
+using Client.InternalSystems;
 using Hypercube.Core.Systems.Rendering;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Queries;
@@ -11,7 +12,7 @@ using Shared.Systems;
 
 namespace Client.Systems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class AnimatorSystem : SharedAnimatorSystem
 {
     [Dependency] private readonly AnimationContainer _animationContainer = null!;

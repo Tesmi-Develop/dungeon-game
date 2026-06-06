@@ -6,7 +6,6 @@ using Hypercube.Ecs;
 using Hypercube.Utilities.Debugging.Logger;
 using Hypercube.Utilities.Dependencies;
 using Hypercube.Utilities.Helpers;
-using Shared.Attributes;
 using Shared.Attributes.Engine;
 using Shared.SharedSystemRealisation;
 using SharedSystem = Shared.SharedSystemRealisation.SharedSystem;
@@ -19,11 +18,12 @@ public class EntrySystem : EntitySystem
     [Dependency] private readonly IDependenciesContainer _globalContainer = null!;
     [Dependency] private readonly ILogger _logger = null!;
     [Dependency] private readonly IPatchManager _patchManager = null!;
+    [Dependency] private readonly IRuntimeLoop _runtimeLoop = null!;
 
     private IDependenciesContainer _dependenciesContainer = null!;
-    private List<SharedSystem> _allSystems = null!;
-    private List<ClientSystem> _clientSystems = null!;
-    private List<IPatch> _patchSystems = null!;
+    private List<SharedSystem> _allSystems = [];
+    private List<ClientSystem> _clientSystems = [];
+    private List<IPatch> _patchSystems = [];
     
     private readonly List<SharedSystem> _beforeInitializeSystems = [];
     private readonly List<SharedSystem> _initializeSystems = [];
@@ -36,20 +36,49 @@ public class EntrySystem : EntitySystem
     private readonly List<ClientSystem> _beforeUpdateSystems = [];
     private readonly List<ClientSystem> _updateSystems = [];
     private readonly List<ClientSystem> _afterUpdateSystems = [];
-
-    public long CurrentTick { get; private set; }
     
+    private readonly List<ClientSystem> _destroySystems = [];
+
+    private readonly List<Action> _deferredCallbacks = [];
+    
+    public long CurrentTick { get; private set; }
+
     public override void Initialize()
     {
-        _dependenciesContainer = new DependenciesContainer(_globalContainer);
-        _dependenciesContainer.RegisterSingleton<World>(World);
-        _allSystems = InstantiateSystems();
-        _clientSystems = CollectClientSystems();
-        _patchSystems = CollectPatchSystems();
-        PreparePhaseSystems();
-        RegisterPatchSystems();
+        _runtimeLoop.Actions.Add((_) => InvokeDeferredCallbacks(), EngineUpdatePriority.EntitySystemUpdate);
+    }
 
-        InvokeInitializePhase();
+    public void StartSystems(Predicate<Type> validateSystem)
+    {
+        DeferDestroyPhase();
+        
+        _allSystems.Clear();
+        _clientSystems.Clear();
+        _patchSystems.Clear();
+        
+        _beforeInitializeSystems.Clear();
+        _initializeSystems.Clear();
+        _afterInitializeSystems.Clear();
+
+        _beforeGameUpdateSystems.Clear();
+        _gameUpdateSystems.Clear();
+        _afterGameUpdateSystems.Clear();
+        
+        _beforeUpdateSystems.Clear();
+        _updateSystems.Clear();
+        _afterUpdateSystems.Clear();
+        
+        _destroySystems.Clear();
+        
+        _deferredCallbacks.Add(() =>
+        {
+            _allSystems = InstantiateSystems(validateSystem);
+            _clientSystems = CollectClientSystems();
+            _patchSystems = CollectPatchSystems();
+            PreparePhaseSystems();
+            RegisterPatchSystems();
+            InvokeInitializePhase();
+        });
     }
     
     public override void Update(FrameEventArgs args)
@@ -57,8 +86,11 @@ public class EntrySystem : EntitySystem
         InvokeUpdatePhase(args);
     }
     
-    private List<SharedSystem> InstantiateSystems()
+    private List<SharedSystem> InstantiateSystems(Predicate<Type> _validateSystem)
     {
+        _dependenciesContainer = new DependenciesContainer(_globalContainer);
+        _dependenciesContainer.RegisterSingleton<World>(World);
+        
         var priorities = new List<(Type Type, int Priority)>();
         var baseSystemType = typeof(SharedSystem);
         
@@ -69,6 +101,9 @@ public class EntrySystem : EntitySystem
                 _logger.Warning($"Class {type.Name} does not implement {baseSystemType.Name}");
                 continue;
             }
+            
+            if (!_validateSystem(type))
+                continue;
         
             _logger.Trace($"Found system: {type.Name}");
             _dependenciesContainer.Register(type);
@@ -122,6 +157,8 @@ public class EntrySystem : EntitySystem
         _beforeUpdateSystems.AddRange(SortByMethodPriority(_clientSystems, nameof(ClientSystem.BeforeUpdate)));
         _updateSystems.AddRange(SortByMethodPriority(_clientSystems, nameof(ClientSystem.Update)));
         _afterUpdateSystems.AddRange(SortByMethodPriority(_clientSystems, nameof(ClientSystem.AfterUpdate)));
+        
+        _destroySystems.AddRange(SortByMethodPriority(_clientSystems, nameof(ClientSystem.Destroy)));
     }
 
     private void RegisterPatchSystems()
@@ -154,6 +191,23 @@ public class EntrySystem : EntitySystem
         
         foreach (var system in _afterInitializeSystems)
             system.AfterInitialize();
+    }
+    
+    private void DeferDestroyPhase()
+    {
+        foreach (var system in _destroySystems)
+            _deferredCallbacks.Add(system.Destroy);
+    }
+
+    private void InvokeDeferredCallbacks()
+    {
+        if (_deferredCallbacks.Count == 0)
+            return;
+
+        foreach (var call in _deferredCallbacks)
+            call();
+        
+        _deferredCallbacks.Clear();
     }
     
     private void InvokeUpdatePhase(FrameEventArgs eventArgs)

@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
+using Client.Data;
 using Client.Utilities;
 using Hypercube.Ecs;
 using Hypercube.Ecs.Components;
-using Shared.Components;
 using Shared.Components.EngineComponents;
 using Shared.Helpers;
 using Shared.SharedSystemRealisation;
 
 namespace Client.Systems.PredictSystems;
 
-[EcsSystem]
+[EcsSystem, Scene(SceneType.Game)]
 public class PredictHelper : BaseSystem
 {
     public const int Capacity = 60;
