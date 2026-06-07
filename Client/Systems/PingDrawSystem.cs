@@ -18,7 +18,7 @@ public class PingDrawSystem : BaseSystem, IPatch
 {
     [Dependency] private GameClient _gameClient = null!;
     [Dependency] private readonly IResourceManager _resource = null!;
-    public int Priority => 0;
+    public int Priority => -999;
     
     private Font _font = null!;
 

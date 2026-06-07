@@ -10,7 +10,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
-        <DefineConstants>DEBUG;SIMULATE_NETWORK</DefineConstants>
+        <DefineConstants>SIMULATE_NETWORK</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>

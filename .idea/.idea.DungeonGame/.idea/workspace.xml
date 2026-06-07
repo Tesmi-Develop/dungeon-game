@@ -18,14 +18,17 @@
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/Menu/MenuEntrySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Menu/MenuEntrySystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Client.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/EntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/EntryPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Systems/PingDrawSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/PingDrawSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,31 +171,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.Client.executor": "Run",
-    ".NET Project.Server.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "cidr.known.project.marker": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.completion.popup",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.Client.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.Server.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion.popup&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected=".NET Project.Client">
+}</component>
+  <component name="RunManager" selected="Compound.Server + Client">
     <configuration name="Server + Client" type="CompoundRunConfigurationType">
       <toRun name="Client" type="DotNetProject" />
       <toRun name="Server" type="DotNetProject" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="DotNetFolderPublish" factoryName="Publish to folder">
+      <riderPublish configuration="Release" delete_existing_files="true" platform="Any CPU" produce_single_file="true" ready_to_run="true" self_contained="true" target_folder="$PROJECT_DIR$/Client/bin/Release/net10.0/publish" target_framework="net10.0" uuid_high="3369356900204301460" uuid_low="-5489058303434109387">
+        <runtimes>
+          <item value="win-x64" />
+          <item value="win-x86" />
+          <item value="win-arm" />
+          <item value="win-arm64" />
+          <item value="osx-x64" />
+          <item value="osx-arm64" />
+          <item value="linux-x64" />
+          <item value="linux-musl-x64" />
+          <item value="linux-arm" />
+          <item value="linux-arm64" />
+        </runtimes>
+      </riderPublish>
       <method v="2" />
     </configuration>
     <configuration name="Client" type="DotNetProject" factoryName=".NET Project">
@@ -241,6 +261,7 @@
       <item itemvalue=".NET Project.Client" />
       <item itemvalue=".NET Project.Server" />
       <item itemvalue="Compound.Server + Client" />
+      <item itemvalue="Publish to folder.Unnamed" />
     </list>
   </component>
   <component name="TaskManager">
@@ -276,7 +297,8 @@
       <workItem from="1780703428890" duration="67000" />
       <workItem from="1780740622143" duration="12373000" />
       <workItem from="1780753446371" duration="3866000" />
-      <workItem from="1780766694074" duration="655000" />
+      <workItem from="1780766694074" duration="1200000" />
+      <workItem from="1780795208877" duration="852000" />
     </task>
     <servers />
   </component>

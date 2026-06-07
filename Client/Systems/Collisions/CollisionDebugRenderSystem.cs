@@ -22,8 +22,13 @@ namespace Client.Systems.Collisions;
 [EcsSystem, Scene(SceneType.Game)]
 public sealed class CollisionDebugRenderSystem : BaseSystem, IPatch
 {
-    public const bool DebugDrawNearbyCollisions = true;
-    public const bool DebugDrawChunksNum = false;
+#if DEBUG
+    public static bool DebugDrawNearbyCollisions => true;
+    public static bool DebugDrawChunksNum => false;
+#else
+    public static bool DebugDrawNearbyCollisions => false;
+    public static bool DebugDrawChunksNum => false;
+#endif
 
     [Dependency] private readonly IResourceManager _resourceManager = null!;
 

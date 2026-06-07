@@ -33,7 +33,13 @@ public static class EntryPoint
         var loaded = new ManualResetEventSlim(false);
         var preloadContext = resourceManager.CreatePreloadContext();
         var logger = container.Resolve<ILogger>();
-       
+
+#if DEBUG
+        logger.LogLevel = LogLevel.Trace; 
+#else
+        logger.LogLevel = LogLevel.Info;
+#endif
+        
         container.RegisterSingleton<PreloadContext>(preloadContext);
         container.Register<AnimationContainer>();
         container.Resolve<AnimationContainer>().Initialize();

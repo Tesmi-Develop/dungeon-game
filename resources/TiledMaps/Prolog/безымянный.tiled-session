@@ -15,11 +15,11 @@
             "scaleInDock": 1
         },
         "Prolog.tmx": {
-            "scale": 0.25,
-            "selectedLayer": 3,
+            "scale": 1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1242,
-                "y": 1202
+                "x": 356.5,
+                "y": 272.5
             }
         }
     },
