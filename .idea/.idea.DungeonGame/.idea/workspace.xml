@@ -18,17 +18,14 @@
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Client.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/EntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/EntryPoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/Collisions/CollisionDebugRenderSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/PingDrawSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/PingDrawSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Prolog/безымянный.tiled-session" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Info.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Animations/Player/Attacking/Info.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +295,7 @@
       <workItem from="1780740622143" duration="12373000" />
       <workItem from="1780753446371" duration="3866000" />
       <workItem from="1780766694074" duration="1200000" />
-      <workItem from="1780795208877" duration="852000" />
+      <workItem from="1780795208877" duration="2512000" />
     </task>
     <servers />
   </component>
