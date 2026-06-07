@@ -564,7 +564,7 @@
  <objectgroup id="9" name="Слой объектов 1">
   <object id="11" name="1" x="180.333" y="103.833" width="250" height="250">
    <properties>
-    <property name="Falloff" type="float" value="0.5"/>
+    <property name="Falloff" type="float" value="0.3"/>
     <property name="Intensity" type="float" value="1"/>
     <property name="Type" value="SourceLight"/>
    </properties>
@@ -572,7 +572,7 @@
   </object>
   <object id="20" x="472.667" y="200.667" width="209.667" height="87.3333">
    <properties>
-    <property name="Falloff" type="float" value="0.5"/>
+    <property name="Falloff" type="float" value="0.3"/>
     <property name="Intensity" type="float" value="1"/>
     <property name="Type" value="SourceLight"/>
    </properties>

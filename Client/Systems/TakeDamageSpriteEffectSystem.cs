@@ -32,7 +32,7 @@ public class TakeDamageSpriteEffectSystem : BaseSystem
 
     public override void Initialize()
     {
-        _shader = _resourceManager.Load<Shader>("/Shaders/overlay.shd");
+        _shader = _resourceManager.Load<Shader>("/shaders/overlay.shd");
     }
 
     private float GetEffectIntensity(Entity entity)

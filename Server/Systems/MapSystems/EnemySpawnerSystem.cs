@@ -28,7 +28,6 @@ public class EnemySpawnerSystem : BaseSystem
         switch (enemyName)
         {
             case "Melee":
-                Console.WriteLine(position);
                 Prefabs.CreateMeleeEnemy(World, position);
                 break;
         }

@@ -17,29 +17,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fabb101-44d9-46f8-bd7c-1f005955edf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/ShaderSetup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/LightSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageEffectSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Systems/TakeDamageSpriteEffectSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Systems/TakeDamageSpriteEffectSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/GameSystems/DamageSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/GameSystems/DamageSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Systems/MapSystems/EnemySpawnerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Systems/MapSystems/EnemySpawnerSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/BaseRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/IRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/Headless/HeadlessRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/Headless/HeadlessRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Api/Realisations/OpenGl/OpenGlRenderingApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/Batch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/Batch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/BatchData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/BatchData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Batching/RenderState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/IRenderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/IRenderContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Draw.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Draw.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Text.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.Text.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Graphics/Rendering/Context/RenderContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/src/Hypercube.Core/Systems/Rendering/SpriteSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/ecs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/ecs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/mathematics/src/Hypercube.Mathematics/Vectors/Vector2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/hypercube/submodules/utilities/src/Hypercube.Utilities/Collections/NumPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/TiledMaps/Prolog/Prolog.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/TiledMaps/Prolog/Prolog.tmx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,7 +300,7 @@
       <workItem from="1780740622143" duration="12373000" />
       <workItem from="1780753446371" duration="3866000" />
       <workItem from="1780766694074" duration="1200000" />
-      <workItem from="1780795208877" duration="14226000" />
+      <workItem from="1780795208877" duration="15229000" />
     </task>
     <servers />
   </component>

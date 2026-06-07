@@ -30,7 +30,7 @@ public class TakeDamageEffectSystem : BaseSystem, IPatch
 
     public override void Initialize()
     {
-        _shader = _resourceManager.Load<Shader>("/Shaders/vignette.shd");
+        _shader = _resourceManager.Load<Shader>("/shaders/vignette.shd");
     }
 
     private void PrepareTween()
