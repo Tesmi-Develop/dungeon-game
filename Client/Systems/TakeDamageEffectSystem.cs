@@ -87,7 +87,7 @@ public class TakeDamageEffectSystem : BaseSystem, IPatch
         
         using (renderer.UseRenderState(payload.Window))
         {
-            renderer.SetShader(_shader);
+            renderer.BindShader(_shader);
             _shader.SetUniform("intensity", _intensity);
             
             renderer.DrawRectangle(Rect2.FromSize(Vector2.Zero, payload.Window.Size), Color.White);

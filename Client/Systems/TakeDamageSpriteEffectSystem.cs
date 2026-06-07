@@ -120,7 +120,7 @@ public class TakeDamageSpriteEffectSystem : BaseSystem
         {
             effect.Tween?.Tick((float)args.Delta.TotalSeconds);
             
-            _renderContext.SetShader(_shader);
+            _renderContext.BindShader(_shader);
             _shader.SetUniform("intensity", effect.Intensity);
             _shader.SetUniform("overlayColor", Color.Red);
             _renderContext.ClearShader();

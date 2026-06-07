@@ -36,22 +36,32 @@ public class LightSystem : BaseSystem, IPatch
 
     public override void Initialize()
     {
-        _circle_light_shader = _resourceManager.Load<Shader>("/Shaders/circle_light.shd");
-        _rectangle_light_shader = _resourceManager.Load<Shader>("/Shaders/rectangle_light.shd");
+        _circle_light_shader = _resourceManager.Load<Shader>("/shaders/circle_light.shd");
+        _rectangle_light_shader = _resourceManager.Load<Shader>("/shaders/rectangle_light.shd");
         _surface = _renderContext.CreateSurface(new Vector2i(4000, 4000));
     }
 
-    private Shader ResolveLightShader(IRenderContext renderer, ref Light light)
+    private Shader ResolveLightShader(IRenderContext renderer, Light light, Vector2 size)
     {
         if (light.LightType == LightType.Circle)
         {
-            renderer.SetShader(_circle_light_shader);
+            renderer.BindShader(_circle_light_shader, currentShader =>
+            {
+                currentShader.SetUniform("intensity", light.Intensity);
+                currentShader.SetUniform("falloff", light.Falloff);
+                currentShader.SetUniform("maskSize", size);
+            });
             return _circle_light_shader;
         }
         
         if (light.LightType == LightType.Rectangle)
         {
-            renderer.SetShader(_rectangle_light_shader);
+            renderer.BindShader(_rectangle_light_shader, currentShader =>
+            {
+                currentShader.SetUniform("intensity", light.Intensity);
+                currentShader.SetUniform("falloff", light.Falloff);
+                currentShader.SetUniform("maskSize", size);
+            });
             return _rectangle_light_shader;
         }
         
@@ -67,12 +77,8 @@ public class LightSystem : BaseSystem, IPatch
         {
             Query(_meta).With<Light, NetworkTransform>((entity, ref light, ref transform) =>
             {
-                var shader = ResolveLightShader(renderer, ref light);
                 var size = light.LightType == LightType.Circle ? new Vector2(light.Radius * 2) : light.Size;
-                
-                shader.SetUniform("intensity", light.Intensity);
-                shader.SetUniform("falloff", light.Falloff);
-                shader.SetUniform("maskSize", size);
+                ResolveLightShader(renderer, light, size);
 
                 var finalPosition = transform.Position;
                 var leftPosition = finalPosition.X - size.X / 2;
@@ -81,6 +87,7 @@ public class LightSystem : BaseSystem, IPatch
                 var bottomPosition = finalPosition.Y - size.Y / 2;
             
                 renderer.SetBlendMode(BlendMode.Subtractive);
+                
                 renderer.DrawRectangle(
                     new Rect2(
                         payload.Camera.WorldToScreen(new Vector2(leftPosition, topPosition)),
