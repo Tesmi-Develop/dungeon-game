@@ -1,5 +1,5 @@
 {
-    "activeFile": "Arena1/arena1.tmx",
+    "activeFile": "Arena1/arena2.tmj",
     "expandedProjectPaths": [
         "Arena1",
         "."
@@ -7,18 +7,29 @@
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
         "Arena1/arena1.tmx": {
-            "scale": 8,
+            "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 295,
-                "y": 308.9375
+                "x": 240,
+                "y": 239.33333333333326
             }
         },
         "Arena1/arena1.tmx#utilities": {
             "scaleInDock": 1
         },
+        "Arena1/arena2.tmj": {
+            "expandedObjectLayers": [
+                9
+            ],
+            "scale": 0.33,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 1321.2121212121212,
+                "y": 843.9393939393938
+            }
+        },
         "D:/10labOVP/dungeon-game/resources/Atlases/arena0.tsx": {
-            "scaleInDock": 3
+            "scaleInDock": 2
         },
         "D:/10labOVP/dungeon-game/resources/Atlases/arena1.tsx": {
             "scaleInDock": 1
@@ -55,12 +66,14 @@
     "map.tileWidth": 16,
     "map.width": 30,
     "openFiles": [
-        "Arena1/arena1.tmx"
+        "Arena1/arena1.tmx",
+        "Arena1/arena2.tmj"
     ],
     "project": "arena2.tiled-project",
     "property.type": "bool",
     "recentFiles": [
         "Arena1/arena1.tmx",
+        "Arena1/arena2.tmj",
         "arena2.tmj",
         "D:/Projects/DeathBall/death-ball/resources/Atlases/utilities.tsx",
         "D:/Projects/DeathBall/death-ball/resources/Atlases/test2.tsx"
